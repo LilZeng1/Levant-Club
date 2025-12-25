@@ -229,3 +229,47 @@ body {
         display: none;
     }
 }
+
+/* MANIFESTO */
+.manifesto {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.manifesto-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+/* LIVE STATUS */
+.live-status iframe {
+    margin-top: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+}
+
+/* LEVELS */
+.levels-list {
+    margin-top: 1.5rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.levels-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.4rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.02);
+    font-weight: 600;
+}
+
+.levels-list span {
+    color: var(--primary);
+    letter-spacing: 1px;
+}
