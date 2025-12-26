@@ -22,4 +22,8 @@ cards.forEach(card => {
     card.style.transform = "translateY(20px)";
     card.style.transition = "all 0.6s ease";
     observer.observe(card);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> d966d67 (initial commit)
