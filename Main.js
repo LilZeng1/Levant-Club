@@ -4,14 +4,12 @@ const nav = document.querySelector(".navbar");
 window.addEventListener("scroll", () => {
     const current = window.scrollY;
 
-    // Aşağı kaydırırken navbar'ı gizle, yukarı çıkarken göster
     if (current > lastScroll && current > 100) {
-        nav.style.transform = "translate(-50%, -150%)"; // Gizle (X ekseni ortalamasını koruyarak)
+        nav.style.transform = "translate(-50%, -150%)";
     } else {
         nav.style.transform = "translate(-50%, 0)"; // Göster
     }
 
-    // En tepedeyken arka planı şeffaflaştır (isteğe bağlı)
     if (current <= 20) {
         nav.style.background = "rgba(3, 7, 18, 0.6)";
     } else {
