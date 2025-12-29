@@ -3,138 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Levant | Intellectual Dashboard</title>
-    
+    <meta name="title" content="Levant Club | Global Gaming Hub">
+    <meta name="description"
+        content="Levant Club is a global gaming community and hangout hub for gamers and vibers. Low ping, high vibes.">
+    <meta name="robots" content="index, follow">
+    <title>Levant | Global Hangout</title>
     <link rel="icon" type="image/png" href="./assets/Levant-Logo.png">
-
     <link rel="stylesheet" href="./Home.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-icons-font@v13/font/simpleicons.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
-
     <div class="noise-overlay"></div>
     <div class="ambient-light"></div>
-
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="ph ph-flower-lotus"></i> LEVANT
+                <i class="ph-fill ph-planet"></i> LEVANT
             </div>
-            <a href="#apply" class="nav-btn">
-                <i class="ph ph-shield-check-fill"></i>
-                <span>Approval Only</span>
-            </a>
+            <div class="nav-actions">
+                <div class="lang-switch-wrapper">
+                    <span class="lang-label active" id="btn-en">EN</span>
+                    <label class="switch">
+                        <input type="checkbox" id="lang-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="lang-label" id="btn-ar">AR</span>
+                </div>
+                <a href="https://discord.gg/8P4BKYe8" class="nav-btn pulse-effect">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        fill="currentColor" style="margin-bottom: -2px;">
+                        <path
+                            d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.8722.8923.0762.0762 0 00-.0416.1061c.3628.7048.781 1.3751 1.226 1.9941a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z" />
+                    </svg>
+                    <span class="translate" data-en="Join Now" data-ar="انضم الآن">Join Now</span>
+                </a>
+            </div>
         </div>
     </nav>
-
     <header class="hero">
         <div class="hero-content">
             <div class="logo-wrapper">
                 <img src="./assets/Levant-Logo.png" class="main-logo" alt="Levant Logo">
                 <div class="logo-glow"></div>
             </div>
-
             <h1 class="glitch-text" data-text="LEVANT">LEVANT</h1>
-            <p class="hero-sub">The Private Intellectual Dashboard.</p>
-
+            <p class="hero-sub translate" data-en="The Ultimate Global Hangout & Gaming Hub."
+                data-ar="أقوى تجمع قيمينق ووناسة للكل.">The Ultimate Global Hangout & Gaming Hub.</p>
             <div class="quick-tags">
-                <span class="tag"><i class="ph ph-translate"></i> EN / AR</span>
-                <span class="tag"><i class="ph ph-lock-key"></i> Invite Only</span>
-                <span class="tag"><i class="ph ph-brain"></i> Thinkers</span>
+                <span class="tag">
+                    <i class="ph-fill ph-globe-stand"></i>
+                    <span class="translate" data-en="Global Community" data-ar="كوميونيتي عالمي">Global Community</span>
+                </span>
+                <span class="tag">
+                    <i class="ph-fill ph-lock-open"></i>
+                    <span class="translate" data-en="Public Access" data-ar="دخول عام">Public Access</span>
+                </span>
+                <span class="tag">
+                    <i class="ph-fill ph-game-controller"></i>
+                    <span class="translate" data-en="Gamers & Vibers" data-ar="قيمرز ووناسة">Gamers & Vibers</span>
+                </span>
             </div>
         </div>
     </header>
-
     <main class="content">
-
         <section class="feature-grid">
             <div class="feature-card">
-                <div class="icon-box">
-                    <i class="ph ph-brain"></i>
-                </div>
+                <div class="icon-box"><i class="ph-fill ph-game-controller"></i></div>
                 <div class="card-text">
-                    <h3>Critical Minds</h3>
-                    <p>Philosophy, theology, and geopolitics without the noise.</p>
+                    <h3 class="translate" data-en="Gaming HQ" data-ar="Gaming HQ">Gaming HQ</h3>
+                    <p class="translate" data-en="Competitive & Casual gaming." data-ar="قيمينق رانكد وطقطقة.">
+                        Competitive & Casual gaming.</p>
                 </div>
             </div>
-
             <div class="feature-card">
-                <div class="icon-box">
-                    <i class="ph ph-fingerprint"></i>
-                </div>
+                <div class="icon-box"><i class="ph-fill ph-chats-teardrop"></i></div>
                 <div class="card-text">
-                    <h3>Vetted Entry</h3>
-                    <p>Manual approval. Quality over quantity, always.</p>
+                    <h3 class="translate" data-en="Non-Stop Vibes" data-ar="سوالف وفيبز">Non-Stop Vibes</h3>
+                    <p class="translate" data-en="Unfiltered conversations. Real talk, late nights, good company."
+                        data-ar="سوالف وسهرات وضحك للصبح بدون حدود.">Unfiltered conversations. Real talk, late nights,
+                        good company.</p>
                 </div>
             </div>
-
             <div class="feature-card">
-                <div class="icon-box">
-                    <i class="ph ph-globe-hemisphere-east"></i>
-                </div>
+                <div class="icon-box"><i class="ph-fill ph-globe"></i></div>
                 <div class="card-text">
-                    <h3>Levant Focus</h3>
-                    <p>Regional identity with a global intellectual scope.</p>
+                    <h3 class="translate" data-en="Truly Global" data-ar="عالمي">Truly Global</h3>
+                    <p class="translate" data-en="Gamers from everywhere. Low ping, high vibes."
+                        data-ar="قيمرز من كل مكان بالعالم، أهم شي البنق.">Gamers from everywhere. Low ping, high vibes.
+                    </p>
                 </div>
             </div>
-
             <div class="feature-card">
-                <div class="icon-box">
-                    <i class="ph ph-chats-circle"></i>
-                </div>
+                <div class="icon-box"><i class="ph-fill ph-film-strip"></i></div>
                 <div class="card-text">
-                    <h3>Deep Discourse</h3>
-                    <p>No doom-scrolling. Real discussions only.</p>
+                    <h3 class="translate" data-en="Anime & Culture" data-ar="أنمي وفعاليات">Anime & Culture</h3>
+                    <p class="translate" data-en="Watch parties, streams, and movie nights every week."
+                        data-ar="فعاليات أنمي وأفلام وستريمز كل أسبوع.">Watch parties, streams, and movie nights every
+                        week.</p>
                 </div>
             </div>
-
             <div class="feature-card">
-                <div class="icon-box">
-                    <i class="ph ph-game-controller"></i>
-                </div>
+                <div class="icon-box"><i class="ph-fill ph-confetti"></i></div>
                 <div class="card-text">
-                    <h3>Strategy Gaming</h3>
-                    <p>Selective sessions focusing on grand strategy & culture.</p>
+                    <h3 class="translate" data-en="Good Vibes Only" data-ar="أحلى أجواء">Good Vibes Only</h3>
+                    <p class="translate" data-en="Respect the game, respect the squad. Zero toxicity allowed."
+                        data-ar="احترم السكواد والعب صح، ما نبي توكسيك.">Respect the game, respect the squad. Zero
+                        toxicity allowed.</p>
                 </div>
             </div>
-
             <div class="feature-card">
-                <div class="icon-box">
-                    <i class="ph ph-shield-star"></i>
-                </div>
+                <div class="icon-box"><i class="ph-fill ph-microphone-stage"></i></div>
                 <div class="card-text">
-                    <h3>High Standards</h3>
-                    <p>Zero degeneracy. Strict behavioral code.</p>
+                    <h3 class="translate" data-en="Voice Active" data-ar="فويس شات">Voice Active</h3>
+                    <p class="translate" data-en="24/7 active voice channels. Never play alone."
+                        data-ar="رومات شغالة ٢٤ ساعة، مستحيل تلعب لحالك.">24/7 active voice channels. Never play alone.
+                    </p>
                 </div>
             </div>
         </section>
-
-        <section class="apply-section" id="apply">
+        <section class="apply-section">
             <div class="apply-card">
-                <h2>
-                    <i class="ph ph-lock-laminated"></i>
-                    Restricted Access
-                </h2>
-                <p>Membership is not a right. It is a privilege earned through demonstration of character and intellect.
-                </p>
-
+                <h2><i class="ph-duotone ph-rocket-launch"></i> <span class="translate" data-en="Jump In Now"
+                        data-ar="يلا حياك">Jump In Now</span></h2>
+                <p class="translate"
+                    data-en="The gate is open. No applications, no waiting lists. Come meet your new squad."
+                    data-ar="الباب مفتوح للكل، ما يحتاج تقديم. تعال وكون سكوادك الجديد.">The gate is open. No
+                    applications, no waiting lists. Come meet your new squad.</p>
                 <a href="https://discord.gg/8P4BKYe8" class="cta-primary">
-                    <i class="ph ph-discord-logo"></i>
-                    Enter The Gate
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        fill="currentColor" style="margin-bottom: -2px;">
+                        <path
+                            d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.8722.8923.0762.0762 0 00-.0416.1061c.3628.7048.781 1.3751 1.226 1.9941a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z" />
+                    </svg>
+                    <span class="translate" data-en="Enter The Server" data-ar="دخول السيرفر">Enter The Server</span>
                 </a>
             </div>
         </section>
-
     </main>
-
     <footer class="site-footer">
         <p>Levant &copy; 2024. Designed by <a href="https://instagram.com/lilzeng1" target="_blank">@lilzeng1</a></p>
     </footer>
-
     <script src="./Main.js"></script>
 </body>
 </html>
