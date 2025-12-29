@@ -1,2 +1,2 @@
-# Levant-Club
-- Levant Club Discord Server Community Website -
+# Levant
+- Levant Discord Server Community -
