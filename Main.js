@@ -36,3 +36,12 @@ window.addEventListener("scroll", () => {
     nav.style.background = current <= 20 ? "rgba(3, 7, 18, 0.6)" : "rgba(3, 7, 18, 0.95)";
     lastScroll = current;
 });
+
+window.addEventListener("scroll", () => {
+    const indicators = document.querySelectorAll('.scroll-indicator');
+    if (window.scrollY > 50) {
+        indicators.forEach(el => el.classList.add('hidden'));
+    } else {
+        indicators.forEach(el => el.classList.remove('hidden'));
+    }
+});
