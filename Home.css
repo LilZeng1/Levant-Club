@@ -1,3 +1,4 @@
+/* --- Root Variables --- */
 :root {
     --bg: #030712;
     --card-bg: rgba(255, 255, 255, 0.03);
@@ -7,12 +8,6 @@
     --accent: #10b981;
     --accent-glow: rgba(16, 185, 129, 0.4);
     --discord-color: #5865F2;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -25,6 +20,17 @@ body {
 
 body.rtl {
     direction: rtl;
+    font-family: 'Cairo', sans-serif;
+}
+
+body.rtl .nav-logo {
+    flex-direction: row-reverse;
+}
+
+body.rtl .tag i,
+body.rtl .nav-logo i {
+    margin-left: 8px;
+    margin-right: 0;
 }
 
 /* Background Effects */
@@ -274,7 +280,6 @@ input:checked+.slider:before {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Card Hover Animation - Yesil Arkaplan ve Yamulma */
 .feature-card:hover .icon-box {
     background: var(--accent);
     transform: rotate(15deg) translateX(5px);
@@ -283,7 +288,6 @@ input:checked+.slider:before {
 
 .feature-card:hover .icon-box i {
     color: #000 !important;
-    /* Arka plan yesil olunca ikon siyah olur */
 }
 
 .feature-card i {
@@ -371,5 +375,82 @@ input:checked+.slider:before {
 
     .feature-card p {
         font-size: 0.75rem;
+    }
+}
+
+/* Scroll Indicators - Daha Belirgin ve Şık */
+.scroll-indicator {
+    position: fixed;
+    bottom: 50%;
+    transform: translateY(50%);
+    z-index: 2000;
+    /* En üstte görünsün */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.scroll-indicator.left {
+    left: 40px;
+}
+
+.scroll-indicator.right {
+    right: 40px;
+}
+
+.scroll-indicator span {
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: var(--accent);
+    /* Yeşil renk daha belirgin yapar */
+    writing-mode: vertical-rl;
+    text-shadow: 0 0 12px var(--accent-glow);
+    text-transform: uppercase;
+}
+
+.scroll-indicator i {
+    font-size: 1.5rem;
+    color: white;
+    filter: drop-shadow(0 0 8px var(--accent));
+    animation: scrollFloat 2s infinite ease-in-out;
+}
+
+/* Kaydırınca pürüzsüzce kaybolup aşağı gitsin */
+.scroll-indicator.hidden {
+    opacity: 0;
+    transform: translateY(100px);
+    visibility: hidden;
+}
+
+/* Yüzen Ok Animasyonu */
+@keyframes scrollFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(15px);
+        opacity: 1;
+    }
+}
+
+/* Arapça Modu Ayarları */
+body.rtl .scroll-indicator span {
+    letter-spacing: 0;
+    font-size: 1rem;
+    font-family: 'Cairo', sans-serif;
+}
+
+/* Mobilde kalabalık yapmasın */
+@media (max-width: 1024px) {
+    .scroll-indicator {
+        display: none;
     }
 }
