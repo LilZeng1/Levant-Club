@@ -6,7 +6,7 @@ const translatableElements = document.querySelectorAll(".translate");
 
 langToggle.addEventListener("change", () => {
     const isArabic = langToggle.checked;
-
+    
     if (isArabic) {
         btnEn.classList.remove("active");
         btnAr.classList.add("active");
@@ -22,45 +22,45 @@ langToggle.addEventListener("change", () => {
     });
 });
 
-// Navigation & Top Bar Scroll Logic
-let lastScroll = 0;
-const nav = document.querySelector(".navbar");
-const socialBar = document.getElementById("social-bar");
+const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("active"); });
+}, observerOptions);
+
+document.querySelectorAll(".reveal-on-scroll").forEach(el => observer.observe(el));
+
+const scrollAlert = document.getElementById("scroll-alert");
+let scrollTimeout;
+
+const startScrollTimer = () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        if (window.scrollY < 200) scrollAlert.classList.add("show");
+    }, 5000);
+};
 
 window.addEventListener("scroll", () => {
-    const current = window.scrollY;
-
-    // Logic for the Top Social Bar
-    if (current > 50) {
+    scrollAlert.classList.remove("show");
+    startScrollTimer();
+    const nav = document.querySelector(".navbar");
+    const socialBar = document.getElementById("social-bar");
+    if (window.scrollY > 50) {
         socialBar.classList.add("hidden");
-        // Pull navbar up slightly when top bar disappears
-        nav.classList.add("scrolled-up"); 
+        nav.classList.add("scrolled-up");
     } else {
         socialBar.classList.remove("hidden");
         nav.classList.remove("scrolled-up");
     }
-
-    // Logic for Main Navbar (hiding when scrolling down deep)
-    if (current > lastScroll && current > 200) {
-        // Hide nav completely
-        nav.style.transform = "translate(-50%, -200%)";
-    } else {
-        // Show nav
-        nav.style.transform = "translate(-50%, 0)";
-    }
-
-    // Navbar Background Opacity
-    nav.style.background = current <= 20 ? "rgba(3, 7, 18, 0.6)" : "rgba(3, 7, 18, 0.95)";
-    
-    lastScroll = current;
 });
 
-// Scroll Indicators Logic
-window.addEventListener("scroll", () => {
-    const indicators = document.querySelectorAll('.scroll-indicator');
-    if (window.scrollY > 50) {
-        indicators.forEach(el => el.classList.add('hidden'));
-    } else {
-        indicators.forEach(el => el.classList.remove('hidden'));
-    }
+startScrollTimer();
+
+const cardsContainer = document.getElementById("cards-container");
+const cards = document.querySelectorAll(".feature-card");
+cardsContainer.addEventListener("mousemove", (e) => {
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--y", `${e.clientY - rect.top}px`);
+    });
 });
