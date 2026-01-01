@@ -708,3 +708,112 @@ input:checked+.slider:before {
         transform: translateY(0);
     }
 }
+
+.membership-section {
+    padding: 100px 0;
+    text-align: center;
+}
+
+.section-header h2 {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #fff, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.membership-grid {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.membership-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--accent);
+    padding: 40px;
+    border-radius: 30px;
+    position: relative;
+    transition: 0.3s;
+    max-width: 350px;
+}
+
+.membership-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+}
+
+.tier-tag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 900;
+}
+
+.price {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 20px 0;
+}
+
+.price span {
+    font-size: 1rem;
+    color: var(--text-dim);
+}
+
+.features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--text-dim);
+}
+
+.tier-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    border: none;
+    background: white;
+    color: black;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tier-btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.nav-link-discord {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border-radius: 999px;
+    background: rgba(88, 101, 242, 0.15);
+    color: #5865F2;
+    border: 1px solid rgba(88, 101, 242, 0.35);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.nav-link-discord:hover {
+    background: #5865F2;
+    color: white;
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+}
