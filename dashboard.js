@@ -1,43 +1,50 @@
 // dashboard.js
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("🚀 Dashboard initialized...");
+const initDashboard = () => {
+    console.log("--- DEBUG BAŞLADI ---");
+    console.log("Mevcut URL:", window.location.href);
+    console.log("Mevcut Hash:", window.location.hash);
 
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    
-    const accessToken = params.get('access_token');
-    const tokenType = params.get('token_type');
+    const getParam = (name) => {
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        if (hashParams.has(name)) return hashParams.get(name);
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has(name)) return urlParams.get(name);
+        
+        return null;
+    };
+
+    const accessToken = getParam('access_token');
+    const tokenType = getParam('token_type') || 'Bearer';
 
     if (accessToken) {
-        console.log("✅ Token found! Fetching real user data...");
+        console.log("✅ Token yakalandı! Discord API'ye gidiliyor...");
         fetchDiscordUser(accessToken, tokenType);
     } else {
-        console.warn("⚠️ No token found. Showing demo mode.");
-        showDemoMode();
+        console.error("❌ URL'de token bulunamadı! URL şu şekilde olmalı: dashboard.html#access_token=...");
+        const loader = document.getElementById("loading-screen");
+        if(loader) loader.innerHTML = "<h3>Token bulunamadı! Lütfen tekrar giriş yapın.</h3>";
     }
-});
+};
 
 async function fetchDiscordUser(token, type) {
     try {
         const response = await fetch('https://discord.com/api/users/@me', {
-            headers: {
-                'Authorization': `${type} ${token}`
-            }
+            headers: { 'Authorization': `${type} ${token}` }
         });
 
         if (!response.ok) {
-            throw new Error(`Discord API error: ${response.status}`);
+            const errData = await response.json();
+            console.error("Discord API Hatası:", errData);
+            throw new Error("Token geçersiz veya süresi dolmuş.");
         }
 
         const userData = await response.json();
-        console.log("👤 User data received:", userData);
-        
+        console.log("👤 Giriş yapan kullanıcı:", userData);
         renderDashboard(userData);
 
     } catch (error) {
-        console.error("❌ Failed to fetch user:", error);
-        alert("Discord bağlantısı başarısız oldu. Lütfen tekrar giriş yapın.");
-        showDemoMode();
+        console.error("❌ Hata:", error);
+        document.getElementById("loading-screen").innerHTML = `<h3>Hata: ${error.message}</h3>`;
     }
 }
 
@@ -51,44 +58,15 @@ function renderDashboard(user) {
         content.classList.add("active");
     }
 
-    const usernameEl = document.getElementById("nav-username");
-    const displayEl = document.getElementById("user-display-name");
-    const tagEl = document.getElementById("user-discriminator");
-    const avatarImg = document.getElementById("user-avatar");
-    const navPill = document.getElementById("nav-user-pill");
+    document.getElementById("nav-username").innerText = user.username;
+    document.getElementById("user-display-name").innerText = user.global_name || user.username;
+    document.getElementById("user-discriminator").innerText = `@${user.username}`;
+    document.getElementById("nav-user-pill").classList.remove("hidden");
 
-    if (usernameEl) usernameEl.innerText = user.username;
-    if (displayEl) displayEl.innerText = user.global_name || user.username;
-    if (tagEl) tagEl.innerText = `@${user.username}`;
-    if (navPill) navPill.classList.remove("hidden");
-
-    if (avatarImg) {
-        if (user.avatar) {
-            avatarImg.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
-        } else {
-            avatarImg.src = "https://cdn.discordapp.com/embed/avatars/0.png";
-        }
+    if (user.avatar) {
+        document.getElementById("user-avatar").src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
     }
-    
-    const joinDateEl = document.getElementById("join-date");
-    if (joinDateEl) joinDateEl.innerText = new Date().toLocaleDateString('tr-TR');
 }
 
-function showDemoMode() {
-    const dummyUser = {
-        username: "Guest_User",
-        global_name: "Guest Mode",
-        id: "0",
-        avatar: null
-    };
-    renderDashboard(dummyUser);
-}
-
-// Logout()
-const logoutBtn = document.getElementById("logout-btn");
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.href = "index.html";
-    });
-}
+window.onload = initDashboard;
+window.onhashchange = initDashboard;
