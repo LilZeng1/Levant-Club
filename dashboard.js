@@ -1,6 +1,6 @@
 const clientId = "1454693732799611042";
 const redirectUri = "https://lilzeng1.github.io/Levant/dashboard.html";
-const backendUrl = "https://levant-backend.onrender.com";
+const backendUrl = "https://YOUR-RENDER-APP.onrender.com";
 
 function getAccessToken() {
   const hash = window.location.hash.substring(1);
