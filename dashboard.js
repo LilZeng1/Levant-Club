@@ -5,11 +5,10 @@ const redirectUri = "https://lilzeng1.github.io/Levant/dashboard.html";
 const backendUrl = "https://levant-backend.onrender.com";
 
 /* ROLE → UI CONFIG */
-/* ROLE → UI CONFIG */
 const ROLE_UI = {
 
   "Founder": {
-    glow: "0 0 35px rgba(115, 0, 255, 0.85)", 
+    glow: "0 0 35px rgba(115, 0, 255, 0.85)",
     badge: "👑 Founder"
   },
 
@@ -79,26 +78,16 @@ function daysAgo(dateString) {
 }
 
 function applyRoleUI(roleName) {
-  const ui = ROLE_UI[roleName] || ROLE_UI["Core Supporter"];
+  const userRole = "Founder";
+  const roleConfig = ROLE_UI[userRole] || ROLE_UI["Member"];
 
-  const card = document.querySelector(".profile-card");
-  if (card && ui.glow) {
-    card.style.boxShadow = ui.glow;
-  }
-
-  if (ui.badge) {
-    let badge = document.getElementById("special-badge");
-    if (!badge) {
-      badge = document.createElement("div");
-      badge.id = "special-badge";
-      badge.style.marginTop = "6px";
-      badge.style.fontWeight = "600";
-      badge.style.opacity = "0.9";
-      document
-        .getElementById("user-display-name")
-        .parentElement.appendChild(badge);
-    }
-    badge.innerText = ui.badge;
+  const badgeElem = document.getElementById('special-badge');
+  if (badgeElem) {
+    badgeElem.innerHTML = roleConfig.badge;
+    const color = roleConfig.glow.split('rgba')[1].replace(')', '');
+    badgeElem.style.backgroundColor = `rgba${color}, 0.15)`;
+    badgeElem.style.borderColor = `rgba${color}, 0.4)`;
+    badgeElem.style.boxShadow = `0 0 20px rgba${color}, 0.2)`;
   }
 }
 
