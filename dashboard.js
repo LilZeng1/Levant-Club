@@ -83,21 +83,6 @@ const ROLE_UI = {
   }
 };
 
-// Role Priority
-const ROLE_PRIORITY = [
-  "Founder",
-  "Moderator",
-  "Community Guide",
-  "Helper",
-  "Event Lead",
-  "Levant Booster",
-  "Ascendant",
-  "Content Creator",
-  "Musician",
-  "Core Supporter",
-  "Member"
-];
-
 /* getAccessToken() */
 function getAccessToken() {
   const hash = window.location.hash.substring(1);
@@ -179,7 +164,7 @@ async function main() {
     body: JSON.stringify({ userId: user.id })
   });
 
-  let finalRole = "Core Supporter";
+  let roleName = "Member";
   let joinedText = "--/--/--";
 
   try {
@@ -191,28 +176,21 @@ async function main() {
 
     const info = await infoRes.json();
 
-    if (info.roles && Array.isArray(info.roles)) {
-        for (const priorityRole of ROLE_PRIORITY) {
-            if (info.roles.includes(priorityRole)) {
-                finalRole = priorityRole;
-                break;
-            }
-        }
-    } else if (info.role) {
-        finalRole = info.role;
+    if (info.role) {
+        roleName = info.role;
     }
-
+    
     if (info.joinedAt) {
       joinedText = daysAgo(info.joinedAt);
     }
   } catch (e) {
     console.error("Bilgi çekilemedi:", e);
-    finalRole = "Core Supporter";
   }
 
-  applyRoleUI(finalRole);
+  applyRoleUI(roleName);
 
   document.getElementById("joined-on").innerText = joinedText;
+
   document.getElementById("loading-screen").classList.add("hidden");
   document.getElementById("dashboard-content").classList.remove("hidden");
 }
