@@ -100,14 +100,18 @@
     gap: 24px;
 }
 
-/* Navbar Gizleme Sınıfı */
+/* Navbar */
 .navbar {
-    transition: transform 0.4s var(--ios-easing), background 0.3s ease;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
     will-change: transform;
 }
 
 .navbar--hidden {
-    transform: translateY(-100%);
+    transform: translateY(-100%) !important;
 }
 
 /* Rol Rozeti Tasarımı */
