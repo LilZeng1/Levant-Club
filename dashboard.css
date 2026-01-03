@@ -103,24 +103,31 @@
 /* Navbar */
 .navbar {
     position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
-    will-change: transform;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1100px;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 100px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.navbar--hidden {
-    transform: translateY(-100%) !important;
+.navbar.scrolled-up {
+    top: 20px;
 }
 
-/* Rol Rozeti Tasarımı */
+/* Role Badge(s) Container */
 #role-badge-container {
     margin-top: 10px;
     display: flex;
     align-items: center;
 }
 
+/* Role Badge Style */
 .role-badge {
     display: flex;
     align-items: center;
@@ -129,8 +136,8 @@
     border-radius: 12px;
     font-weight: 700;
     font-size: 0.9rem;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
 }
 
@@ -138,8 +145,10 @@
     font-size: 1.2rem;
 }
 
-/* UI Temizliği */
-#user-discriminator { display: none !important; }
+/* UI Clean-up */
+#user-discriminator {
+    display: none !important;
+}
 
 #status,
 #joined-on {
@@ -198,5 +207,11 @@
 
     #user-display-name {
         font-size: 2rem !important;
+    }
+
+    .navbar {
+        width: 95%;
+        top: 15px !important;
+        border-radius: 16px;
     }
 }
