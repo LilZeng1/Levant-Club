@@ -1,88 +1,80 @@
-// Dashboard.js
-const GUILD_ID = "1452829028267327511";
+// dashboard.js
+document.addEventListener('DOMContentLoaded', function () {
+    const clientId = '1454693732799611042';
+    const redirectUri = 'https://lilzeng1.github.io/Levant/dashboard.html';
+    const scope = 'identify guilds guilds.members.read guilds.join';
+    const discordApiBase = 'https://discord.com/api';
+    const levantGuildId = '1452829028267327511';
 
-const initDashboard = async () => {
-    // Extract token from URL hash
-    const hash = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = hash.get('access_token');
-    const tokenType = hash.get('token_type') || 'Bearer';
-
-    // DEBUG LOGS
-    console.log("Token check:", accessToken ? "Token exists" : "No token");
-
-    if (!accessToken) {
-        console.error("No access token found in URL.");
-        setTimeout(() => window.location.href = "index.html", 2000);
-        return;
+    // Function to get access token from URL hash
+    function getAccessToken() {
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        return params.get('access_token');
     }
 
-    try {
-        console.log("Fetching user profile...");
-        const userResp = await fetch('https://discord.com/api/users/@me', {
-            headers: { 'Authorization': `${tokenType} ${accessToken}` }
-        });
-
-        if (!userResp.ok) throw new Error("Discord profile fetch failed");
-        const user = await userResp.json();
-        console.log("User received:", user.username);
-
-        let memberData = null;
-        try {
-            console.log("Fetching guild member data...");
-            const memberResp = await fetch(`https://discord.com/api/users/@me/guilds/${GUILD_ID}/member`, {
-                headers: { 'Authorization': `${tokenType} ${accessToken}` }
-            });
-            if (memberResp.ok) {
-                memberData = await memberResp.json();
-                console.log("Member data received!");
+    // Function to fetch user info from Discord API
+    async function fetchUserInfo(token) {
+        const response = await fetch(`${discordApiBase}/users/@me`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-        } catch (guildErr) {
-            console.warn("Could not fetch guild data (CORS or Scope issue):", guildErr);
+        });
+        return response.json();
+    }
+
+    // Function to fetch user's guilds from Discord API
+    async function fetchUserGuilds(token) {
+        const response = await fetch(`${discordApiBase}/users/@me/guilds`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.json();
+    }
+
+    // Function to check if user is in Levant guild
+    function isUserInLevantGuild(guilds) {
+        return guilds.some(guild => guild.id === levantGuildId);
+    }
+
+    // Function to join Levant guild
+    async function joinLevantGuild(token) {
+        await fetch(`${discordApiBase}/guilds/${levantGuildId}/members/@me`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                access_token: token
+            })
+        });
+    }
+
+    // Main function to handle dashboard logic
+    async function initDashboard() {
+        const token = getAccessToken();
+        if (!token) {
+            window.location.href = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scope)}`;
+            return;
         }
-
-        renderDashboard(user, memberData);
-
-    } catch (err) {
-        console.error("Main init error:", err);
-        const loadingScreen = document.getElementById("loading-screen");
-        if (loadingScreen) {
-            loadingScreen.innerHTML = `<h3>Vibe Check Failed</h3><p style="color:red">${err.message}</p><p>Check Console (F12) for details.</p>`;
+        const userInfo = await fetchUserInfo(token);
+        const userGuilds = await fetchUserGuilds(token);
+        const isMember = isUserInLevantGuild(userGuilds);
+        document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
+        document.getElementById('username').textContent = `${userInfo.username}#${userInfo.discriminator}`;
+        document.getElementById('roles').textContent = isMember ? 'Member of Levant Guild' : 'Not a member of Levant Guild';
+        if (!isMember) {
+            const joinButton = document.getElementById('join-button');
+            joinButton.style.display = 'block';
+            joinButton.addEventListener('click', async () => {
+                await joinLevantGuild(token);
+                alert('You have joined the Levant guild!');
+                window.location.reload();
+            }
+            );
         }
     }
-};
-
-function renderDashboard(user, memberData) {
-    const loader = document.getElementById("loading-screen");
-    const content = document.getElementById("dashboard-content");
-    
-    if (loader) loader.style.display = "none";
-    if (content) content.classList.remove("hidden");
-
-    // Profile Info
-    document.getElementById("nav-username").innerText = user.username;
-    document.getElementById("user-display-name").innerText = user.global_name || user.username;
-    document.getElementById("user-discriminator").innerText = `@${user.username}`;
-    document.getElementById("nav-user-pill").classList.remove("hidden");
-
-    // Avatar
-    const avatar = user.avatar 
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`
-        : "https://cdn.discordapp.com/embed/avatars/0.png";
-    document.getElementById("user-avatar").src = avatar;
-
-    // Rank & Join Date
-    const rankValue = document.getElementById("rank-value");
-    const joinDateEl = document.getElementById("join-date");
-
-    if (memberData && memberData.joined_at) {
-        rankValue.innerText = "Ascendant";
-        rankValue.style.color = "#5865F2";
-        const date = new Date(memberData.joined_at);
-        joinDateEl.innerText = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    } else {
-        rankValue.innerText = "Lurker";
-        joinDateEl.innerText = "Not Synced";
-    }
-}
-
-window.onload = initDashboard;
+    initDashboard();
+});
