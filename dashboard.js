@@ -58,7 +58,7 @@ const ROLE_UI = {
     color: "#F5C542",
     glow: "0 0 25px rgba(245, 197, 66, 0.5)",
     icon: "ph-fill ph-star",
-    ar: "فيب (Ascendant)"
+    ar: "Ascendant"
   },
 
   "Content Creator": {
@@ -139,7 +139,6 @@ window.addEventListener("scroll", () => {
 async function main() {
   const token = getAccessToken();
 
-  // OAuth redirect
   if (!token) {
     window.location.href =
       `https://discord.com/oauth2/authorize` +
@@ -150,7 +149,6 @@ async function main() {
     return;
   }
 
-  /* Discord basic user */
   const userRes = await fetch("https://discord.com/api/users/@me", {
     headers: { Authorization: `Bearer ${token}` }
   });
@@ -160,14 +158,12 @@ async function main() {
   document.getElementById("user-avatar").src =
     `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
 
-  /* Give role (existing logic) */
   await fetch(`${backendUrl}/give-role`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: user.id })
   });
 
-  /* Get extended info (role + joined_at) */
   let roleName = "Member";
   let joinedText = "--/--/--";
 
@@ -181,9 +177,9 @@ async function main() {
     const info = await infoRes.json();
 
     if (info.role) {
-      roleName = info.role;
+        roleName = info.role;
     }
-
+    
     if (info.joinedAt) {
       joinedText = daysAgo(info.joinedAt);
     }
@@ -191,13 +187,10 @@ async function main() {
     console.error("Bilgi çekilemedi:", e);
   }
 
-  /* apply UI */
-  document.getElementById("status").innerText = roleName;
-  document.getElementById("joined-on").innerText = joinedText;
-
   applyRoleUI(roleName);
 
-  /* Show dashboard */
+  document.getElementById("joined-on").innerText = joinedText;
+
   document.getElementById("loading-screen").classList.add("hidden");
   document.getElementById("dashboard-content").classList.remove("hidden");
 }
