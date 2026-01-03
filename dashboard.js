@@ -1,12 +1,10 @@
-// dashboard.js
+// Dashboard.js
 
 const clientId = "1454693732799611042";
 const redirectUri = "https://lilzeng1.github.io/Levant/dashboard.html";
 const backendUrl = "https://levant-backend.onrender.com";
 
-/* =========================
-   ROLE → UI CONFIG
-========================= */
+/* ROLE → UI CONFIG */
 const ROLE_UI = {
   "Founder": {
     glow: "0 0 25px rgba(255, 215, 0, 0.9)",
@@ -44,9 +42,7 @@ const ROLE_UI = {
   }
 };
 
-/* =========================
-   HELPERS
-========================= */
+/* HELPERS */
 function getAccessToken() {
   const hash = window.location.hash.substring(1);
   const params = new URLSearchParams(hash);
@@ -84,9 +80,7 @@ function applyRoleUI(roleName) {
   }
 }
 
-/* =========================
-   MAIN FLOW
-========================= */
+/* MAIN FLOW */
 async function main() {
   const token = getAccessToken();
 
