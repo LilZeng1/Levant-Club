@@ -3,8 +3,10 @@
     --discord-blurple: #5865f2;
     --accent-color: #00f2ff;
     --bg-dark: #0a0a0c;
-    --card-bg: rgba(255, 255, 255, 0.04);
-    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    /* biraz daha visible ama minimal */
+    --border-color: rgba(255, 255, 255, 0.08);
+    /* profile card minimal border */
     --text-main: #ffffff;
     --text-dim: rgba(255, 255, 255, 0.6);
     --glitch-color: #ff4d6d;
@@ -50,10 +52,11 @@ body {
     animation: fadeInUp 0.8s ease-out;
 }
 
-/* PROFILE CARD */
+/* PROFILE CARD CLEAN MODERN */
 .profile-card-large {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
+    /* minimal, arkaplana uyumlu */
     border-radius: 28px;
     padding: 40px;
     display: flex;
@@ -63,19 +66,22 @@ body {
     overflow: hidden;
     transition: all 0.35s ease;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+    /* minimal ama rahat */
 }
 
 .profile-card-large:hover {
-    border-color: var(--discord-blurple);
     background: rgba(88, 101, 242, 0.06);
-    transform: translateY(-3px);
+    /* hafif hover glow */
+    transform: translateY(-2px);
 }
 
+/* PROFILE AVATAR */
 .profile-card-large img#user-avatar {
     width: 110px;
     height: 110px;
-    border-radius: 20px;
-    border: 3px solid var(--discord-blurple);
+    border-radius: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    /* minimal border, arka plan uyumlu */
     transition: transform 0.4s ease, border-color 0.4s ease;
 }
 
@@ -83,7 +89,7 @@ body {
     transform: scale(1.05) rotate(-2deg);
 }
 
-/* GLITCH TEXT FOR FUN */
+/* GLITCH TEXT FUN */
 .glitch-text {
     position: relative;
     font-weight: 800;
@@ -109,13 +115,14 @@ body {
     color: var(--discord-blurple);
 }
 
-/* STATS CARDS */
+/* STATS CONTAINER */
 .stats-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
+/* FEATURE CARDS */
 .feature-card {
     flex: 1 1 200px;
     background: var(--card-bg);
@@ -124,7 +131,7 @@ body {
     padding: 25px 20px;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
 }
 
 .feature-card:hover {
@@ -142,7 +149,7 @@ body {
     border-radius: 12px;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .cta-primary:hover {
@@ -215,7 +222,7 @@ body {
     }
 }
 
-/* Keyframes */
+/* KEYFRAMES */
 @keyframes spin {
     0% {
         transform: rotate(0deg);
