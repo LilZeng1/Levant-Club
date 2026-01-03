@@ -4,72 +4,94 @@ const clientId = "1454693732799611042";
 const redirectUri = "https://lilzeng1.github.io/Levant/dashboard.html";
 const backendUrl = "https://levant-backend.onrender.com";
 
-/* ROLE → UI CONFIG */
+// ROLE → UI CONFIG
 const ROLE_UI = {
-
   "Founder": {
-    glow: "0 0 35px rgba(115, 0, 255, 0.85)",
-    badge: "👑 Founder"
+    color: "#FFD700",
+    glow: "0 0 25px rgba(255, 215, 0, 0.5)",
+    icon: "ph-fill ph-crown",
+    ar: "مؤسس"
   },
 
   "Moderator": {
-    glow: "0 0 25px rgba(106, 13, 173, 0.8)",
-    badge: "⚒ Moderator"
+    color: "#FF4757",
+    glow: "0 0 25px rgba(255, 71, 87, 0.5)",
+    icon: "ph-fill ph-shield-check",
+    ar: "مشرف"
   },
 
   "Community Guide": {
-    glow: "0 0 20px rgba(0, 255, 106, 0.7)",
-    badge: "🗺 Community Guide"
+    color: "#2ED573",
+    glow: "0 0 25px rgba(46, 213, 115, 0.5)",
+    icon: "ph-fill ph-compass",
+    ar: "دليل المجتمع"
   },
 
   "Helper": {
-    glow: "0 0 20px rgba(39, 174, 96, 0.7)",
-    badge: "🆘 Helper"
+    color: "#1E90FF",
+    glow: "0 0 25px rgba(30, 144, 255, 0.5)",
+    icon: "ph-fill ph-lifebuoy",
+    ar: "مساعد"
   },
-
+  
   "Event Lead": {
-    glow: "0 0 20px rgba(242, 153, 74, 0.7)",
-    badge: "🎉 Event Lead"
+    color: "#FFA502",
+    glow: "0 0 25px rgba(255, 165, 2, 0.5)",
+    icon: "ph-fill ph-unite",
+    ar: "مسؤول الفعاليات"
   },
 
   "Levant Booster": {
-    glow: "0 0 25px rgba(244, 127, 255, 0.8)",
-    badge: "🚀 Levant Booster"
+    color: "#F47FFF",
+    glow: "0 0 25px rgba(244, 127, 255, 0.5)",
+    icon: "ph-fill ph-rocket-launch",
+    ar: "داعم السيرفر"
   },
 
   "Core Supporter": {
-    glow: "0 0 20px rgba(56, 244, 132, 0.7)",
-    badge: "💖 Core Supporter"
+    color: "#38F484",
+    glow: "0 0 25px rgba(56, 244, 132, 0.5)",
+    icon: "ph-fill ph-heart-half",
+    ar: "داعم أساسي"
   },
 
   "Ascendant (VIP)": {
-    glow: "0 0 25px rgba(245, 197, 66, 0.8)",
-    badge: "🌟 Ascendant (VIP)"
+    color: "#F5C542",
+    glow: "0 0 25px rgba(245, 197, 66, 0.5)",
+    icon: "ph-fill ph-star",
+    ar: "فيب (Ascendant)"
   },
 
   "Content Creator": {
-    glow: "0 0 20px rgba(255, 0, 0, 0.8)",
-    badge: "🎬 Content Creator"
+    color: "#FF0000",
+    glow: "0 0 25px rgba(255, 0, 0, 0.5)",
+    icon: "ph-fill ph-broadcast",
+    ar: "صانع محتوى"
   },
 
   "Musician": {
-    glow: "0 0 20px rgba(155, 81, 224, 0.7)",
-    badge: "🎵 Musician"
+    color: "#9B51E0",
+    glow: "0 0 25px rgba(155, 81, 224, 0.5)",
+    icon: "ph-fill ph-music-notes",
+    ar: "موسيقي"
   },
-
+  
   "Member": {
-    glow: "0 0 15px rgba(149, 165, 166, 0.4)",
-    badge: "👋🏻 Member"
+    color: "#95A5A6",
+    glow: "0 0 15px rgba(149, 165, 166, 0.3)",
+    icon: "ph-fill ph-user",
+    ar: "عضو"
   }
 };
 
-/* HELPERS */
+/* getAccessToken() */
 function getAccessToken() {
   const hash = window.location.hash.substring(1);
   const params = new URLSearchParams(hash);
   return params.get("access_token");
 }
 
+// daysAgo()
 function daysAgo(dateString) {
   const joinedDate = new Date(dateString);
   const now = new Date();
@@ -77,19 +99,42 @@ function daysAgo(dateString) {
   return diff <= 0 ? "Today" : `${diff} days ago`;
 }
 
+// ApplyRoleUI()
 function applyRoleUI(roleName) {
-  const userRole = "Founder";
-  const roleConfig = ROLE_UI[userRole] || ROLE_UI["Member"];
+    const config = ROLE_UI[roleName] || ROLE_UI["Member"];
+    const isAr = document.body.getAttribute('lang') === 'ar';
+    const container = document.getElementById('role-badge-container');
+    
+    // HTML İçeriğini oluştur
+    container.innerHTML = `
+        <div class="role-badge" style="color: ${config.color}; border-color: ${config.color}44; box-shadow: ${config.glow}">
+            <i class="${config.icon}"></i>
+            <span>${isAr ? config.ar : roleName}</span>
+        </div>
+    `;
 
-  const badgeElem = document.getElementById('special-badge');
-  if (badgeElem) {
-    badgeElem.innerHTML = roleConfig.badge;
-    const color = roleConfig.glow.split('rgba')[1].replace(')', '');
-    badgeElem.style.backgroundColor = `rgba${color}, 0.15)`;
-    badgeElem.style.borderColor = `rgba${color}, 0.4)`;
-    badgeElem.style.boxShadow = `0 0 20px rgba${color}, 0.2)`;
-  }
+    const statusText = document.getElementById('status');
+    statusText.innerText = isAr ? config.ar : roleName;
+    statusText.style.color = config.color;
 }
+
+/* Navbar Scroll logic */
+let lastScroll = 0;
+window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
+    const navbar = document.querySelector(".navbar");
+
+    if (currentScroll <= 150) {
+        navbar.classList.remove("navbar--hidden");
+        return;
+    }
+    if (currentScroll > lastScroll && !navbar.classList.contains("navbar--hidden")) {
+        navbar.classList.add("navbar--hidden");
+    } else if (currentScroll < lastScroll && navbar.classList.contains("navbar--hidden")) {
+        navbar.classList.remove("navbar--hidden");
+    }
+    lastScroll = currentScroll;
+});
 
 /* MAIN FLOW */
 async function main() {
@@ -113,8 +158,6 @@ async function main() {
   const user = await userRes.json();
 
   document.getElementById("user-display-name").innerText = user.username;
-  document.getElementById("user-discriminator").innerText =
-    user.discriminator ? `#${user.discriminator}` : "";
   document.getElementById("user-avatar").src =
     `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
 
@@ -156,5 +199,9 @@ async function main() {
   document.getElementById("loading-screen").classList.add("hidden");
   document.getElementById("dashboard-content").classList.remove("hidden");
 }
+
+langToggle.addEventListener('change', () => {
+    const currentRole = document.getElementById("status").innerText;
+});
 
 window.onload = main;
