@@ -118,14 +118,10 @@ function applyRoleUI(roleName) {
 
 /* Navbar Scroll Logic */
 window.addEventListener("scroll", () => {
-    scrollAlert.classList.remove("show");
-    startScrollTimer();
     const nav = document.querySelector(".navbar");
     if (window.scrollY > 50) {
-        socialBar.classList.add("hidden");
         nav.classList.add("scrolled-up");
     } else {
-        socialBar.classList.remove("hidden");
         nav.classList.remove("scrolled-up");
     }
 });
