@@ -1,155 +1,331 @@
-/* dashboard.css */
+/* VARIABLES */
 :root {
     --discord-blurple: #5865f2;
     --accent-color: #00f2ff;
     --bg-dark: #0a0a0c;
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --border-color: rgba(255, 255, 255, 0.08);
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.6);
+    --glitch-color: #ff4d6d;
 }
 
+/* GENERAL BODY */
 body {
     background-color: var(--bg-dark);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
 }
 
-/* Dashboard Container Layout */
-.dashboard-grid {
-    max-width: 900px;
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(15, 15, 20, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    padding: 12px 0;
+}
+
+.nav-container {
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* DASHBOARD GRID */
+.dashboard-grid {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 140px 20px 40px 20px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 28px;
     animation: fadeInUp 0.8s ease-out;
 }
 
-/* dashboard.css */
-
-/* Profile Card Özel Animasyon & Style */
+/* PROFILE CARD */
 .profile-card-large {
     background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 32px;
-    padding: 48px;
+    border: 1px solid var(--border-color);
+    border-radius: 28px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 0.35s ease;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
 }
 
 .profile-card-large:hover {
-    border-color: #5865F2; /* Discord Blurple */
-    background: rgba(88, 101, 242, 0.03);
-    transform: translateY(-4px);
+    border-color: var(--discord-blurple);
+    background: rgba(88, 101, 242, 0.06);
+    transform: translateY(-3px);
 }
 
-/* Berbat shadow yerine temiz glow */
-.profile-card-large:hover .card-glow {
-    opacity: 0.1;
-    background: radial-gradient(circle, #5865F2 0%, transparent 70%);
+.profile-card-large img#user-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 20px;
+    border: 3px solid var(--discord-blurple);
+    transition: transform 0.4s ease, border-color 0.4s ease;
 }
 
-#user-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 24px;
-    border: 2px solid var(--card-border);
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2);
-    z-index: 5;
+.profile-card-large:hover img#user-avatar {
+    transform: scale(1.05) rotate(-2deg);
 }
 
-.profile-card-large:hover #user-avatar {
-    border-color: #5865F2;
-    transform: scale(1.05) rotate(-3deg);
-}
-
-/* Stat Kartları (Home.css Grid Uyumu) */
-.dashboard-grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 24px;
-}
-
-.stat-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 24px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-    border-color: var(--accent);
-    background: rgba(16, 185, 129, 0.02);
-}
-
-.stat-label {
-    font-size: 0.7rem;
+/* GLITCH TEXT FOR FUN */
+.glitch-text {
+    position: relative;
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--text-dim);
-}
-
-.stat-value {
-    font-size: 1.25rem;
-    font-weight: 700;
     color: var(--text-main);
 }
 
-/* CTA Card */
-.cta-card-dash {
-    grid-column: span 2;
+.glitch-text::after,
+.glitch-text::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+    animation: glitchTop 2s infinite linear alternate-reverse;
+    color: var(--glitch-color);
+}
+
+.glitch-text::after {
+    animation: glitchBottom 3s infinite linear alternate-reverse;
+    color: var(--discord-blurple);
+}
+
+/* STATS CARDS */
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.feature-card {
+    flex: 1 1 200px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 25px 20px;
     text-align: center;
-    padding: 40px;
-    border: 1px dashed var(--card-border);
-    background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
 }
 
-.cta-card-dash:hover {
-    border-style: solid;
-    border-color: var(--accent);
+.feature-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
-/* Phosphor Icon Hover Magic */
-.stat-card i {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: var(--text-dim);
-    transition: 0.3s;
+/* CTA BUTTON */
+.cta-primary {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--discord-blurple);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.stat-card:hover i {
-    color: var(--accent);
-    transform: scale(1.2);
+.cta-primary:hover {
+    background: #4753d4;
+    transform: translateY(-2px) scale(1.02);
 }
 
-/* Loading Screen Refinement */
+/* LOADING SCREEN */
 #loading-screen {
-    height: 40vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 12px;
 }
 
-/* Responsive Fixes */
-@media (max-width: 768px) {
-    .dashboard-grid-container {
-        grid-template-columns: 1fr;
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--discord-blurple);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* MEDIA QUERIES */
+
+/* Mobile Phones (<500px) */
+@media (max-width: 500px) {
+    .dashboard-grid {
+        padding: 120px 15px 30px 15px;
+        gap: 20px;
     }
-    .cta-card-dash {
-        grid-column: span 1;
-    }
+
     .profile-card-large {
-        padding: 30px 20px;
-        text-align: center;
+        padding: 25px 15px;
     }
-    .profile-header-wrap {
-        flex-direction: column !important;
-        gap: 20px !important;
+
+    .stats-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .feature-card {
+        padding: 20px 15px;
+    }
+
+    .cta-primary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Tablets (501px - 768px) */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        padding: 140px 20px 30px 20px;
+    }
+
+    .stats-container {
+        gap: 18px;
+    }
+}
+
+/* Laptops (769px - 1024px) */
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        padding: 140px 25px 35px 25px;
+    }
+}
+
+/* Keyframes */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glitchTop {
+    0% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    10% {
+        clip: rect(0, 9999px, 5px, 0);
+    }
+
+    20% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    30% {
+        clip: rect(0, 9999px, 3px, 0);
+    }
+
+    40% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    50% {
+        clip: rect(0, 9999px, 2px, 0);
+    }
+
+    60% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    70% {
+        clip: rect(0, 9999px, 4px, 0);
+    }
+
+    80% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    90% {
+        clip: rect(0, 9999px, 1px, 0);
+    }
+
+    100% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+}
+
+@keyframes glitchBottom {
+    0% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    10% {
+        clip: rect(5px, 9999px, 15px, 0);
+    }
+
+    20% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    30% {
+        clip: rect(3px, 9999px, 8px, 0);
+    }
+
+    40% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    50% {
+        clip: rect(2px, 9999px, 7px, 0);
+    }
+
+    60% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    70% {
+        clip: rect(4px, 9999px, 9px, 0);
+    }
+
+    80% {
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    90% {
+        clip: rect(1px, 9999px, 3px, 0);
+    }
+
+    100% {
+        clip: rect(0, 9999px, 0, 0);
     }
 }
