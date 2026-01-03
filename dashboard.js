@@ -1,5 +1,4 @@
-// dashboard.js
-
+// Variables
 const clientId = "1454693732799611042";
 const redirectUri = "https://lilzeng1.github.io/Levant/dashboard.html";
 const backendUrl = "https://levant-backend.onrender.com";
@@ -55,7 +54,7 @@ const ROLE_UI = {
     ar: "داعم أساسي"
   },
 
-  "Ascendant (VIP)": {
+  "Ascendant": {
     color: "#F5C542",
     glow: "0 0 25px rgba(245, 197, 66, 0.5)",
     icon: "ph-fill ph-star",
@@ -151,7 +150,7 @@ async function main() {
     return;
   }
 
-  /* 1️⃣ Discord basic user */
+  /* Discord basic user */
   const userRes = await fetch("https://discord.com/api/users/@me", {
     headers: { Authorization: `Bearer ${token}` }
   });
@@ -161,15 +160,15 @@ async function main() {
   document.getElementById("user-avatar").src =
     `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
 
-  /* 2️⃣ Give role (existing logic) */
+  /* Give role (existing logic) */
   await fetch(`${backendUrl}/give-role`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: user.id })
   });
 
-  /* 3️⃣ Get extended info (role + joined_at) */
-  let roleName = "Core Supporter";
+  /* Get extended info (role + joined_at) */
+  let roleName = "Member";
   let joinedText = "--/--/--";
 
   try {
@@ -181,21 +180,24 @@ async function main() {
 
     const info = await infoRes.json();
 
-    roleName = info.role || "Core Supporter";
+    if (info.role) {
+      roleName = info.role;
+    }
+
     if (info.joinedAt) {
       joinedText = daysAgo(info.joinedAt);
     }
   } catch (e) {
-    // fallback values already set xD
+    console.error("Bilgi çekilemedi:", e);
   }
 
-  /* 4️⃣ UI apply */
+  /* apply UI */
   document.getElementById("status").innerText = roleName;
   document.getElementById("joined-on").innerText = joinedText;
 
   applyRoleUI(roleName);
 
-  /* 5️⃣ Show dashboard */
+  /* Show dashboard */
   document.getElementById("loading-screen").classList.add("hidden");
   document.getElementById("dashboard-content").classList.remove("hidden");
 }
