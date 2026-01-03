@@ -6,17 +6,21 @@
     <title>Levant | Dashboard</title>
     <link rel="stylesheet" href="./Home.css" />
     <link rel="stylesheet" href="./dashboard.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Plus+Jakarta+Sans:wght@400;800&display=swap"
+        rel="stylesheet" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
+    
     <div class="noise-overlay"></div>
     <div class="ambient-light main-glow"></div>
 
-    <nav class="navbar">
+    <nav class="navbar" id="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px; color: white;">
+                <a href="index.html"
+                    style="text-decoration: none; display: flex; align-items: center; gap: 12px; color: white;">
                     <img src="./assets/Levant-Logo.png" class="nav-logo-img" />
                     <span>Levant</span>
                 </a>
@@ -34,59 +38,51 @@
 
                 <button id="logout-btn" class="nav-btn" style="background: rgba(255,255,255,0.05);">
                     <i class="ph-bold ph-power"></i>
-                    <span class="translate-dash" data-en="Log Out" data-ar="تسجيل خروج"><a style="text-decoration: none; color: #fff;" href="./index.html">LogOut</a></span>
+                    <span class="translate-dash" data-en="Log Out" data-ar="تسجيل خروج"><a
+                            style="text-decoration: none; color: #fff;" href="./index.html">LogOut</a></span>
                 </button>
             </div>
         </div>
     </nav>
 
     <main class="content" style="padding-top: 150px;">
-        <div id="loading-screen" style="text-align: center;">
-            <div class="loader-spinner"></div>
-            <p id="loading-text" class="translate-dash" 
-               data-en="Grabbing your Discord stats... No cap." 
-               data-ar="عم بجيب بياناتك... والله بدون كذب!">
-                Grabbing your Discord stats... No cap.
-            </p>
-        </div>
-
         <div id="dashboard-content" class="dashboard-grid hidden">
-            
             <div class="feature-card profile-card profile-card-large">
-                <div class="card-glow"></div>
+                <div class="card-glow" id="role-glow"></div>
                 <div style="display: flex; align-items: center; gap: 30px; position: relative; z-index: 2;">
-                    <img id="user-avatar" src="https://placehold.co/110x110/1e1e1e/white?text=Avatar" alt="Avatar" style="width: 110px; height: 110px; border-radius: 25px; border: 3px solid #5865f2;" />
+                    <img id="user-avatar" src="https://placehold.co/110x110/1e1e1e/white?text=Avatar" alt="Avatar" />
                     <div>
-                        <h1 id="user-display-name" class="glitch-text" style="font-size: 2.8rem; margin-bottom: 5px;">Main Character</h1>
-                        <span id="user-discriminator" style="opacity: 0.5; font-family: monospace;">#0000</span>
+                        <h1 id="user-display-name" class="glitch-text" style="font-size: 2.8rem; margin-bottom: 5px;">
+                            User</h1>
+                        <div id="role-badge-container"></div>
                     </div>
                 </div>
             </div>
 
             <div class="stats-container">
                 <div class="feature-card">
-                    <h4 class="translate-dash" data-en="ROLE STATUS" data-ar="حالة الرول">ROLE STATUS</h4>
-                    <p id="status" class="translate-dash" data-en="Core Supporter" data-ar="داعم أساسي">Core Supporter</p>
+                    <h4 class="translate-dash" data-en="ROLE STATUS" data-ar="الرتبة">ROLE STATUS</h4>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-top: auto;">
+                        <span id="role-icon-main"></span>
+                        <p id="status">--</p>
+                    </div>
                 </div>
-
-                <div class="feature-card">
-                    <h4 class="translate-dash" data-en="SPAWN DATE" data-ar="تاريخ السباون">SPAWN DATE</h4>
-                    <p id="joined-on">--/--/--</p>
-                </div>
-            </div>
-
-            <div class="feature-card" style="margin-top: 25px; text-align: center; border: 1px dashed var(--accent-color);">
-                <h3 class="translate-dash" data-en="Ready to carry?" data-ar="جاهز تشيل القيم؟">Ready to carry?</h3>
-                <p class="translate-dash" style="opacity: 0.6; margin: 10px 0 20px;" 
-                   data-en="The server is waiting for your elite presence. Don't choke."
-                   data-ar="السيرفر ناطر طلتك يا بطل. لا تفضحنا!">
-                    The server is waiting for your elite presence. Don't choke.
-                </p>
-                <a href="https://discord.gg/FBzNjDpMwa" target="_blank" class="cta-primary">
-                    <span class="translate-dash" data-en="Spawn into VC" data-ar="ادخل عالروم">Spawn into VC</span>
-                </a>
             </div>
         </div>
+    </main>
+
+    <div class="feature-card" style="margin-top: 25px; text-align: center; border: 1px dashed var(--accent-color);">
+        <h3 class="translate-dash" data-en="Ready to carry?" data-ar="جاهز تشيل القيم؟">Ready to carry?</h3>
+        <p class="translate-dash" style="opacity: 0.6; margin: 10px 0 20px;"
+            data-en="The server is waiting for your elite presence. Don't choke."
+            data-ar="السيرفر ناطر طلتك يا بطل. لا تفضحنا!">
+            The server is waiting for your elite presence. Don't choke.
+        </p>
+        <a href="https://discord.gg/FBzNjDpMwa" target="_blank" class="cta-primary">
+            <span class="translate-dash" data-en="Spawn into VC" data-ar="ادخل عالروم">Spawn into VC</span>
+        </a>
+    </div>
+    </div>
     </main>
 
     <script>
@@ -97,7 +93,7 @@
         langToggle.addEventListener('change', () => {
             const lang = langToggle.checked ? 'ar' : 'en';
             document.body.setAttribute('lang', lang);
-            
+
             translateElements.forEach(el => {
                 el.textContent = el.getAttribute(`data-${lang}`);
             });
