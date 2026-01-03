@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Levant | Dashboard</title>
-    <link rel="stylesheet" href="./Home.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./Home.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
+
 <body>
     <div class="noise-overlay"></div>
     <div class="ambient-light main-glow"></div>
 
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px; color: white;">
-                    <img src="./assets/Levant-Logo.png" class="nav-logo-img">
+                <a href="index.html"
+                   style="text-decoration: none; display: flex; align-items: center; gap: 12px; color: white;">
+                    <img src="./assets/Levant-Logo.png" class="nav-logo-img" />
                     <span>Levant</span>
                 </a>
             </div>
+
             <div class="nav-actions">
-                <div class="user-status-pill hidden" id="nav-user-pill">
-                    <div class="status-dot"></div>
-                    <span id="nav-username">Syncing...</span>
-                </div>
                 <button id="logout-btn" class="nav-btn" style="background: rgba(255,255,255,0.05);">
                     <i class="ph-bold ph-power"></i>
                     <span>Log Out</span>
@@ -33,40 +34,96 @@
         </div>
     </nav>
 
+    <!-- CONTENT -->
     <main class="content" style="padding-top: 150px;">
+
+        <!-- LOADING -->
         <div id="loading-screen" style="text-align: center;">
             <div class="loader-spinner"></div>
-            <p style="margin-top: 20px; opacity: 0.6;">Grabbing your Discord stats... No cap.</p>
+            <p style="margin-top: 20px; opacity: 0.6;">
+                Grabbing your Discord stats... No cap.
+            </p>
         </div>
 
+        <!-- DASHBOARD -->
         <div id="dashboard-content" class="dashboard-grid hidden">
-            <div class="feature-card profile-card-large">
+
+            <!-- PROFILE CARD -->
+            <div class="feature-card profile-card profile-card-large">
                 <div class="card-glow"></div>
+
                 <div style="display: flex; align-items: center; gap: 30px; position: relative; z-index: 2;">
-                    <img id="user-avatar" src="" style="width: 110px; height: 110px; border-radius: 25px; border: 3px solid #5865f2;">
+                    <img
+                        id="user-avatar"
+                        src=""
+                        alt="Avatar"
+                        style="width: 110px; height: 110px; border-radius: 25px; border: 3px solid #5865f2;"
+                    />
+
                     <div>
-                        <h1 id="user-display-name" class="glitch-text" style="font-size: 2.8rem; margin-bottom: 5px;">Main Character</h1>
-                        <span id="user-discriminator" style="opacity: 0.5; font-family: monospace;">@username</span>
+                        <h1
+                            id="user-display-name"
+                            class="glitch-text"
+                            style="font-size: 2.8rem; margin-bottom: 5px;"
+                        >
+                            Main Character
+                        </h1>
+
+                        <span
+                            id="user-discriminator"
+                            style="opacity: 0.5; font-family: monospace;"
+                        >
+                            #0000
+                        </span>
                     </div>
                 </div>
             </div>
 
+            <!-- STATS -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px;">
                 <div class="feature-card">
-                    <h4 style="opacity: 0.5; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">Status</h4>
-                    <p id="rank-value" style="font-size: 1.5rem; font-weight: 800; margin-top: 10px;">Ascendant</p>
+                    <h4 style="opacity: 0.5; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">
+                        Status
+                    </h4>
+                    <p
+                        id="status"
+                        style="font-size: 1.5rem; font-weight: 800; margin-top: 10px;"
+                    >
+                        Core Supporter
+                    </p>
                 </div>
+
                 <div class="feature-card">
-                    <h4 style="opacity: 0.5; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">Joined On</h4>
-                    <p id="join-date" style="font-size: 1.5rem; font-weight: 800; margin-top: 10px;">--/--/--</p>
+                    <h4 style="opacity: 0.5; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">
+                        Joined On
+                    </h4>
+                    <p
+                        id="joined-on"
+                        style="font-size: 1.5rem; font-weight: 800; margin-top: 10px;"
+                    >
+                        --/--/--
+                    </p>
                 </div>
             </div>
 
-            <div class="feature-card" style="margin-top: 25px; text-align: center; border: 1px dashed rgba(255,255,255,0.1);">
+            <!-- CTA -->
+            <div
+                class="feature-card"
+                style="margin-top: 25px; text-align: center; border: 1px dashed rgba(255,255,255,0.1);"
+            >
                 <h3>Ready to carry?</h3>
-                <p style="opacity: 0.6; margin: 10px 0 20px;">The server is waiting for your elite presence.</p>
-                <a href="https://discord.gg/8P4BKYe8" target="_blank" class="cta-primary">Spawn into VC</a>
+                <p style="opacity: 0.6; margin: 10px 0 20px;">
+                    The server is waiting for your elite presence.
+                </p>
+                <a
+                    href="https://discord.gg/8P4BKYe8"
+                    target="_blank"
+                    class="cta-primary"
+                >
+                    Spawn into VC
+                </a>
             </div>
+
         </div>
     </main>
 
