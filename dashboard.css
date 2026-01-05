@@ -1,7 +1,6 @@
 :root {
     --bg-dark: #09090b;
     --card-bg: rgba(20, 20, 23, 0.7);
-    /* Biraz daha koyu, daha iyi kontrast */
     --card-border: rgba(255, 255, 255, 0.08);
     --primary: #5865F2;
     --accent: #F5C542;
@@ -26,10 +25,9 @@ body {
     overflow-x: hidden;
     min-height: 100vh;
     perspective: 1000px;
-    /* 3D Tilt için gerekli */
 }
 
-/* Background Grid Overlay (Yeni Teknoloji Hissi) */
+/* Background Grid Overlay */
 .bg-grid-overlay {
     position: fixed;
     top: 0;
@@ -332,16 +330,17 @@ body {
     flex-direction: column;
     justify-content: center;
     background: linear-gradient(135deg, rgba(88, 101, 242, 0.08) 0%, rgba(20, 20, 23, 0.8) 100%);
+    min-height: 220px;
 }
 
 .profile-header {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
     position: relative;
     z-index: 2;
     transform: translateZ(20px);
-    /* Pop out */
 }
 
 .avatar-wrapper {
@@ -372,27 +371,31 @@ body {
 .name-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 #user-display-name {
     font-family: var(--font-display);
-    font-size: 2.2rem;
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
     line-height: 1.1;
-    margin: 4px 0;
+    margin: 0;
+    word-break: break-word;
 }
 
 .copy-id-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
     cursor: pointer;
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.7;
 }
 
 .name-row:hover .copy-id-btn {
@@ -403,6 +406,38 @@ body {
 .copy-id-btn:hover {
     background: white;
     color: black;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@media (max-width: 500px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .avatar-wrapper #user-avatar {
+        width: 70px;s
+        height: 70px;
+    }
+
+    .name-row {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .copy-id-btn {
+        opacity: 1;
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .profile-section {
+        grid-column: span 2;
+    }
 }
 
 /* 2. Level Section */
