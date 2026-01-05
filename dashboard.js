@@ -1,6 +1,6 @@
 // CONFIGURATION
 const clientId = "1454693732799611042";
-const guildId = "1452829028267327511"; // Senin attığın env'deki Guild ID
+const guildId = "1452829028267327511";
 const redirectUri = "https://lilzeng1.github.io/Levant/dashboard.html";
 const backendUrl = "https://levant-backend.onrender.com";
 
