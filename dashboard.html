@@ -2,114 +2,155 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Levant | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Levant | Command Center</title>
     <link rel="stylesheet" href="./Home.css" />
     <link rel="stylesheet" href="./dashboard.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
-    <div class="noise-overlay"></div>
-    <div class="ambient-light main-glow"></div>
+    <div class="bg-noise"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
 
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px; color: white;">
-                    <img src="./assets/Levant-Logo.png" class="nav-logo-img" />
-                    <span>Levant</span>
-                </a>
-            </div>
-
-            <div class="nav-actions">
-                <div class="lang-switch-wrapper" style="margin-right: 15px;">
-                    <span class="lang-label active" id="btn-en">EN</span>
-                    <label class="switch">
-                        <input type="checkbox" id="lang-toggle-dash">
-                        <span class="slider round"></span>
+        <div class="nav-content">
+            <a href="index.html" class="nav-brand">
+                <img src="./assets/Levant-Logo.png" alt="Levant" />
+                <span class="brand-text">LEVANT</span>
+            </a>
+            
+            <div class="nav-right">
+                <div class="lang-switch-modern">
+                    <input type="checkbox" id="lang-toggle-dash" class="lang-checkbox">
+                    <label for="lang-toggle-dash" class="lang-label">
+                        <span class="lang-text en">EN</span>
+                        <span class="lang-text ar">AR</span>
                     </label>
-                    <span class="lang-label" id="btn-ar">AR</span>
                 </div>
-
-                <button id="logout-btn" class="nav-btn" style="background: rgba(255,255,255,0.05);">
-                    <i class="ph-bold ph-power"></i>
-                    <span class="translate-dash" data-en="Log Out" data-ar="تسجيل خروج"><a style="text-decoration: none; color: #fff;" href="./index.html">LogOut</a></span>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="ph-bold ph-sign-out"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <main class="content" style="padding-top: 150px;">
-        <div id="loading-screen" style="text-align: center;">
-            <div class="loader-spinner"></div>
+    <main class="main-container">
+        <div id="loading-screen">
+            <div class="cyber-spinner">
+                <div class="spinner-inner"></div>
+            </div>
+            <h2 class="loading-title glitch-text" data-text="INITIALIZING...">INITIALIZING...</h2>
             <p id="loading-text" class="translate-dash" 
-               data-en="Grabbing your Discord stats... No cap." 
-               data-ar="عم بجيب بياناتك... والله بدون كذب!">
-                Grabbing your Discord stats... No cap.
+               data-en="Synchronizing with Discord Mainframe..." 
+               data-ar="جارٍ المزامنة مع سيرفرات الديسكورد...">
+               Synchronizing with Discord Mainframe...
             </p>
         </div>
 
-        <div id="dashboard-content" class="dashboard-grid hidden">
+        <div id="dashboard-content" class="bento-grid hidden">
             
-            <div class="feature-card profile-card profile-card-large">
-                <div class="card-glow"></div>
-                <div style="display: flex; align-items: center; gap: 30px; position: relative; z-index: 2;">
-                    <img id="user-avatar" src="https://placehold.co/110x110/1e1e1e/white?text=Avatar" alt="Avatar" style="width: 110px; height: 110px; border-radius: 25px; border: 3px solid #5865f2;" />
-                    <div>
-                        <h1 id="user-display-name" class="glitch-text" style="font-size: 2.8rem; margin-bottom: 5px;">Main Character</h1>
-                        <div id="role-badge-container"></div> </div>
+            <div class="bento-card profile-section">
+                <div class="profile-header">
+                    <div class="avatar-wrapper">
+                        <img id="user-avatar" src="https://placehold.co/120x120/101010/FFF" alt="User">
+                        <div class="online-indicator"></div>
+                    </div>
+                    <div class="profile-info">
+                        <span class="welcome-label translate-dash" data-en="WELCOME BACK" data-ar="أهلاً بعودتك">WELCOME BACK</span>
+                        <h1 id="user-display-name">Loading...</h1>
+                        <div id="role-badge-container"></div>
+                    </div>
+                </div>
+                <div class="card-deco-bg"></div>
+            </div>
+
+            <div class="bento-card level-section">
+                <div class="card-header">
+                    <i class="ph-fill ph-trophy color-accent"></i>
+                    <h3 class="translate-dash" data-en="LOYALTY LEVEL" data-ar="مستوى الولاء">LOYALTY LEVEL</h3>
+                </div>
+                <div class="level-info">
+                    <div class="level-number">
+                        <span id="calculated-level">1</span>
+                        <small class="translate-dash" data-en="Lvl" data-ar="مستوى">Lvl</small>
+                    </div>
+                    <div class="xp-container">
+                        <div class="xp-bar-bg">
+                            <div class="xp-bar-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="xp-text translate-dash" data-en="Next Rank: Legend" data-ar="الرتبة التالية: أسطورة">Next Rank: Legend</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="stats-container">
-                <div class="feature-card">
-                    <h4 class="translate-dash" data-en="ROLE STATUS" data-ar="حالة الرول">ROLE STATUS</h4>
-                    <p id="status" class="translate-dash" data-en="Core Supporter" data-ar="داعم أساسي">Supporter</p>
+            <div class="bento-card stats-section">
+                <div class="card-header">
+                    <i class="ph-fill ph-calendar-check color-blue"></i>
+                    <h3 class="translate-dash" data-en="JOURNEY" data-ar="الرحلة">JOURNEY</h3>
                 </div>
-
-                <div class="feature-card">
-                    <h4 class="translate-dash" data-en="SPAWN DATE" data-ar="تاريخ السباون">SPAWN DATE</h4>
-                    <p id="joined-on">--/--/--</p>
+                <div class="stat-content">
+                    <h2 id="joined-on">--</h2>
+                    <p class="sub-stat translate-dash" data-en="Days in Levant" data-ar="يوم في ليفانت">Days in Levant</p>
                 </div>
             </div>
 
-            <div class="feature-card" style="margin-top: 25px; text-align: center; border: 1px dashed var(--accent-color);">
-                <h3 class="translate-dash" data-en="Ready to carry?" data-ar="جاهز تشيل القيم؟">Ready to carry?</h3>
-                <p class="translate-dash" style="opacity: 0.6; margin: 10px 0 20px;" 
-                   data-en="The server is waiting for your elite presence. Don't choke."
-                   data-ar="السيرفر ناطر طلتك يا بطل. لا تفضحنا!">
-                    The server is waiting for your elite presence. Don't choke.
-                </p>
-                <a href="https://discord.gg/FBzNjDpMwa" target="_blank" class="cta-primary">
-                    <span class="translate-dash" data-en="Spawn into VC" data-ar="ادخل عالروم">Spawn into VC</span>
-                </a>
+            <div class="bento-card reward-section">
+                <div class="card-header">
+                    <i class="ph-fill ph-gift color-purple"></i>
+                    <h3 class="translate-dash" data-en="DAILY LOOT" data-ar="المكافأة اليومية">DAILY LOOT</h3>
+                </div>
+                <div class="reward-content">
+                    <button id="claim-btn" class="claim-button" onclick="claimDaily()">
+                        <span class="translate-dash" data-en="CLAIM XP" data-ar="اجمع النقاط">CLAIM XP</span>
+                        <i class="ph-bold ph-lightning"></i>
+                    </button>
+                    <p id="claim-msg" class="claim-text translate-dash" data-en="Come back daily to rank up!" data-ar="ارجع كل يوم لترفع لفلك!">Come back daily to rank up!</p>
+                </div>
             </div>
+
+            <div class="bento-card role-info-section">
+                 <div class="card-header">
+                    <i class="ph-fill ph-shield-star color-gold"></i>
+                    <h3 class="translate-dash" data-en="CURRENT CLASS" data-ar="الرتبة الحالية">CURRENT CLASS</h3>
+                </div>
+                <div class="role-display-large">
+                    <h2 id="status">Member</h2>
+                </div>
+            </div>
+
+            <div class="bento-card cta-section">
+                <div class="cta-content">
+                    <h2 class="translate-dash" data-en="Ready to Deploy?" data-ar="جاهز للانطلاق؟">Ready to Deploy?</h2>
+                    <p class="translate-dash" data-en="The voice channels are quiet without you." data-ar="الرومات الصوتية هادية بدونك.">The voice channels are quiet without you.</p>
+                    <a href="https://discord.gg/FBzNjDpMwa" target="_blank" class="discord-btn">
+                        <i class="ph-bold ph-discord-logo"></i>
+                        <span class="translate-dash" data-en="JUMP TO DISCORD" data-ar="ادخل الديسكورد">JUMP TO DISCORD</span>
+                    </a>
+                </div>
+                <div class="cta-glow"></div>
+            </div>
+
         </div>
     </main>
 
+    <script src="./dashboard.js"></script>
     <script>
-        // Language Toggle Logic
+        // Init Localization
         const langToggle = document.getElementById('lang-toggle-dash');
         const translateElements = document.querySelectorAll('.translate-dash');
 
-        langToggle.addEventListener('change', () => {
+        function updateLanguage() {
             const lang = langToggle.checked ? 'ar' : 'en';
             document.body.setAttribute('lang', lang);
-            
             translateElements.forEach(el => {
-                el.textContent = el.getAttribute(`data-${lang}`);
+                const text = el.getAttribute(`data-${lang}`);
+                if(text) el.innerText = text;
             });
-            document.getElementById('btn-en').classList.toggle('active', !langToggle.checked);
-            document.getElementById('btn-ar').classList.toggle('active', langToggle.checked);
-        });
+        }
 
-        setTimeout(() => {
-            document.getElementById('loading-screen').classList.add('hidden');
-            document.getElementById('dashboard-content').classList.remove('hidden');
-        }, 2000);
+        langToggle.addEventListener('change', updateLanguage);
     </script>
-
-    <script src="./dashboard.js"></script>
 </body>
 </html>
