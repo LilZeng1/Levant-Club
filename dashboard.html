@@ -9,15 +9,20 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
         rel="stylesheet" />
+
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
+
     <div class="bg-noise"></div>
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
     <div class="bg-grid-overlay"></div>
+
     <nav class="navbar">
+
         <div class="nav-content">
+
             <a href="index.html" class="nav-brand">
                 <img src="./assets/Levant-Logo.png" alt="Levant" />
                 <span class="brand-text">LEVANT</span>
@@ -31,6 +36,7 @@
                         <span class="lang-text ar">AR</span>
                     </label>
                 </div>
+
                 <button id="logout-btn" class="logout-btn">
                     <i class="ph-bold ph-sign-out"></i>
                 </button>
@@ -43,7 +49,9 @@
             <div class="cyber-spinner">
                 <div class="spinner-inner"></div>
             </div>
+
             <h2 class="loading-title scramble-text">INITIALIZING SYSTEM...</h2>
+
             <p id="loading-text" class="translate-dash" data-en="Establish connection to Neural Link..."
                 data-ar="جارٍ الاتصال بالشبكة العصبية...">
                 Establish connection to Neural Link...
@@ -58,6 +66,7 @@
                         <img id="user-avatar" src="https://placehold.co/120x120/101010/FFF" alt="User">
                         <div class="online-indicator"></div>
                     </div>
+
                     <div class="profile-info">
                         <div class="name-container">
                             <h1 id="user-display-name" class="scramble-on-load">Loading...</h1>
@@ -65,6 +74,7 @@
                                 <i class="ph-bold ph-copy"></i>
                             </button>
                         </div>
+
                         <div id="role-badge-container"></div>
                     </div>
                 </div>
@@ -72,22 +82,29 @@
             </div>
 
             <div class="bento-card level-section js-tilt">
+
                 <div class="card-header">
                     <i class="ph-fill ph-trophy color-accent"></i>
                     <h3 class="translate-dash" data-en="LOYALTY" data-ar="الولاء">LOYALTY</h3>
                 </div>
                 <div class="level-info">
+
                     <div class="level-number">
                         <span id="calculated-level">0</span>
                         <small class="translate-dash" data-en="Lvl" data-ar="مستوى">Lvl</small>
                     </div>
+
                     <div class="xp-container">
+
                         <div class="xp-header">
                             <span class="xp-text translate-dash" data-en="Progress" data-ar="التقدم">Progress</span>
                             <span class="xp-perc" id="xp-perc-text">0%</span>
                         </div>
+
                         <div class="xp-bar-bg">
+
                             <div class="xp-bar-fill" style="width: 0%"></div>
+
                         </div>
                     </div>
                 </div>
@@ -98,6 +115,7 @@
                     <div class="live-dot"></div>
                     <h3 class="translate-dash" data-en="SERVER STATUS" data-ar="حالة السيرفر">SERVER STATUS</h3>
                 </div>
+
                 <div class="server-stats">
                     <div class="stat-item">
                         <i class="ph-duotone ph-users-three"></i>
@@ -106,6 +124,7 @@
                             <small class="translate-dash" data-en="Online" data-ar="متصل">Online</small>
                         </div>
                     </div>
+
                     <div class="stat-item">
                         <i class="ph-duotone ph-hash"></i>
                         <div>
@@ -117,14 +136,17 @@
             </div>
 
             <div class="bento-card reward-section js-tilt">
+
                 <div class="card-header">
                     <i class="ph-fill ph-gift color-purple"></i>
                     <h3 class="translate-dash" data-en="DAILY LOOT" data-ar="المكافأة">DAILY LOOT</h3>
                 </div>
+
                 <div class="reward-content">
                     <div class="streak-badge">
                         <i class="ph-fill ph-fire"></i> <span id="streak-count">0</span> Day Streak
                     </div>
+
                     <button id="claim-btn" class="claim-button" onclick="claimDaily()">
                         <span class="translate-dash" data-en="CLAIM XP" data-ar="اجمع النقاط">CLAIM XP</span>
                         <i class="ph-bold ph-lightning"></i>
@@ -137,68 +159,37 @@
                     <i class="ph-fill ph-shield-star color-gold"></i>
                     <h3 class="translate-dash" data-en="CLASS" data-ar="الرتبة">CLASS</h3>
                 </div>
+
                 <div class="role-display-large">
                     <h2 id="status" class="scramble-on-load">Member</h2>
                 </div>
             </div>
 
             <div class="bento-card stats-section js-tilt">
+
                 <div class="card-header">
                     <i class="ph-fill ph-calendar-check color-blue"></i>
                     <h3 class="translate-dash" data-en="JOURNEY" data-ar="الرحلة">JOURNEY</h3>
                 </div>
+
                 <div class="stat-content">
                     <h2 id="joined-on">--</h2>
                     <p class="sub-stat translate-dash" data-en="Days Served" data-ar="يوم خدمة">Days Served</p>
+
                 </div>
+
             </div>
 
             <div class="bento-card cta-section js-tilt">
+
                 <div class="cta-content">
                     <h2 class="translate-dash" data-en="Ready to Deploy?" data-ar="جاهز للانطلاق؟">Ready to Deploy?</h2>
                     <a href="https://discord.gg/FBzNjDpMwa" target="_blank" class="discord-btn">
-                        <span class="translate-dash" data-en="JUMP TO DISCORD" data-ar="ادخل الديسكورد">JUMP TO
-                            DISCORD</span>
+                        <span class="translate-dash" data-en="JUMP TO DISCORD" data-ar="ادخل الديسكورد">JUMP TO DISCORD</span>
                         <i class="ph-bold ph-arrow-right"></i>
                     </a>
                 </div>
                 <div class="cta-glow"></div>
-            </div>
-
-            <div class="bento-card achievement-section js-tilt">
-                <div class="card-header">
-                    <i class="ph-fill ph-medal color-gold"></i>
-                    <h3 class="translate-dash" data-en="BADGES & PERKS" data-ar="الأوسمة والميزات">BADGES & PERKS</h3>
-                </div>
-                <div class="badges-container" id="badges-display">
-                </div>
-            </div>
-
-            <div class="bento-card multiplier-section js-tilt">
-                <div class="card-header">
-                    <i class="ph-fill ph-trend-up color-blue"></i>
-                    <h3 class="translate-dash" data-en="XP MULTIPLIER" data-ar="مضاعف النقاط">XP MULTIPLIER</h3>
-                </div>
-                <div class="multiplier-display">
-                    <div class="mult-value">x<span id="xp-multiplier">1.0</span></div>
-                    <p class="sub-stat" id="multiplier-desc">Standard Rate</p>
-                </div>
-            </div>
-            <div class="bento-card activity-section js-tilt">
-                <div class="card-header">
-                    <i class="ph-fill ph-list-bullets color-accent"></i>
-                    <h3 class="translate-dash" data-en="RECENT LOGS" data-ar="السجلات">RECENT LOGS</h3>
-                </div>
-                <div class="activity-list" id="activity-log">
-                    <div class="log-item">
-                        <span class="log-dot"></span>
-                        <p>System Initialized</p>
-                    </div>
-                    <div class="log-item">
-                        <span class="log-dot"></span>
-                        <p>Connection Secured</p>
-                    </div>
-                </div>
             </div>
 
         </div>
@@ -206,21 +197,28 @@
 
     <div id="toast-container"></div>
 
+
+
     <script src="./dashboard.js"></script>
+
     <script>
         // Init Localization
         const langToggle = document.getElementById('lang-toggle-dash');
         const translateElements = document.querySelectorAll('.translate-dash');
-
         function updateLanguage() {
             const lang = langToggle.checked ? 'ar' : 'en';
             document.body.setAttribute('lang', lang);
+
             translateElements.forEach(el => {
+
                 const text = el.getAttribute(`data-${lang}`);
                 if (text) el.innerText = text;
             });
         }
+
         langToggle.addEventListener('change', updateLanguage);
+
     </script>
+
 </body>
 </html>
