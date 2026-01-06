@@ -13,7 +13,7 @@ const ROLE_UI = {
   "Event Lead": { color: "#FFA502", glow: "0 0 25px rgba(255, 165, 2, 0.5)", icon: "ph-unite", ar: "مسؤول الفعاليات" },
   "Levant Booster": { color: "#F47FFF", glow: "0 0 25px rgba(244, 127, 255, 0.5)", icon: "ph-rocket-launch", ar: "داعم السيرفر" },
   "Core Supporter": { color: "#38F484", glow: "0 0 25px rgba(56, 244, 132, 0.5)", icon: "ph-heart-half", ar: "داعم أساسي" },
-  "Ascendant (VIP)": { color: "#F5C542", glow: "0 0 25px rgba(245, 197, 66, 0.5)", icon: "ph-star", ar: "Ascendant" }, // İsmi düzelttim
+  "Ascendant (VIP)": { color: "#F5C542", glow: "0 0 25px rgba(245, 197, 66, 0.5)", icon: "ph-star", ar: "Ascendant" },
   "Content Creator": { color: "#FF0000", glow: "0 0 25px rgba(255, 0, 0, 0.5)", icon: "ph-broadcast", ar: "صانع محتوى" },
   "Musician": { color: "#9B51E0", glow: "0 0 25px rgba(155, 81, 224, 0.5)", icon: "ph-music-notes", ar: "موسيقي" },
   "Member": { color: "#95A5A6", glow: "0 0 15px rgba(149, 165, 166, 0.3)", icon: "ph-user", ar: "عضو" },
