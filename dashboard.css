@@ -859,3 +859,61 @@ body {
         grid-column: span 1;
     }
 }
+
+.multiplier-section {
+    grid-column: span 1;
+    background: linear-gradient(135deg, rgba(56, 244, 132, 0.05) 0%, rgba(20, 20, 23, 0.8) 100%);
+}
+
+.mult-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-family: var(--font-display);
+    color: #38F484;
+    text-shadow: 0 0 20px rgba(56, 244, 132, 0.3);
+}
+
+/* Badge Parlama Efektleri */
+.badge-item {
+    position: relative;
+    cursor: help;
+}
+
+.badge-item.rare {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(245, 197, 66, 0.2);
+}
+
+.badge-item.legendary {
+    border-color: var(--color-purple);
+    animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+    0% { box-shadow: 0 0 5px rgba(244, 127, 255, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(244, 127, 255, 0.5); }
+    100% { box-shadow: 0 0 5px rgba(244, 127, 255, 0.2); }
+}
+
+/* Tooltip for Badges */
+.badge-item::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s;
+    z-index: 10;
+}
+
+.badge-item:hover::after {
+    opacity: 1;
+    bottom: -35px;
+}
