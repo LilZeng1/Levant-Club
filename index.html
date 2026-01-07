@@ -2,239 +2,205 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="title" content="Levant Club | Elite Gaming Hub">
-    <meta name="description" content="Levant Club is a global gaming community. Low ping, high vibes, elite company.">
-    <meta name="robots" content="index, follow">
-    <title>Levant | The Global Hub</title>
+    <meta name="description" content="Levant Club is the endgame. Low ping, high vibes, elite company.">
+    <title>LEVANT | The Endgame</title>
     <link rel="icon" type="image/png" href="./assets/Levant-Logo.png">
     <link rel="stylesheet" href="./Home.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
 
     <div class="noise-overlay"></div>
-    <div class="ambient-light main-glow"></div>
-    <div class="ambient-light secondary-glow"></div>
+    <div class="glow-orb orb-top"></div>
+    <div class="glow-orb orb-bottom"></div>
+    <div class="grid-lines"></div>
 
-    <div id="scroll-alert" class="scroll-alert">
-        <i class="ph-bold ph-arrow-down"></i>
-        <span class="translate" data-en="Stop staring, scroll down!" data-ar="شو ناطر؟ انزل لشوف يا وحش!">Stop staring,
-            scroll down!</span>
-    </div>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="#" class="brand">
+                <img src="./assets/Levant-Logo.png" alt="Levant" class="brand-logo">
+                <span class="brand-text">LEVANT</span>
+            </a>
 
-    <div class="social-top-bar" id="social-bar">
-        <a href="https://instagram.com/lilzeng1" target="_blank" class="social-link">
-            <i class="ph-bold ph-instagram-logo"></i>
-            <span class="translate" data-en="Talk to the CEO @lilzeng1" data-ar="احكي مع البيغ بوس @lilzeng1">Talk to
-                the CEO @lilzeng1</span>
-        </a>
-    </div>
-
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="./assets/Levant-Logo.png" alt="Levant Logo" class="nav-logo-img">
-                <span>Levant</span>
+            <div class="nav-links desktop-only">
+                <a href="#features" class="nav-item translate" data-en="Features" data-ar="المميزات">Features</a>
+                <a href="#community" class="nav-item translate" data-en="Community" data-ar="الجو العام">Community</a>
             </div>
 
             <div class="nav-actions">
-                <div class="lang-switch-wrapper">
-                    <span class="lang-label active" id="btn-en">EN</span>
-                    <label class="switch">
-                        <input type="checkbox" id="lang-toggle">
-                        <span class="slider round"></span>
+                <div class="lang-pill">
+                    <input type="checkbox" id="lang-toggle" class="lang-check">
+                    <label for="lang-toggle" class="lang-slider">
+                        <span class="l-text en">EN</span>
+                        <span class="l-text ar">AR</span>
                     </label>
-                    <span class="lang-label" id="btn-ar">AR</span>
                 </div>
 
-                <a href="https://discord.gg/FBzNjDpMwa" class="nav-btn">
-                    <svg role="img" viewBox="0 0 24 24" xmlns="http://wwww.w3.org/2000/svg" width="20" height="20"
-                        fill="white" style="margin-top: -2px;">
-                        <path
-                            d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.8722.8923.0762.0762 0 00-.0416.1061c.3628.7048.781 1.3751 1.226 1.9941a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z">
-                        </path>
-                    </svg>
-                    <span class="translate" data-en="Enter" data-ar="فوت عالعز">Enter</span>
+                <a href="https://discord.com/oauth2/authorize?client_id=1454693732799611042&response_type=token&redirect_uri=https%3A%2F%2Flilzeng1.github.io%2FLevant%2Fdashboard.html&scope=identify" class="btn-discord desktop-only">
+                    <i class="ph-bold ph-discord-logo"></i>
+                    <span class="translate" data-en="Link ID" data-ar="اربط حسابك">Link ID</span>
                 </a>
 
-                <a class="nav-link-discord" href="https://discord.com/oauth2/authorize?client_id=1454693732799611042&response_type=token&redirect_uri=https%3A%2F%2Flilzeng1.github.io%2FLevant%2Fdashboard.html&scope=identify">
-                    Link Discord
+                <button class="menu-toggle mobile-only" id="mobile-menu-btn">
+                    <i class="ph-bold ph-list"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-links">
+                <a href="#features" class="m-link translate" data-en="Features" data-ar="المميزات">Features</a>
+                <a href="#community" class="m-link translate" data-en="The Vibe" data-ar="الجو العام">The Vibe</a>
+                <div class="separator"></div>
+                <a href="https://discord.com/oauth2/authorize?client_id=1454693732799611042&response_type=token&redirect_uri=https%3A%2F%2Flilzeng1.github.io%2FLevant%2Fdashboard.html&scope=identify" class="m-btn-primary">
+                    <i class="ph-bold ph-discord-logo"></i>
+                    <span class="translate" data-en="Connect Discord" data-ar="اربط ديسكورد">Connect Discord</span>
                 </a>
-
-
             </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content fade-in-up">
-            <div class="logo-wrapper">
-                <img src="./assets/Levant-Logo.png" class="main-logo">
-                <div class="logo-glow"></div>
-                <div class="logo-ring"></div>
+    <header class="hero-section">
+        <div class="hero-container">
+            <div class="status-pill fade-in">
+                <span class="dot"></span>
+                <span class="translate" data-en="System Operational" data-ar="الوضع لوز">System Operational</span>
             </div>
+            
+            <h1 class="hero-title glitch-wrapper">
+                <span class="glitch-text translate" data-en="BUILT DIFFERENT" data-ar="نحنُ الأصل" data-text="BUILT DIFFERENT">BUILT DIFFERENT</span>
+                <br>
+                <span class="gradient-text translate" data-en="PURE CHAOS" data-ar="والباقي تقليد">PURE CHAOS</span>
+            </h1>
 
-            <h1 class="glitch-text" data-text="LEVANT">LEVANT</h1>
-
-            <p class="hero-sub translate" data-en="Lock in. Stop playing with amateurs."
-                data-ar="روق ع حالك، فوت والعب متل البشر.">
-                Lock in. Stop playing with amateurs.
+            <p class="hero-sub translate" 
+               data-en="The global hub for gamers who actually touch grass (sometimes). Low ping, high skill, and absolutely zero boredom."
+               data-ar="المكان الوحيد اللي بيجمع المحترفين والناس الرايقة. بنغ واطي، لعب عالي، وزهق ما في عنا.">
+               The global hub for gamers who actually touch grass (sometimes). Low ping, high skill, and absolutely zero boredom.
             </p>
 
-            <div class="quick-tags">
-                <div class="tag">
-                    <span class="status-dot"></span>
-                    <span class="translate" data-en="Built Different" data-ar="عالمي يا برو">Built Different</span>
-                </div>
-                <div class="tag">
-                    <span class="status-dot"></span>
-                    <span class="translate" data-en="Public Mess" data-ar="للجميع والله">Public Mess</span>
-                </div>
-                <div class="tag">
-                    <span class="status-dot"></span>
-                    <span class="translate" data-en="Pure Chaos" data-ar="نار وشرار">Pure Chaos</span>
-                </div>
+            <div class="hero-buttons">
+                <a href="https://discord.gg/8P4BKYe8" class="btn-primary">
+                    <span class="translate" data-en="Spawn In" data-ar="فوت عالسيرفر">Spawn In</span>
+                    <i class="ph-bold ph-arrow-right"></i>
+                </a>
+                <a href="./dashboard.html" class="btn-secondary">
+                    <i class="ph-bold ph-user-circle"></i>
+                    <span class="translate" data-en="Dashboard" data-ar="بروفايلي">Dashboard</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="floating-ui ui-card-1">
+            <div class="ui-icon"><i class="ph-fill ph-crown"></i></div>
+            <div class="ui-text">
+                <span class="ui-head">Rank #1</span>
+                <span class="ui-sub">Levant Region</span>
+            </div>
+        </div>
+        <div class="floating-ui ui-card-2">
+            <div class="ui-icon"><i class="ph-fill ph-game-controller"></i></div>
+            <div class="ui-text">
+                <span class="ui-head">In Game</span>
+                <span class="ui-sub">Valorant</span>
             </div>
         </div>
     </header>
 
-    <main class="content">
-        <section class="feature-grid" id="cards-container">
+    <main class="main-content" id="features">
+        <div class="section-header">
+            <h2 class="translate" data-en="THE META" data-ar="المضمون">THE META</h2>
+            <div class="line"></div>
+        </div>
 
-            <div class="feature-card reveal-on-scroll">
-                <div class="card-glow"></div>
+        <div class="bento-grid">
+            <div class="bento-card card-large reveal">
+                <div class="card-bg-gradient green"></div>
                 <div class="card-content">
-                    <div class="icon-header">
-                        <i class="ph-fill ph-game-controller"></i>
-                        <span class="card-number">01</span>
-                    </div>
-                    <h3 class="translate" data-en="The Sweat Zone" data-ar="ساحة الوحوش">The Sweat Zone</h3>
-                    <p class="translate"
-                        data-en="Sweating in Ranked or just throwing for fun. No lag, just pure ego and skill."
-                        data-ar="بدك رانكد ولا بس بدك تلطش؟ لاقي الديو تبعك وفوت دعس بلا لاق.">
-                        Sweating in Ranked or just throwing for fun. No lag, just pure ego and skill.
+                    <div class="icon-box"><i class="ph-duotone ph-sword"></i></div>
+                    <h3 class="translate" data-en="The Sweat Zone" data-ar="ساحة المعركة">The Sweat Zone</h3>
+                    <p class="translate" 
+                       data-en="Ranked demons only. No throwing, just pure ego and clip-worthy plays." 
+                       data-ar="للناس اللي بتلعب بقلب ورب. ما عنا تخبيص، يا بتلعب صح يا بلاها.">
+                       Ranked demons only. No throwing, just pure ego and clip-worthy plays.
                     </p>
                 </div>
             </div>
 
-            <div class="feature-card reveal-on-scroll">
-                <div class="card-glow"></div>
+            <div class="bento-card card-medium reveal delay-1">
+                <div class="card-bg-gradient purple"></div>
                 <div class="card-content">
-                    <div class="icon-header">
-                        <i class="ph-fill ph-chats-teardrop"></i>
-                        <span class="card-number">02</span>
-                    </div>
-                    <h3 class="translate" data-en="Vibe Check" data-ar="رواق وفايبرز">Vibe Check</h3>
-                    <p class="translate"
-                        data-en="High-tier memes and late-night lore. The chat stays active even when your brain stops."
-                        data-ar="سوالف نص ليل وميمز بتفرط ضحك. الشات مولع ٢٤ ساعة وما في نفسيات.">
-                        High-tier memes and late-night lore. The chat stays active even when your brain stops.
+                    <div class="icon-box"><i class="ph-duotone ph-chat-circle-text"></i></div>
+                    <h3 class="translate" data-en="Yapping 24/7" data-ar="طق حنك ٢٤/٧">Yapping 24/7</h3>
+                    <p class="translate" 
+                       data-en="Voice channels are never dead. From deep talks to absolute nonsense." 
+                       data-ar="الرومات الصوتية ما بتنام. من نقاشات عميقة لسوالف ما إلها طعمة.">
+                       Voice channels are never dead. From deep talks to absolute nonsense.
                     </p>
                 </div>
             </div>
 
-            <div class="feature-card reveal-on-scroll">
-                <div class="card-glow"></div>
+            <div class="bento-card card-medium reveal delay-2">
+                <div class="card-bg-gradient blue"></div>
                 <div class="card-content">
-                    <div class="icon-header">
-                        <i class="ph-fill ph-globe"></i>
-                        <span class="card-number">03</span>
-                    </div>
-                    <h3 class="translate" data-en="Global Node" data-ar="كلنا هون">Global Node</h3>
-                    <p class="translate"
-                        data-en="Connecting every continent. Different accents, same language: Pure toxicity."
-                        data-ar="جامعين الكل من وين ما كان. شو ما كانت لهجتك، لغتنا وحدة: اللعب.">
-                        Connecting every continent. Different accents, only language that we vibe is: Gaming.
+                    <div class="icon-box"><i class="ph-duotone ph-globe-hemisphere-east"></i></div>
+                    <h3 class="translate" data-en="Global Node" data-ar="كل العالم هون">Global Node</h3>
+                    <p class="translate" 
+                       data-en="Different accents, same language: Gaming. Toxic in a fun way." 
+                       data-ar="من وين ما كنت أهلاً فيك. اختلاف لهجات بس اللغة وحدة: اللعب.">
+                       Different accents, same language: Gaming. Toxic in a fun way.
                     </p>
                 </div>
             </div>
 
-            <div class="feature-card reveal-on-scroll">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <div class="icon-header">
-                        <i class="ph-fill ph-film-strip"></i>
-                        <span class="card-number">04</span>
+            <div class="bento-card card-wide reveal">
+                <div class="card-bg-gradient yellow"></div>
+                <div class="card-content flex-row">
+                    <div class="text-side">
+                        <h3 class="translate" data-en="Movie Nights & Anime" data-ar="سهرات أفلام وأنمي">Movie Nights & Anime</h3>
+                        <p class="translate" 
+                           data-en="Streaming the best (and worst) content known to mankind." 
+                           data-ar="منحضر أرهب وأفشل أفلام بالتاريخ. جيب البزر وتعال.">
+                           Streaming the best (and worst) content known to mankind.
+                        </p>
                     </div>
-                    <h3 class="translate" data-en="Cringe & Chill" data-ar="سهرات رعب وأنمي">Cringe & Chill</h3>
-                    <p class="translate"
-                        data-en="Anime marathons and movie nights that actually hit. High quality, zero boredom."
-                        data-ar="أحلى سهرات أفلام وماراتون أنمي للصبح. جهز بزر لانو السهرة نار.">
-                        Anime marathons and movie nights that actually hit. High quality, zero boredom.
-                    </p>
+                    <div class="visual-side">
+                        <i class="ph-duotone ph-film-strip big-icon"></i>
+                    </div>
                 </div>
             </div>
-
-            <div class="feature-card reveal-on-scroll">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <div class="icon-header">
-                        <i class="ph-fill ph-microphone-stage"></i>
-                        <span class="card-number">05</span>
-                    </div>
-                    <h3 class="translate" data-en="Voice 24/7" data-ar="صويت وجعير">Voice 24/7</h3>
-                    <p class="translate"
-                        data-en="VCs are never empty. Stream your fails or listen to beats while we judge you."
-                        data-ar="الرومات الصوتية ما بتفضى. افتح ستريم، اسمع أغاني، أو بس تعال سولف.">
-                        VCs are never empty. Stream your fails or listen to beats while we judge you.
-                    </p>
-                </div>
-            </div>
-
-            <div class="feature-card reveal-on-scroll">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <div class="icon-header">
-                        <i class="ph-fill ph-ticket"></i>
-                        <span class="card-number">06</span>
-                    </div>
-                    <h3 class="translate" data-en="The Arena" data-ar="تحديات وفعاليات">The Arena</h3>
-                    <p class="translate" data-en="Weekly tournaments and massive giveaways. Win big or go home crying."
-                        data-ar="بطولات أسبوعية وجوائز هبل. ورجينا شطارتك وخود هدايا حقيقية.">
-                        Weekly tournaments and massive giveaways. Win big or go home crying.
-                    </p>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="apply-section reveal-on-scroll">
-            <div class="apply-card">
-                <div class="apply-glow-bg"></div>
-                <h2 class="translate" data-en="Ready to Lock In?" data-ar="جاهز تفوت يا وحش؟">
-                    Ready to Lock In?
-                </h2>
-                <p class="translate" data-en="Stop being a lurker. Click the button and enter the madness."
-                    data-ar="لا استمارات ولا وجع راس. كبسة وحدة وبتكون بنص العجقة.">
-                    Stop being a lurker. Click the button and enter the madness.
-                </p>
-
-                <a href="https://discord.gg/FBzNjDpMwa" class="cta-primary">
-                    <span class="btn-text translate" data-en="Spawn In" data-ar="فوت عالديكسورد">Spawn In</span>
-                    <i class="ph-bold ph-arrow-right"></i>
-                    <svg role="img" viewBox="0 0 24 24" xmlns="http://wwww.w3.org/2000/svg" width="20" height="20"
-                        fill="white" style="margin-top: -2px;">
-                        <path
-                            d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.8722.8923.0762.0762 0 00-.0416.1061c.3628.7048.781 1.3751 1.226 1.9941a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z">
-                        </path>
-                    </svg>
-                </a>
-            </div>
-        </section>
+        </div>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-content">
-            <a href="https://instagram.com/lilzeng1" target="_blank" class="instagram-btn">
-                <span class="ig-icon"><i class="ph-bold ph-instagram-logo"></i></span>
-                <span class="ig-text">@lilzeng1</span>
+    <section class="deployment-zone reveal">
+        <div class="deployment-card">
+            <div class="noise-overlay"></div>
+            <h2 class="translate" data-en="READY TO LOCK IN?" data-ar="جاهز للجد؟">READY TO LOCK IN?</h2>
+            <p class="translate" data-en="Stop lurking. Join the madness." data-ar="حاج تتفرج من بعيد. فوت بالمعمعة.">Stop lurking. Join the madness.</p>
+            <a href="https://discord.gg/8P4BKYe8" class="btn-mega">
+                <span class="translate" data-en="ENTER SERVER" data-ar="دخول السيرفر">ENTER SERVER</span>
             </a>
-            <div class="footer-copy">
-                LEVANT © 2026 — Built by <span class="creator">@lilzeng1</span>
+        </div>
+    </section>
+
+    <footer class="glass-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="./assets/Levant-Logo.png" alt="Levant">
+                <span>LEVANT © 2026</span>
+            </div>
+            <div class="footer-socials">
+                <a href="https://instagram.com/lilzeng1" target="_blank" class="social-btn">
+                    <i class="ph-bold ph-instagram-logo"></i>
+                    <span>@lilzeng1</span>
+                </a>
             </div>
         </div>
     </footer>
