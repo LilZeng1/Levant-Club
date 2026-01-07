@@ -2,131 +2,144 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LEVANT | Elegant Chaos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Levant | The Elite Hub</title>
     <link rel="icon" type="image/png" href="./assets/Levant-Logo.png">
-    <link rel="stylesheet" href="./Home.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./Home.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
 
-    <div class="noise-overlay"></div>
-    <div class="glow-orb orb-pink"></div>
-    <div class="glow-orb orb-purple"></div>
+    <div class="bg-noise"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    <div class="bg-grid-overlay"></div>
 
-    <nav class="glass-nav">
+    <nav class="navbar">
         <div class="nav-content">
-            <a href="#" class="brand">
-                <img src="./assets/Levant-Logo.png" alt="Levant" class="brand-logo">
-                <span class="brand-text">LEVANT <span class="heart">:3</span></span>
+            <a href="index.html" class="nav-brand">
+                <img src="./assets/Levant-Logo.png" alt="Levant" />
+                <span class="brand-text">LEVANT</span>
             </a>
 
-            <div class="nav-links desktop-only">
-                <a href="#vibe" class="nav-item translate" data-en="The Vibe" data-ar="الجو العام">The Vibe</a>
-                <a href="#moments" class="nav-item translate" data-en="Moments" data-ar="لحظاتنا">Moments</a>
-            </div>
-
-            <div class="nav-actions">
-                <div class="lang-pill">
-                    <input type="checkbox" id="lang-toggle" class="lang-check">
-                    <label for="lang-toggle" class="lang-slider">
-                        <span class="l-text en">EN</span>
-                        <span class="l-text ar">AR</span>
+            <div class="nav-right">
+                <div class="lang-switch">
+                    <span class="lang-label">EN</span>
+                    <label class="switch-dash">
+                        <input type="checkbox" id="lang-toggle-dash">
+                        <span class="slider-dash"></span>
                     </label>
+                    <span class="lang-label">AR</span>
                 </div>
-                <a href="https://discord.com/..." class="btn-discord desktop-only">
-                    <i class="ph-bold ph-heart-straight"></i>
-                    <span class="translate" data-en="Join Us" data-ar="انضم إلينا">Join Us</span>
-                </a>
-                <button class="menu-toggle mobile-only" id="mobile-menu-btn">
-                    <i class="ph-bold ph-list"></i>
-                </button>
-            </div>
-        </div>
 
-        <div class="mobile-menu" id="mobile-menu">
-            <div class="mobile-links">
-                <a href="#vibe" class="m-link translate" data-en="The Vibe" data-ar="الجو">The Vibe</a>
-                <a href="https://discord.com/..." class="m-btn-primary">Connect Discord</a>
+                <a href="https://discord.com/oauth2/authorize?client_id=1454693732799611042&response_type=token&redirect_uri=https%3A%2F%2Flilzeng1.github.io%2FLevant%2Fdashboard.html&scope=identify"
+                    class="link-discord-btn">
+                    <i class="ph-bold ph-link"></i>
+                    <span class="translate-dash" data-en="Connect" data-ar="ربط الحساب">Connect</span>
+                </a>
             </div>
         </div>
     </nav>
 
-    <header class="hero-section">
+    <main class="hero-section">
         <div class="hero-container">
-            <div class="status-pill fade-in">
-                <span class="heart-mini">❤</span>
-                <span class="translate" data-en="Always Online, Always Chill" data-ar="دائماً متصلين">Always Online</span>
+            <div class="badge-main reveal">
+                <i class="ph-fill ph-sparkle"></i>
+                <span class="translate-dash" data-en="The Future of Gaming" data-ar="مستقبل الألعاب">The Future of
+                    Gaming</span>
             </div>
-            
-            <h1 class="hero-title">
-                <span class="kawaii-gradient">PURE ELEGANCE</span>
-                <br>
-                <span class="soft-text translate" data-en="ABSOLUTE CHAOS" data-ar="فوضى راقية">ABSOLUTE CHAOS</span>
+
+            <h1 class="hero-title reveal">
+                LEVEL UP <span class="gradient-text">TOGETHER</span>
             </h1>
 
-            <p class="hero-sub translate" 
-               data-en="The second home for the elite yappers, anime lovers, and midnight snackers. We don't just play; we exist together in style."
-               data-ar="بيتنا الثاني للناس الرايقة، محبين الأنمي، وسهرات الأكل. نحن مو بس سيرفر، نحن عيلة بتجنن.">
-               The second home for the elite yappers, anime lovers, and midnight snackers.
+            <p class="hero-desc translate-dash reveal"
+                data-en="A global sanctuary where high-vibes meet elite gameplay. From Valorant clutches to late-night anime marathons, Levant is where you belong."
+                data-ar="ملاذ عالمي حيث تلتقي الأجواء الإيجابية مع اللعب النخبة. من بطولات فالورانت إلى ماراثونات الأنمي الليلية، ليفانت هو مكانك.">
+                A global sanctuary where high-vibes meet elite gameplay. From Valorant clutches to late-night anime
+                marathons, Levant is where you belong.
             </p>
 
-            <div class="hero-buttons">
-                <a href="https://discord.gg/8P4BKYe8" class="btn-primary">
-                    <span class="translate" data-en="Get Invited" data-ar="فوت عبيتك">Get Invited</span>
-                    <i class="ph-bold ph-sparkle"></i>
+            <div class="hero-actions reveal">
+                <a href="https://discord.gg/FBzNjDpMwa" class="btn-primary">
+                    <i class="ph-bold ph-discord-logo"></i>
+                    <span class="translate-dash" data-en="Join the Chaos" data-ar="انضم إلينا">Join the Chaos</span>
                 </a>
-                <a href="./dashboard.html" class="btn-secondary">
-                    <i class="ph-bold ph-user-circle"></i>
-                    <span class="translate" data-en="My Profile" data-ar="بروفايلي">My Profile</span>
-                </a>
+                <div class="online-counter">
+                    <span class="pulse-dot"></span>
+                    <span class="translate-dash" data-en="2,400+ Vibe-checkers" data-ar="+٢٤٠٠ لاعب">2,400+
+                        Vibe-checkers</span>
+                </div>
             </div>
         </div>
-    </header>
 
-    <main class="main-content" id="vibe">
-        <div class="bento-grid">
-            <div class="bento-card card-large reveal">
-                <div class="card-bg-gradient soft-pink"></div>
-                <div class="card-content">
-                    <div class="icon-box bounce"><i class="ph-duotone ph-coffee"></i></div>
-                    <h3 class="translate" data-en="The Lounge" data-ar="المجلس">The Lounge</h3>
-                    <p class="translate" data-en="Where the best recipes are shared and the deepest tea is spilled." data-ar="وين ما بتطلع أرهب الوصفات وأقوى السوالف.">Where the best recipes are shared and the deepest tea is spilled.</p>
-                </div>
+        <div class="bento-grid" id="cards-container">
+            <div class="feature-card js-tilt">
+                <div class="card-icon" style="--icon-color: #10b981;"><i class="ph-duotone ph-sword"></i></div>
+                <h3 class="translate-dash" data-en="Elite Gaming" data-ar="لعب النخبة">Elite Gaming</h3>
+                <p class="translate-dash" data-en="No lag, no toxicity. Just pure skill in Valorant and beyond."
+                    data-ar="بدون تأخير، بدون سمية. فقط مهارة نقية.">No lag, no toxicity. Just pure skill in Valorant
+                    and beyond.</p>
+                <div class="card-glow"></div>
             </div>
 
-            <div class="bento-card card-medium reveal delay-1">
-                <div class="card-bg-gradient soft-purple"></div>
-                <div class="card-content">
-                    <div class="icon-box bounce"><i class="ph-duotone ph-television"></i></div>
-                    <h3 class="translate" data-en="Anime Nights" data-ar="سهرات أنمي">Anime Nights</h3>
-                    <p class="translate" data-en="From Ghibli chill to Shonen hype. Popcorn is mandatory." data-ar="من أفلام جيبلي الرايقة لأكشن الشونين.">From Ghibli chill to Shonen hype.</p>
-                </div>
+            <div class="feature-card js-tilt">
+                <div class="card-icon" style="--icon-color: #f59e0b;"><i class="ph-duotone ph-popcorn"></i></div>
+                <h3 class="translate-dash" data-en="Anime & Chill" data-ar="أنمي ورواق">Anime & Chill</h3>
+                <p class="translate-dash" data-en="Late night streams and movie marathons that actually hit."
+                    data-ar="بثوث ليلية وماراتون أفلام حماسية.">Late night streams and movie marathons that actually
+                    hit.</p>
+                <div class="card-glow"></div>
             </div>
 
-            <div class="bento-card card-medium reveal delay-2">
-                <div class="card-bg-gradient soft-blue"></div>
-                <div class="card-content">
-                    <div class="icon-box bounce"><i class="ph-duotone ph-ghost"></i></div>
-                    <h3 class="translate" data-en="Midnight Memes" data-ar="ميمز نص ليل">Midnight Memes</h3>
-                    <p class="translate" data-en="Absolute chaotic humor that makes no sense at 3 AM." data-ar="ضحك وفوضى ما إلها طعمة بس بتفرط ضحك.">Absolute chaotic humor at 3 AM.</p>
-                </div>
+            <div class="feature-card js-tilt">
+                <div class="card-icon" style="--icon-color: #8b5cf6;"><i class="ph-duotone ph-planet"></i></div>
+                <h3 class="translate-dash" data-en="Global Node" data-ar="عالمي">Global Node</h3>
+                <p class="translate-dash" data-en="Every culture, every background. One language: Gaming."
+                    data-ar="من كل الثقافات. لغتنا واحدة: الألعاب.">Every culture, every background. One language:
+                    Gaming.</p>
+                <div class="card-glow"></div>
             </div>
         </div>
     </main>
 
-    <footer class="glass-footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <img src="./assets/Levant-Logo.png" alt="Levant">
-                <span>LEVANT © 2026 :3</span>
-            </div>
-        </div>
+    <footer class="footer-simple">
+        <p>LEVANT © 2026 | Built by <span class="accent-text">@lilzeng1</span></p>
     </footer>
 
     <script src="./Main.js"></script>
+    <script>
+        // Dashboard Localization Logic (Dashboard.html'den uyarlandı)
+        const langToggle = document.getElementById('lang-toggle-dash');
+        const translateElements = document.querySelectorAll('.translate-dash');
+
+        function updateLanguage() {
+            const lang = langToggle.checked ? 'ar' : 'en';
+            document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.body.classList.toggle('rtl-mode', lang === 'ar');
+
+            translateElements.forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) el.innerText = text;
+            });
+            localStorage.setItem('levant_lang', lang);
+        }
+
+        langToggle.addEventListener('change', updateLanguage);
+
+        // Hover Effect for Cards
+        const cards = document.querySelectorAll(".feature-card");
+        document.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+    </script>
 </body>
 </html>
