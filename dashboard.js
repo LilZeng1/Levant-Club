@@ -142,7 +142,9 @@ async function Main() {
         document.getElementById('calculated-level').innerText = UserStats.level;
         document.querySelector('.xp-bar-fill').style.width = `${UserStats.progress}%`;
         CheckRewardAvailability();
+        
         ApplyRoleUI(Data.roles || []);
+
         setTimeout(() => {
             document.getElementById("loading-screen").style.display = 'none';
             const Dash = document.getElementById("dashboard-content");
@@ -174,10 +176,19 @@ function ApplyRoleUI(UserRoles) {
     const Container = document.getElementById('role-badge-container');
     const IsAr = document.body.classList.contains('rtl-mode');
     if(!Container) return;
-    let PriorityRole = RoleHierarchy.find(R => UserRoles.includes(R.Id));
-    if (!PriorityRole) {
+
+    let PriorityRole = null;
+    for (const Role of RoleHierarchy) {
+        if (UserRoles.includes(Role.Id)) {
+            PriorityRole = Role;
+            break;
+        }
+    }
+
+   if (!PriorityRole) {
         PriorityRole = RoleHierarchy.find(R => R.Name === "Core Supporter");
     }
+
     if (PriorityRole) {
         Container.innerHTML = `
             <div class="role-badge" style="color: ${PriorityRole.Color}; background: ${PriorityRole.Color}20;">
