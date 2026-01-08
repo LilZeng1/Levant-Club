@@ -3,7 +3,7 @@ const clientId = "1454693732799611042";
 const guildId = "1452829028267327511";
 const redirectUri = "https://lilzeng1.github.io/Levant/dashboard.html"; 
 const backendUrl = "https://levant-backend.onrender.com";
-const REWARD_INTERVAL = 6 * 60 * 60 * 1000; // 6 Saat (milisaniye)
+const REWARD_INTERVAL = 6 * 60 * 60 * 1000;
 
 // --- MOUSE GLOW ---
 const cards = document.querySelectorAll(".bento-card");
@@ -17,7 +17,7 @@ document.addEventListener("mousemove", (e) => {
     });
 });
 
-// --- LEVEL UP MODAL (macOS Style) ---
+// Level Up Modal
 function showLevelUp(newLevel) {
     const modal = document.getElementById('levelup-modal');
     const levelNum = document.getElementById('modal-level-num');
@@ -36,7 +36,7 @@ window.closeLevelUp = function() {
     document.getElementById('levelup-modal').classList.remove('active');
 }
 
-// --- CLAIM LOGIC (6 HOURS) ---
+// Claim Logic
 window.claimDaily = function() {
     const btn = document.getElementById('claim-btn');
     const streakEl = document.getElementById('streak-count');
@@ -52,7 +52,7 @@ window.claimDaily = function() {
     
     setTimeout(() => {
         btn.disabled = true;
-        updateClaimButton(REWARD_INTERVAL); // Geri sayımı başlat
+        updateClaimButton(REWARD_INTERVAL);
         
         if(streakEl) streakEl.innerText = streak;
         
@@ -85,7 +85,6 @@ function updateClaimButton(diff) {
         const mins = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
         btn.innerHTML = `<i class="ph-bold ph-clock"></i> ${hours}h ${mins}m`;
         
-        // Zaman dolunca sayfayı yenilemeden butonu açmak için
         setTimeout(() => checkRewardAvailability(), 60000); 
     } else {
         btn.disabled = false;
@@ -103,7 +102,6 @@ function checkRewardAvailability() {
     if (diff < REWARD_INTERVAL) {
         updateClaimButton(diff);
         
-        // 6 saat dolunca bildirim gönder (Sekme açıksa)
         const timeUntilNext = REWARD_INTERVAL - diff;
         setTimeout(() => {
             if (Notification.permission === "granted") {
@@ -113,7 +111,24 @@ function checkRewardAvailability() {
     }
 }
 
-// --- MAIN INIT ---
+function showLevelUp(newLevel) {
+    const modal = document.getElementById('levelup-modal');
+    const levelNum = document.getElementById('modal-level-num');
+    const icon = document.getElementById('new-level-icon');
+
+    if (modal && levelNum) {
+        if (icon) {
+            if(newLevel >= 10) icon.className = "ph-duotone ph-crown-simple";
+            else if(newLevel >= 5) icon.className = "ph-duotone ph-star";
+            else icon.className = "ph-duotone ph-trophy";
+        }
+        
+        levelNum.innerText = newLevel;
+        modal.classList.add('active');
+    }
+}
+
+// Main()
 async function main() {
     const savedLang = localStorage.getItem('levant_lang') || 'en';
     setLang(savedLang);
@@ -173,7 +188,7 @@ async function main() {
     }
 }
 
-// --- HELPERS (Global scope için window'a ekledik) ---
+// HELPERS
 window.setLang = function(lang) {
     localStorage.setItem('levant_lang', lang);
     const isAr = lang === 'ar';
@@ -189,6 +204,7 @@ window.setLang = function(lang) {
     });
 }
 
+// ApplyRoleUI()
 function applyRoleUI(roleName) {
     const config = ROLE_UI[roleName] || ROLE_UI["Member"];
     const container = document.getElementById('role-badge-container');
@@ -201,12 +217,14 @@ function applyRoleUI(roleName) {
     `;
 }
 
+// Define RoleUI []
 const ROLE_UI = {
   "Founder": { color: "#FFD700", icon: "ph-crown", ar: "البيغ بوس" },
   "Moderator": { color: "#FF4757", icon: "ph-shield-check", ar: "مشرف" },
   "Member": { color: "#95A5A6", icon: "ph-user", ar: "واحد منا" }
 };
 
+// showToast()
 function showToast(message) {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
@@ -216,10 +234,12 @@ function showToast(message) {
     setTimeout(() => toast.remove(), 3000);
 }
 
+// calculateLevel()
 function calculateLevel(days) {
     return { level: Math.floor(days / 30), progress: ((days % 30) / 30) * 100 };
 }
 
+// daysAgoCalc()
 function daysAgoCalc(dateString) {
     if (!dateString) return 0;
     const diff = Math.floor((new Date() - new Date(dateString)) / (1000 * 60 * 60 * 24));
