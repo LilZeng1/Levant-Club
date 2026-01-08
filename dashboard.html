@@ -40,12 +40,14 @@
         </a>
         <div class="nav-actions">
             <div class="lang-toggle-wrapper">
-                <button class="lang-btn active" onclick="SetLang('en')" id="btn-en">En</button>
-                <button class="lang-btn" onclick="SetLang('ar')" id="btn-ar">Ar</button>
+                <button class="lang-btn active" onclick="SetLang('en')" id="btn-en">EN</button>
+                <button class="lang-btn" onclick="SetLang('ar')" id="btn-ar">AR</button>
             </div>
-            <button id="logout-btn" class="logout-btn"
-                onclick="sessionStorage.clear(); window.location.href='index.html'"><i
-                    class="ph-bold ph-sign-out"></i></button>
+            <button id="logout-btn" class="logout-btn-styled"
+                onclick="sessionStorage.clear(); window.location.href='index.html'">
+                <i class="ph-bold ph-power"></i>
+                <span>LOGOUT</span>
+            </button>
         </div>
     </nav>
 
