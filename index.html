@@ -3,143 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Levant | The Elite Hub</title>
+    <title>Levant | The Elite Gaming Hub</title>
     <link rel="icon" type="image/png" href="./assets/Levant-Logo.png">
     <link rel="stylesheet" href="./Home.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
 
-    <div class="bg-noise"></div>
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
-    <div class="bg-grid-overlay"></div>
+    <div class="bg-wrapper">
+        <div class="noise-overlay"></div>
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
 
     <nav class="navbar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-brand">
-                <img src="./assets/Levant-Logo.png" alt="Levant" />
-                <span class="brand-text">LEVANT</span>
-            </a>
+        <a href="index.html" class="nav-brand">
+            <img src="./assets/Levant-Logo.png" alt="Levant" />
+            <span class="brand-text">LEVANT</span>
+        </a>
 
-            <div class="nav-right">
-                <div class="lang-switch">
-                    <span class="lang-label">EN</span>
-                    <label class="switch-dash">
-                        <input type="checkbox" id="lang-toggle-dash">
-                        <span class="slider-dash"></span>
-                    </label>
-                    <span class="lang-label">AR</span>
-                </div>
-
-                <a href="https://discord.com/oauth2/authorize?client_id=1454693732799611042&response_type=token&redirect_uri=https%3A%2F%2Flilzeng1.github.io%2FLevant%2Fdashboard.html&scope=identify"
-                    class="link-discord-btn">
-                    <i class="ph-bold ph-link"></i>
-                    <span class="translate-dash" data-en="Connect" data-ar="ربط الحساب">Connect</span>
-                </a>
+        <div class="nav-actions">
+            <div class="lang-toggle-wrapper">
+                <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+                <button class="lang-btn" onclick="setLang('ar')" id="btn-ar">AR</button>
             </div>
+
+            <a href="https://discord.gg/FBzNjDpMwa" class="discord-btn">
+                <i class="ph-bold ph-discord-logo"></i>
+                <span class="translate" data-en="Connect" data-ar="اتصل">Connect</span>
+            </a>
         </div>
     </nav>
 
-    <main class="hero-section">
-        <div class="hero-container">
-            <div class="badge-main reveal">
+    <main>
+        <section class="hero">
+            <div class="hero-tag">
                 <i class="ph-fill ph-sparkle"></i>
-                <span class="translate-dash" data-en="The Future of Gaming" data-ar="مستقبل الألعاب">The Future of
-                    Gaming</span>
+                <span class="translate" data-en="Next Gen Community" data-ar="مجتمع الجيل القادم">Next Gen
+                    Community</span>
             </div>
 
-            <h1 class="hero-title reveal">
-                LEVEL UP <span class="gradient-text">TOGETHER</span>
+            <h1 class="hero-title">
+                WHERE <span class="gradient-text">GAMING</span> COMES ALIVE
             </h1>
 
-            <p class="hero-desc translate-dash reveal"
-                data-en="A global sanctuary where high-vibes meet elite gameplay. From Valorant clutches to late-night anime marathons, Levant is where you belong."
-                data-ar="ملاذ عالمي حيث تلتقي الأجواء الإيجابية مع اللعب النخبة. من بطولات فالورانت إلى ماراثونات الأنمي الليلية، ليفانت هو مكانك.">
-                A global sanctuary where high-vibes meet elite gameplay. From Valorant clutches to late-night anime
-                marathons, Levant is where you belong.
+            <p class="hero-desc translate"
+                data-en="A digital sanctuary for the elite. Valorant clutches, anime marathons, and a vibe that never sleeps. Welcome home."
+                data-ar="ملاذ رقمي للنخبة. بطولات فالورانت، ماراثونات الأنمي، وأجواء لا تنام أبداً. أهلاً بك في منزلك.">
+                A digital sanctuary for the elite. Valorant clutches, anime marathons, and a vibe that never sleeps.
+                Welcome home.
             </p>
+        </section>
 
-            <div class="hero-actions reveal">
-                <a href="https://discord.gg/FBzNjDpMwa" class="btn-primary">
-                    <i class="ph-bold ph-discord-logo"></i>
-                    <span class="translate-dash" data-en="Join the Chaos" data-ar="انضم إلينا">Join the Chaos</span>
-                </a>
-                <div class="online-counter">
-                    <span class="pulse-dot"></span>
-                    <span class="translate-dash" data-en="2,400+ Vibe-checkers" data-ar="+٢٠٠ لاعب">200+
-                        Vibe-checkers</span>
+        <section class="bento-container" id="grid">
+
+            <div class="bento-card span-2 row-2 card-community">
+                <div class="card-icon-lg" style="color: var(--accent-primary);"><i class="ph-duotone ph-planet"></i>
+                </div>
+                <h3 class="translate" data-en="Global Hub" data-ar="مركز عالمي">Global Hub</h3>
+                <p class="translate" data-en="Joining 2,400+ members from across the Middle East and Europe."
+                    data-ar="انضمام أكثر من 2400 عضو من جميع أنحاء الشرق الأوسط وأوروبا.">Joining 2,400+ members from
+                    across the Middle East and Europe.</p>
+                <a href="https://discord.gg/FBzNjDpMwa" class="btn-grid translate" data-en="Join Server"
+                    data-ar="انضم للسيرفر">Join Server</a>
+            </div>
+
+            <div class="bento-card card-stats">
+                <i class="ph-duotone ph-trend-up card-icon-lg"></i>
+                <div>
+                    <h3 class="translate" data-en="Ranked Ready" data-ar="جاهز للتصنيف">Ranked Ready</h3>
+                    <p class="translate" data-en="Daily scrims & grinding." data-ar="مباريات يومية وطحن.">Daily scrims &
+                        grinding.</p>
                 </div>
             </div>
-        </div>
 
-        <div class="bento-grid" id="cards-container">
-            <div class="feature-card js-tilt">
-                <div class="card-icon" style="--icon-color: #10b981;"><i class="ph-duotone ph-sword"></i></div>
-                <h3 class="translate-dash" data-en="Elite Gaming" data-ar="لعب النخبة">Elite Gaming</h3>
-                <p class="translate-dash" data-en="No lag, no toxicity. Just pure skill in Valorant and beyond."
-                    data-ar="بدون تأخير، بدون سمية. فقط مهارة نقية.">No lag, no toxicity. Just pure skill in Valorant
-                    and beyond.</p>
-                <div class="card-glow"></div>
+            <div class="bento-card card-anime">
+                <i class="ph-duotone ph-popcorn card-icon-lg"></i>
+                <div>
+                    <h3 class="translate" data-en="Cinema Nights" data-ar="ليالي السينما">Cinema Nights</h3>
+                    <p class="translate" data-en="Weekly anime streams." data-ar="بثوث أنمي أسبوعية.">Weekly anime
+                        streams.</p>
+                </div>
             </div>
 
-            <div class="feature-card js-tilt">
-                <div class="card-icon" style="--icon-color: #f59e0b;"><i class="ph-duotone ph-popcorn"></i></div>
-                <h3 class="translate-dash" data-en="Anime & Chill" data-ar="أنمي ورواق">Anime & Chill</h3>
-                <p class="translate-dash" data-en="Late night streams and movie marathons that actually hit."
-                    data-ar="بثوث ليلية وماراتون أفلام حماسية.">Late night streams and movie marathons that actually
-                    hit.</p>
-                <div class="card-glow"></div>
+            <div class="bento-card span-2">
+                <i class="ph-duotone ph-microphone-stage card-icon-lg" style="color: #eb459e;"></i>
+                <h3 class="translate" data-en="Crystal Clear Voice" data-ar="صوت نقي جداً">Crystal Clear Voice</h3>
+                <p class="translate" data-en="High bitrate channels for music and chatter."
+                    data-ar="قنوات ذات معدل بت عالي للموسيقى والدردشة.">High bitrate channels for music and chatter.</p>
             </div>
 
-            <div class="feature-card js-tilt">
-                <div class="card-icon" style="--icon-color: #8b5cf6;"><i class="ph-duotone ph-planet"></i></div>
-                <h3 class="translate-dash" data-en="Global Node" data-ar="عالمي">Global Node</h3>
-                <p class="translate-dash" data-en="Every culture, every background. One language: Gaming."
-                    data-ar="من كل الثقافات. لغتنا واحدة: الألعاب.">Every culture, every background. One language:
-                    Gaming.</p>
-                <div class="card-glow"></div>
+            <div class="bento-card">
+                <i class="ph-duotone ph-crown card-icon-lg" style="color: #f59e0b;"></i>
+                <h3 class="translate" data-en="VIP Roles" data-ar="رتب VIP">VIP Roles</h3>
+                <p class="translate" data-en="Earn your status." data-ar="اكسب مكانتك.">Earn your status.</p>
             </div>
-        </div>
+
+            <div class="bento-card">
+                <i class="ph-duotone ph-code card-icon-lg" style="color: #3b82f6;"></i>
+                <h3 class="translate" data-en="Custom Bots" data-ar="بوتات خاصة">Custom Bots</h3>
+                <p class="translate" data-en="Unique economy system." data-ar="نظام اقتصادي فريد.">Unique economy
+                    system.</p>
+            </div>
+
+        </section>
     </main>
 
-    <footer class="footer-simple">
-        <p>LEVANT © 2026 | Built by <span class="accent-text">@lilzeng1</span></p>
+    <footer class="footer">
+        <p>LEVANT © 2026 | Designed with <i class="ph-fill ph-heart" style="color: var(--accent-pink)"></i> by @lilzeng1
+        </p>
     </footer>
 
     <script src="./Main.js"></script>
-    <script>
-        // Dashboard Logic
-        const langToggle = document.getElementById('lang-toggle-dash');
-        const translateElements = document.querySelectorAll('.translate-dash');
-
-        function updateLanguage() {
-            const lang = langToggle.checked ? 'ar' : 'en';
-            document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-            document.body.classList.toggle('rtl-mode', lang === 'ar');
-
-            translateElements.forEach(el => {
-                const text = el.getAttribute(`data-${lang}`);
-                if (text) el.innerText = text;
-            });
-            localStorage.setItem('levant_lang', lang);
-        }
-
-        langToggle.addEventListener('change', updateLanguage);
-
-        // Hover Effect for Cards
-        const cards = document.querySelectorAll(".feature-card");
-        document.addEventListener("mousemove", (e) => {
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
-            });
-        });
-    </script>
 </body>
 </html>
