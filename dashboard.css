@@ -1,333 +1,125 @@
-/* Main Content */
+/* Main Contenr || LayOut */
 .main-content {
     padding-top: 140px;
-    padding-bottom: 40px;
+    padding-bottom: 50px;
     min-height: 100vh;
 }
 
 /* Animations */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    50% {
-        transform: scale(1.1);
-        opacity: 0.8;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
-}
-
 @keyframes spin-slow {
     100% {
         transform: rotate(360deg);
     }
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
     }
 
-    100% {
-        background-position: 200% 0;
+    50% {
+        transform: translateY(-10px);
     }
 }
 
-.pulse {
-    animation: pulse 2s infinite ease-in-out;
+@keyframes textShine {
+    to {
+        background-position: 200% center;
+    }
 }
 
 .spin-slow {
-    animation: spin-slow 10s linear infinite;
+    animation: spin-slow 1s linear infinite;
 }
 
 .bounce {
-    animation: float 2s infinite ease-in-out;
+    animation: float 3s infinite ease-in-out;
 }
 
-.blink-text {
-    animation: pulse 1.5s infinite;
-}
-
-.hover-scale {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.hover-scale:hover {
-    transform: scale(1.05);
-}
-
-/* LogOut Btn */
-.logout-btn {
-    background: rgba(255, 71, 87, 0.1);
-    border: 1px solid rgba(255, 71, 87, 0.3);
-    color: #ff4757;
-    padding: 10px 20px;
-    border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    font-family: var(--font-display);
-}
-
-.logout-btn:hover {
-    background: #ff4757;
-    color: white;
-    box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
-    transform: translateY(-2px);
-}
-
-/* Modern Profile Card */
+/* Profile Card */
 .card-profile-modern {
     padding: 0 !important;
-    display: flex;
-    flex-direction: column;
     overflow: hidden;
-    position: relative;
     background: var(--bg-dark);
 }
 
 .profile-banner {
-    height: 140px;
-    background: linear-gradient(45deg, #5865F2, #eb459e);
-    background-size: cover;
-    background-position: center;
+    height: 120px;
+    background: linear-gradient(45deg, #5865f2, #eb459e);
     width: 100%;
-    position: relative;
-}
-
-.profile-banner::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(to top, var(--bg-dark), transparent);
 }
 
 .profile-content {
-    padding: 20px 30px 30px;
-    margin-top: -60px;
-    position: relative;
-    z-index: 2;
+    padding: 20px 30px;
+    margin-top: -50px;
     display: flex;
     align-items: flex-end;
     gap: 20px;
 }
 
 .profile-avatar-lg {
-    width: 110px;
-    height: 110px;
-    border-radius: 24px;
-    border: 4px solid var(--bg-dark);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    background: #111;
-}
-
-.profile-details {
-    padding-bottom: 5px;
-}
-
-.profile-details h1 {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 800;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Role Badges */
-.role-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 5px;
-    backdrop-filter: blur(5px);
-}
-
-/* Xp Card */
-.card-header-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.card-icon-md {
-    font-size: 2.5rem;
-}
-
-.xp-badge {
-    background: rgba(255, 215, 0, 0.1);
-    color: var(--accent-gold, #ffd700);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.7rem;
-    font-weight: 800;
-}
-
-.level-wrap {
-    display: flex;
-    align-items: baseline;
-    gap: 5px;
-}
-
-.level-val {
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-}
-
-.xp-bar-container {
-    height: 12px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 100px;
+    height: 100px;
     border-radius: 20px;
-    margin-top: 5px;
+    border: 4px solid var(--bg-dark);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Xp Bar */
+.xp-bar-container {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-top: 10px;
     overflow: hidden;
 }
 
 .xp-bar-fill {
     height: 100%;
     background: linear-gradient(90deg, #ffd700, #f59e0b);
-    border-radius: 20px;
-    position: relative;
-    width: 0%;
-    transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: width 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
 }
 
-.xp-bar-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    background-size: 1rem 1rem;
-    animation: shimmer 1s linear infinite;
-}
-
-/* Reward Card */
-.streak-counter {
-    font-size: 1.2rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
+/* Claim Reward Button */
 .claim-btn {
     width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, rgba(235, 69, 158, 0.2), rgba(235, 69, 158, 0.1));
-    border: 1px solid rgba(235, 69, 158, 0.4);
-    color: white;
-    border-radius: 16px;
+    padding: 12px;
+    background: rgba(235, 69, 158, 0.1);
+    border: 1px solid rgba(235, 69, 158, 0.3);
+    color: var(--accent-pink);
+    border-radius: 12px;
     font-weight: 800;
-    font-size: 1rem;
     cursor: pointer;
     transition: 0.3s;
-    position: relative;
-    overflow: hidden;
 }
 
 .claim-btn:hover:not(:disabled) {
     background: var(--accent-pink);
+    color: white;
     transform: scale(1.02);
-    box-shadow: 0 10px 20px rgba(235, 69, 158, 0.3);
 }
 
-/* Discord Card */
-.white-arrow-btn {
-    width: 50px;
-    height: 50px;
-    background: white;
-    color: var(--accent-primary);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    transition: 0.3s;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+.claim-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.white-arrow-btn:hover {
-    transform: rotate(-15deg) scale(1.1);
-}
-
-/* Loading Screen */
-#loading-screen {
-    height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.loader-ring {
-    width: 60px;
-    height: 60px;
-    border: 4px solid rgba(88, 101, 242, 0.2);
-    border-top-color: var(--accent-primary);
-    border-radius: 50%;
-    animation: spin-slow 1s linear infinite;
-    margin-bottom: 25px;
-}
-
-/* Toast */
-#toast-container {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 999;
-}
-
-/* Level Up */
+/* Modal Wrapper */
 .modal-wrapper {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(20px);
-    z-index: 2000;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(25px) saturate(180%);
+    z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s;
+    transition: 0.4s;
 }
 
 .modal-wrapper.active {
@@ -336,32 +128,24 @@
 }
 
 .mac-widget {
-    width: 350px;
-    background: rgba(25, 25, 25, 0.85);
+    width: 340px;
+    background: rgba(30, 30, 30, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
-    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.8);
-    transform: scale(0.9) translateY(20px);
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 20px;
     overflow: hidden;
-}
-
-.modal-wrapper.active .mac-widget {
-    transform: scale(1) translateY(0);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
 }
 
 .mac-header {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px 16px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .traffic-lights {
     display: flex;
     gap: 8px;
-    margin-right: 16px;
 }
 
 .dot {
@@ -371,93 +155,49 @@
 }
 
 .dot.red {
-    background: #FF5F56;
+    background: #ff5f56;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.dot.red:hover {
-    filter: brightness(0.8);
 }
 
 .dot.yellow {
-    background: #FFBD2E;
+    background: #ffbd2e;
 }
 
 .dot.green {
-    background: #27C93F;
-}
-
-.widget-title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.widget-body {
-    padding: 40px 20px;
-    text-align: center;
-    position: relative;
-}
-
-/* Confetti effect */
-.widget-body::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.2), transparent 70%);
-}
-
-.lvl-icon-anim {
-    font-size: 5rem;
-    color: var(--accent-gold);
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
-    animation: float 3s infinite ease-in-out;
+    background: #27c93f;
 }
 
 .levelup-title {
+    font-size: 2.2rem;
     font-family: var(--font-display);
-    font-size: 2.5rem;
-    margin-bottom: 5px;
-    background: linear-gradient(135deg, #fff, #888);
+    animation: textShine 3s infinite linear;
+    background: linear-gradient(to right, #fff, #ffd700, #fff);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.new-level-display {
-    font-size: 4rem;
-    font-weight: 900;
-    font-family: var(--font-display);
-    color: #fff;
-    margin-top: 10px;
-    text-shadow: 0 0 50px var(--accent-gold);
+/* Toast */
+.toast-msg {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    animation: float 0.3s ease;
 }
 
-/* Mobile Responsive */
-@media (max-width: 600px) {
-    .main-content {
-        padding-top: 120px;
-    }
-
+/* Mobile */
+@media (max-width: 500px) {
     .profile-content {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-top: -50px;
     }
 
-    .profile-banner {
-        height: 100px;
-    }
-
-    .card-profile-modern {
-        height: auto !important;
-    }
-
-    .bento-container {
-        gap: 15px;
+    .main-content {
+        padding-top: 110px;
     }
 }
