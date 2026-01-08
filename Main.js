@@ -17,19 +17,18 @@ const btnEn = document.getElementById('btn-en');
 const btnAr = document.getElementById('btn-ar');
 
 function setLang(lang) {
-    // Save preference
     localStorage.setItem('levant_lang', lang);
 
     if(lang === 'ar') {
         document.body.classList.add('rtl-mode');
         document.body.setAttribute('dir', 'rtl');
-        btnAr.classList.add('active');
-        btnEn.classList.remove('active');
+        if(btnAr) btnAr.classList.add('active');
+        if(btnEn) btnEn.classList.remove('active');
     } else {
         document.body.classList.remove('rtl-mode');
         document.body.setAttribute('dir', 'ltr');
-        btnEn.classList.add('active');
-        btnAr.classList.remove('active');
+        if(btnEn) btnEn.classList.add('active');
+        if(btnAr) btnAr.classList.remove('active');
     }
 
     translations.forEach(el => {
@@ -45,14 +44,46 @@ window.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('levant_lang') || 'en';
     setLang(savedLang);
     
-    // Basic Grid Animation
+    // Grid Animation
     const grid = document.getElementById('grid');
-    grid.style.opacity = '0';
-    grid.style.transform = 'translateY(20px)';
-    grid.style.transition = 'all 0.8s ease';
+    if(grid) {
+        grid.style.opacity = '0';
+        grid.style.transform = 'translateY(20px)';
+        grid.style.transition = 'all 0.8s ease';
+        setTimeout(() => {
+            grid.style.opacity = '1';
+            grid.style.transform = 'translateY(0)';
+        }, 300);
+    }
+});
+
+/* Audio Logic (./ChillTunes) */
+const ClickSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3");
+let BgMusic = null;
+let isPlaying = false;
+
+function toggleMusic() {
+    const musicBtn = document.getElementById('music-toggle-btn');
+    if(!BgMusic) {
+        BgMusic = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+        BgMusic.loop = true;
+        BgMusic.volume = 0.2;
+    }
     
-    setTimeout(() => {
-        grid.style.opacity = '1';
-        grid.style.transform = 'translateY(0)';
-    }, 300);
+    if(isPlaying) {
+        BgMusic.pause();
+        musicBtn.innerHTML = '<i class="ph-bold ph-speaker-slash"></i>';
+    } else {
+        BgMusic.play();
+        musicBtn.innerHTML = '<i class="ph-bold ph-speaker-high"></i>';
+    }
+    isPlaying = !isPlaying;
+}
+
+// Mouse Click Sounds
+document.addEventListener('click', (e) => {
+    if(e.target.closest('button') || e.target.closest('a') || e.target.closest('.bento-card')) {
+        ClickSound.currentTime = 0;
+        ClickSound.play();
+    }
 });
