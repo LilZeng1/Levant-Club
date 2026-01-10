@@ -35,7 +35,7 @@ document.addEventListener("mousemove", (E) => {
     });
 });
 
-// Server Stats Fetcher (Offline Fix)
+// Server Stats Fetcher()
 async function FetchServerStats() {
     try {
         const res = await fetch(`https://discord.com/api/guilds/${GuildId}/widget.json`);
@@ -50,8 +50,6 @@ async function FetchServerStats() {
         });
 
         const activeCount = online + idle + dnd;
-        // Discord widget toplamı vermez, senin verdiğin 133 rakamına göre 
-        // toplamı yaklaşık 150 kabul ediyoruz.
         const totalMembers = 150; 
         const offline = Math.max(0, totalMembers - activeCount);
 
@@ -80,6 +78,7 @@ window.SwitchLeaderboard = function(Type) {
     RenderLeaderboard(Type);
 }
 
+// RenderLeaderboard()
 function RenderLeaderboard(Type) {
     const Container = document.getElementById('leaderboard-list');
     if(!Container) return;
@@ -148,15 +147,18 @@ async function Main() {
     }
 }
 
+// DaysAgoCalc()
 function DaysAgoCalc(DateString) {
     if (!DateString) return 0;
     return Math.floor((new Date() - new Date(DateString)) / (1000 * 60 * 60 * 24));
 }
 
+// CalculateLevel()
 function CalculateLevel(Days) {
     return { level: Math.floor(Days / 30), progress: ((Days % 30) / 30) * 100 };
 }
 
+// ApplyRoleUI()
 function ApplyRoleUI(RoleName) {
     const Container = document.getElementById('role-badge-container');
     const IsAr = document.body.classList.contains('rtl-mode');
