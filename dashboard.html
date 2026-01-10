@@ -60,6 +60,7 @@
         </div>
 
         <div id="dashboard-content" class="bento-container hidden" style="display: none;">
+            
             <div class="bento-card span-2 row-2 card-profile-modern">
                 <div class="profile-banner" id="user-banner"></div>
                 <div class="profile-content">
@@ -89,16 +90,73 @@
                 <button id="claim-btn" class="claim-btn" onclick="ClaimDaily()">Claim Reward</button>
             </div>
 
-            <div class="bento-card text-center">
-                <i class="ph-duotone ph-users-three" style="font-size: 2rem; color: #23a559;"></i>
-                <h3 id="server-online-count">Online</h3>
-                <p>Status</p>
+            <div class="bento-card span-2" style="display: flex; flex-direction: column; justify-content: center;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <i class="ph-duotone ph-broadcast" style="font-size: 1.5rem; color: #fff;"></i>
+                    <h3 class="translate" data-en="Server Status" data-ar="حالة الخادم" style="margin:0;">Server Status</h3>
+                </div>
+                
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="mac-dot green pulse"></div>
+                        <span id="status-online">--</span>
+                        <span class="status-label translate" data-en="Online" data-ar="متصل">Online</span>
+                    </div>
+                    <div class="status-item">
+                        <div class="mac-dot yellow"></div>
+                        <span id="status-idle">--</span>
+                        <span class="status-label translate" data-en="Idle" data-ar="خامل">Idle</span>
+                    </div>
+                    <div class="status-item">
+                        <div class="mac-dot red"></div>
+                        <span id="status-dnd">--</span>
+                        <span class="status-label translate" data-en="Busy" data-ar="مشغول">Busy</span>
+                    </div>
+                    <div class="status-item">
+                        <div class="mac-dot gray"></div>
+                        <span id="status-offline">--</span>
+                        <span class="status-label translate" data-en="Offline" data-ar="غير متصل">Offline</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card span-2">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0;" class="translate" data-en="Top Contributors" data-ar="أفضل المساهمين">Top Contributors</h3>
+                    <i class="ph-duotone ph-chart-bar" style="color: #54a0ff; font-size: 1.5rem;"></i>
+                </div>
+                <div class="leaderboard-list">
+                    <div class="lb-row">
+                        <div class="lb-rank">#1</div>
+                        <div class="lb-user">
+                            <div class="lb-avatar" style="background-image: url('https://cdn.discordapp.com/embed/avatars/0.png');"></div>
+                            <span>SarahAgent</span>
+                        </div>
+                        <div class="lb-xp">Lvl 12</div>
+                    </div>
+                    <div class="lb-row">
+                        <div class="lb-rank">#2</div>
+                        <div class="lb-user">
+                            <div class="lb-avatar" style="background-image: url('https://cdn.discordapp.com/embed/avatars/1.png');"></div>
+                            <span>GhostProtocol</span>
+                        </div>
+                        <div class="lb-xp">Lvl 9</div>
+                    </div>
+                     <div class="lb-row">
+                        <div class="lb-rank">#3</div>
+                        <div class="lb-user">
+                            <div class="lb-avatar" style="background-image: url('https://cdn.discordapp.com/embed/avatars/2.png');"></div>
+                            <span>ViperMain</span>
+                        </div>
+                        <div class="lb-xp">Lvl 7</div>
+                    </div>
+                </div>
             </div>
 
             <div class="bento-card text-center">
                 <i class="ph-duotone ph-hourglass" style="font-size: 2rem; color: #5865f2;"></i>
                 <h3 id="joined-on">0</h3>
-                <p>Days Joined</p>
+                <p class="translate" data-en="Days Joined" data-ar="أيام الانضمام">Days Joined</p>
             </div>
         </div>
     </main>
