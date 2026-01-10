@@ -178,7 +178,7 @@ async function LoadLeaderboard() {
 
 // Main()
 async function Main() {
-    const Params = new URLSearchParams(window.location.hash.substring(1));
+    const Params = new URLSearchParams(window.location.search || window.location.hash.substring(1));
     const Token = Params.get('access_token');
 
     if (!Token) {
