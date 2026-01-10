@@ -1,96 +1,42 @@
-// LoFiMusicTracks
-const LoFiMusicTracks = [
-    "./ChillTunes/lofi-chill-track-1.mp3"
-];
+const ChillMusic = new Audio('./ChillTunes/lofi-chill-track-1.mp3');
+const ClickSound = new Audio('./ChillTunes/click-sound-1.mp3');
+ChillMusic.loop = true;
+let IsMuted = false;
 
-// Non-Copyright Mouse Click Sounds
-const MouseClickSounds = [
-    "./ChillTunes/click-sound-1.mp3"
-];
+function PlayMusic() {
+    ChillMusic.play().catch(() => {});
+}
 
-let BackgroundMusic = null;
-let IsMusicPlaying = false;
-let CurrentTrackIndex = 0;
-const ClickSound = new Audio();
-
-document.addEventListener('DOMContentLoaded', () => {
-    const MusicToggleButton = document.getElementById('music-toggle-btn');
-    if (!MusicToggleButton) return;
-
-    const SavedMusicState = localStorage.getItem('isMusicPlaying');
-    if (SavedMusicState === 'true') {
-        InitializeAndPlayMusic();
+function ToggleMusic() {
+    const Btn = document.getElementById('music-toggle-btn');
+    const Icon = Btn.querySelector('i');
+    if (ChillMusic.paused) {
+        ChillMusic.play().catch(() => {});
+        Icon.className = "ph-bold ph-speaker-high";
+        Btn.classList.remove('muted');
     } else {
-        MusicToggleButton.classList.add('muted');
-        MusicToggleButton.innerHTML = '<i class="ph-bold ph-speaker-slash"></i>';
+        ChillMusic.pause();
+        Icon.className = "ph-bold ph-speaker-slash";
+        Btn.classList.add('muted');
     }
+}
 
-    MusicToggleButton.addEventListener('click', () => {
-        if (IsMusicPlaying) {
-            PauseMusic();
-        } else {
-            InitializeAndPlayMusic();
-        }
-    });
+function PlayClick() {
+    ClickSound.currentTime = 0;
+    ClickSound.play().catch(() => {});
+}
 
-    document.querySelectorAll('button, a.discord-btn, .bento-card').forEach(Element => {
-        Element.addEventListener('click', (Event) => {
-            if (Event.target.tagName === 'BUTTON' || Event.target.tagName === 'A') {
-                PlayClickSound();
-            } else if (Event.target.closest('.bento-card')) {
-                PlayClickSound();
-            }
-        });
-    });
-
-    document.body.addEventListener('click', HandleUserInteraction, { once: true });
-    document.body.addEventListener('keydown', HandleUserInteraction, { once: true });
+document.addEventListener('click', () => {
+    if (ChillMusic.paused && !IsMuted) {
+        PlayMusic();
+    }
+    PlayClick();
 });
 
-function HandleUserInteraction() {
-    if (localStorage.getItem('isMusicPlaying') === 'true') {
-        InitializeAndPlayMusic();
-    }
-}
-
-function InitializeAndPlayMusic() {
-    const MusicToggleButton = document.getElementById('music-toggle-btn');
-
-    if (!BackgroundMusic) {
-        BackgroundMusic = new Audio(LoFiMusicTracks[0]);
-        BackgroundMusic.loop = true;
-        BackgroundMusic.volume = 0.3;
-    }
-
-    BackgroundMusic.play().then(() => {
-        IsMusicPlaying = true;
-        localStorage.setItem('isMusicPlaying', 'true');
-        MusicToggleButton.classList.remove('muted');
-        MusicToggleButton.innerHTML = '<i class="ph-bold ph-speaker-high"></i>';
-    }).catch(error => {
-        console.warn("Müzik otomatik başlatılamadı:", error);
-        IsMusicPlaying = false;
-        localStorage.setItem('isMusicPlaying', 'false');
-        MusicToggleButton.classList.add('muted');
-        MusicToggleButton.innerHTML = '<i class="ph-bold ph-speaker-slash"></i>';
-    });
-}
-
-function PauseMusic() {
-    const MusicToggleButton = document.getElementById('music-toggle-btn');
-    if (BackgroundMusic) {
-        BackgroundMusic.pause();
-    }
-    IsMusicPlaying = false;
-    localStorage.setItem('isMusicPlaying', 'false');
-    MusicToggleButton.classList.add('muted');
-    MusicToggleButton.innerHTML = '<i class="ph-bold ph-speaker-slash"></i>';
-}
-
-function PlayClickSound() {
-    if (ClickSound) {
-        ClickSound.pause();
-        ClickSound.currentTime = 0;
-        ClickSound.play().catch(err => console.warn("Ses çalma engellendi:", err));
-    }
+const MusicBtn = document.getElementById('music-toggle-btn');
+if (MusicBtn) {
+    MusicBtn.onclick = (e) => {
+        e.stopPropagation();
+        ToggleMusic();
+    };
 }
