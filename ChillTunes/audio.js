@@ -1,3 +1,4 @@
+
 // LoFiMusicTracks
 const LoFiMusicTracks = [
     "./ChillTunes/lofi-chill-track-1.mp3"
@@ -88,8 +89,9 @@ function PauseMusic() {
 }
 
 function PlayClickSound() {
-    ClickSound.src = MouseClickSounds[0];
-    ClickSound.volume = 0.4;
-    ClickSound.currentTime = 0;
-    ClickSound.play().catch(e => console.log("Click sesi çalınamadı:", e));
+    if (ClickSound) {
+        ClickSound.pause();
+        ClickSound.currentTime = 0;
+        ClickSound.play().catch(err => console.warn("Ses çalma engellendi:", err));
+    }
 }
