@@ -152,23 +152,29 @@ window.SwitchLeaderboard = function(type) {
 
 // LoadLeaderBoard()
 async function LoadLeaderboard() {
-    const list = document.getElementById("leaderboard-list");
+    const List = document.getElementById("leaderboard-list");
+    List.classList.add('loading');
+    List.innerHTML = `<i class="ph-bold ph-spinner-gap spin-slow" style="font-size: 2rem;"></i>`;
+    
     try {
-        const res = await fetch(`${BackendUrl}/leaderboard`);
-        const data = await res.json();
+        const Res = await fetch(`${BackendUrl}/leaderboard`);
+        const Data = await Res.json();
         
-        list.innerHTML = data.map(user => `
+        List.classList.remove('loading');
+        List.innerHTML = Data.map(User => `
             <div class="lb-row">
-                <span class="rank-${user.rank}">${user.rank}</span>
+                <span class="rank-${User.rank}">${User.rank}</span>
                 <div class="lb-agent-info">
-                    <img src="${user.avatar}" alt="">
-                    <span>${user.name}</span>
+                    <img src="${User.avatar}" alt="${User.name}">
+                    <span>${User.name}</span>
                 </div>
-                <span>${user.msgs}</span>
-                <span style="opacity: 0.6">${user.voice}</span>
+                <span>${User.msgs}</span>
+                <span style="opacity: 0.6">${User.voice}</span>
             </div>
         `).join('');
-    } catch (e) { list.innerText = "Error loading data..."; }
+    } catch (E) {
+        List.innerText = "Error Syncing...";
+    }
 }
 
 
@@ -189,35 +195,31 @@ async function Main() {
     }
     try {
         const InfoRes = await fetch(`${BackendUrl}/userinfo`, {
-            method: "POST", 
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ access_token: Token })
         });
-        if (!InfoRes.ok) throw new Error("Auth Failed");
         const Data = await InfoRes.json();
-        document.getElementById("user-display-name").innerText = Data.username || "Agent";
-        document.getElementById("user-avatar").src = Data.avatar 
-            ? `https://cdn.discordapp.com/avatars/${Data.id}/${Data.avatar}.png?size=256` 
-            : "https://placehold.co/120/101010/FFF";
-        if(Data.banner_color) document.getElementById("user-banner").style.background = Data.banner_color;
-        const DaysJoined = DaysAgoCalc(Data.joinedAt);
-        document.getElementById("joined-on").innerText = DaysJoined;
-        const UserStats = CalculateLevel(DaysJoined);
-        document.getElementById('calculated-level').innerText = UserStats.level;
-        document.querySelector('.xp-bar-fill').style.width = `${UserStats.progress}%`;
-        CheckRewardAvailability();
         
-        ApplyRoleUI(Data.role || "Member");
+        // UI Updates
+        document.getElementById("user-display-name").innerText = Data.global_name || Data.username;
+        document.getElementById("user-avatar").src = `https://cdn.discordapp.com/avatars/${Data.id}/${Data.avatar}.png?size=256`;
+        
+        // Logic for real date
+        const JoinedDate = new Date(Data.joinedAt);
+        const DiffTime = Math.abs(new Date() - JoinedDate);
+        const DiffDays = Math.ceil(DiffTime / (1000 * 60 * 60 * 24));
+        document.getElementById("joined-on").innerText = DiffDays;
 
-        setTimeout(() => {
-            document.getElementById("loading-screen").style.display = 'none';
-            const Dash = document.getElementById("dashboard-content");
-            Dash.style.display = 'grid';
-            Dash.classList.remove("hidden");
-        }, 1200);
-    } catch (E) {
-        sessionStorage.removeItem("discord_token");
-        window.location.href = "index.html";
+        LoadLeaderboard();
+        FetchServerStats();
+        
+        // Hide Loader
+        document.getElementById("loading-screen").style.opacity = "0";
+        setTimeout(() => document.getElementById("loading-screen").remove(), 500);
+        
+    } catch (Err) {
+        console.error("Session Expired");
     }
 }
 
