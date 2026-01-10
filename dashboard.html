@@ -124,7 +124,12 @@
             <div class="bento-card span-2 leaderboard-card">
                 <div class="lb-header">
                     <div class="lb-title">
-                        <h3 class="translate" data-en="Active Agents" data-ar="العملاء النشطين">Active Agents</h3>
+                        <div class="lb-title-wrapper">
+                            <div class="lb-icon-box">
+                                <i class="ph-duotone ph-users-four"></i>
+                            </div>
+                            <h3 class="translate" data-en="Active Agents" data-ar="العملاء النشطين">Active Agents</h3>
+                        </div>
                         <div class="lb-tabs">
                             <button id="tab-weekly" class="active" onclick="SwitchLeaderboard('weekly')">Weekly</button>
                             <button id="tab-alltime" onclick="SwitchLeaderboard('alltime')">All Time</button>
@@ -144,9 +149,9 @@
                 </div>
             </div>
 
-            <div class="bento-card text-center">
+            <div class="bento-card text-center days-joined-card">
                 <i class="ph-duotone ph-hourglass" style="font-size: 2rem; color: #5865f2;"></i>
-                <h3 id="joined-on">0</h3>
+                <h3 id="joined-on" style="font-size: 3rem; font-weight: 900; margin: 5px 0;">0</h3>
                 <p class="translate" data-en="Days Joined" data-ar="أيام الانضمام">Days Joined</p>
             </div>
         </div>
