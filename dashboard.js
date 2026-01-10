@@ -35,6 +35,87 @@ document.addEventListener("mousemove", (E) => {
     });
 });
 
+function ShowLevelUp(NewLevel) {
+    const Modal = document.getElementById('levelup-modal');
+    const LevelNum = document.getElementById('modal-level-num');
+    const Icon = document.getElementById('new-level-icon');
+    if (Modal && LevelNum) {
+        if (Icon) {
+            if(NewLevel >= 10) Icon.className = "ph-duotone ph-crown-simple";
+            else if(NewLevel >= 5) Icon.className = "ph-duotone ph-star";
+            else Icon.className = "ph-duotone ph-trophy";
+        }
+        LevelNum.innerText = NewLevel;
+        Modal.classList.add('active');
+    }
+}
+
+window.CloseLevelUp = function() {
+    const Modal = document.getElementById('levelup-modal');
+    if(Modal) Modal.classList.remove('active');
+}
+
+window.ClaimDaily = function() {
+    const Btn = document.getElementById('claim-btn');
+    const StreakEl = document.getElementById('streak-count');
+    const Now = new Date().getTime();
+    let Streak = parseInt(localStorage.getItem('streak') || '0');
+    const IsAr = document.body.classList.contains('rtl-mode');
+    Streak++;
+    localStorage.setItem('streak', Streak);
+    localStorage.setItem('lastClaimDate', Now);
+    Btn.innerHTML = `<i class="ph-bold ph-spinner spin-slow"></i>`;
+    setTimeout(() => {
+        Btn.disabled = true;
+        UpdateClaimButton(0);
+        if(StreakEl) StreakEl.innerText = Streak;
+        const Bar = document.querySelector('.xp-bar-fill');
+        if(Bar) Bar.style.width = "100%";
+        const CurrentLvl = parseInt(document.getElementById('calculated-level').innerText);
+        if(CurrentLvl === 0) {
+            document.getElementById('calculated-level').innerText = "2";
+            setTimeout(() => ShowLevelUp(2), 800);
+        } else {
+             ShowToast(IsAr ? "تم إضافة نقاط الخبرة!" : "+200 XP Added!");
+        }
+        if ("Notification" in window && Notification.permission === "default") {
+            Notification.requestPermission();
+        }
+    }, 1000);
+}
+
+function UpdateClaimButton(Elapsed) {
+    const Btn = document.getElementById('claim-btn');
+    const IsAr = document.body.classList.contains('rtl-mode');
+    const RemainingMs = RewardInterval - Elapsed;
+    if (RemainingMs > 0) {
+        Btn.disabled = true;
+        const Hours = Math.floor(RemainingMs / (1000 * 60 * 60));
+        const Mins = Math.floor((RemainingMs % (1000 * 60 * 60)) / (1000 * 60));
+        Btn.innerHTML = `<i class="ph-bold ph-clock"></i> ${Hours}h ${Mins}m`;
+        setTimeout(() => CheckRewardAvailability(), 60000); 
+    } else {
+        Btn.disabled = false;
+        Btn.innerHTML = IsAr ? "اجمع المكافأة" : "CLAIM REWARD";
+    }
+}
+
+function CheckRewardAvailability() {
+    const LastClaim = localStorage.getItem('lastClaimDate');
+    if (!LastClaim) return;
+    const Now = new Date().getTime();
+    const Diff = Now - parseInt(LastClaim);
+    if (Diff < RewardInterval) {
+        UpdateClaimButton(Diff);
+        const TimeUntilNext = RewardInterval - Diff;
+        setTimeout(() => {
+            if (Notification.permission === "granted") {
+                new Notification("LEVANT", { body: "Rewards Ready!", icon: "./assets/Levant-Logo.png" });
+            }
+        }, TimeUntilNext);
+    }
+}
+
 // Server Stats Fetcher()
 async function FetchServerStats() {
     try {
