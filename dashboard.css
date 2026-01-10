@@ -283,8 +283,6 @@
     }
 }
 
-/* --- NEW STYLES: SERVER STATUS & LEADERBOARD --- */
-
 /* Server Status Grid */
 .status-grid {
     display: grid;
@@ -364,118 +362,56 @@
 }
 
 /* Leaderboard & Tabs */
-.leaderboard-card {
+.lb-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lb-icon-box {
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 210, 211, 0.1);
+    border: 1px solid rgba(0, 210, 211, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00d2d3;
+    font-size: 1.5rem;
+    box-shadow: 0 0 15px rgba(0, 210, 211, 0.2);
+}
+
+.days-joined-card {
+    max-height: 180px;
     display: flex;
     flex-direction: column;
-    min-height: 400px;
-}
-
-.lb-header {
-    margin-bottom: 20px;
-}
-
-.lb-title {
-    display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
 }
 
-.lb-tabs {
-    display: flex;
-    background: rgba(255,255,255,0.05);
-    padding: 4px;
-    border-radius: 10px;
+@media (min-width: 1024px) {
+    .days-joined-card h3 {
+        font-size: 2.5rem !important;
+    }
 }
 
-.lb-tabs button {
-    background: none;
-    border: none;
-    color: #8e9297;
-    padding: 6px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: 0.3s;
-}
-
-.lb-tabs button.active {
-    background: var(--accent);
-    color: white;
-}
-
-.lb-scroll-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    padding-bottom: 10px;
-}
-
-.lb-table-header, .lb-row {
-    display: grid;
-    grid-template-columns: 40px 1fr 60px 60px;
-    align-items: center;
-    min-width: 350px; 
-    padding: 10px 0;
-}
-
-.lb-table-header {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    font-size: 0.75rem;
-    color: #8e9297;
-    text-transform: uppercase;
-}
-
-.lb-row {
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-    transition: 0.2s;
-}
-
-.lb-row:hover {
-    background: rgba(255,255,255,0.02);
-}
-
-.lb-rank { font-weight: bold; font-size: 0.9rem; }
-
-.lb-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.lb-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    background-size: cover;
-    background-position: center;
-}
-
-.lb-name {
-    font-size: 0.85rem;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.lb-stat {
-    text-align: right;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.lb-stat.sub {
-    color: var(--accent);
-}
-
-/* Scrollbar Styling */
+/* Scrollbar Fix */
 .lb-scroll-wrapper::-webkit-scrollbar {
     height: 4px;
 }
 .lb-scroll-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.1);
+    background: rgba(0, 210, 211, 0.3);
     border-radius: 10px;
+}
+
+/* Toast Animation */
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+.toast-msg {
+    animation: slideIn 0.3s ease forwards;
 }
 
 @media (max-width: 600px) {
