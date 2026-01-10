@@ -5,7 +5,7 @@
     min-height: 100vh;
 }
 
-/* --- RTL FIX FOR NAVBAR --- */
+/* Navbar */
 .navbar {
     direction: ltr !important;
 }
@@ -364,100 +364,118 @@
 }
 
 /* Leaderboard & Tabs */
-.lb-tabs {
-    display: flex;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 3px;
-    border-radius: 8px;
-    gap: 5px;
-}
-
-.lb-tab {
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.lb-tab.active {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.leaderboard-header {
-    display: flex;
-    padding: 0 12px;
-    margin-bottom: 8px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    opacity: 0.5;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.leaderboard-list {
+.leaderboard-card {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    min-height: 400px;
+}
+
+.lb-header {
+    margin-bottom: 20px;
+}
+
+.lb-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.lb-tabs {
+    display: flex;
+    background: rgba(255,255,255,0.05);
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.lb-tabs button {
+    background: none;
+    border: none;
+    color: #8e9297;
+    padding: 6px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.lb-tabs button.active {
+    background: var(--accent);
+    color: white;
+}
+
+.lb-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.lb-table-header, .lb-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 60px 60px;
+    align-items: center;
+    min-width: 350px; 
+    padding: 10px 0;
+}
+
+.lb-table-header {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.75rem;
+    color: #8e9297;
+    text-transform: uppercase;
 }
 
 .lb-row {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 10px 12px;
-    border-radius: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
     transition: 0.2s;
-    border: 1px solid transparent;
 }
 
 .lb-row:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateX(5px);
+    background: rgba(255,255,255,0.02);
 }
 
-.lb-rank {
-    font-weight: 900;
-    color: #ffd700;
-    width: 30px;
-    font-size: 0.9rem;
-}
+.lb-rank { font-weight: bold; font-size: 0.9rem; }
 
 .lb-user {
-    flex-grow: 1;
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-weight: 600;
-    font-size: 0.9rem;
+    gap: 10px;
 }
 
 .lb-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     background-size: cover;
     background-position: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.lb-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .lb-stat {
-    width: 80px;
     text-align: right;
     font-size: 0.85rem;
-    color: #fff;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .lb-stat.sub {
-    color: #54a0ff;
+    color: var(--accent);
+}
+
+/* Scrollbar Styling */
+.lb-scroll-wrapper::-webkit-scrollbar {
+    height: 4px;
+}
+.lb-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
 }
 
 @media (max-width: 600px) {
