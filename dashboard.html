@@ -20,14 +20,17 @@
     <nav class="sidebar">
         <div>
             <a href="index.html" class="brand">
-                <img src="./assets/Levant-Logo.png" alt="Levant">
+                <img src="./assets/Levant-Logo.png" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'"
+                    alt="Levant">
                 <span>LEVANT</span>
             </a>
             <ul class="nav-links">
-                <li class="nav-item active"><i class="ph-bold ph-squares-four"></i> Dashboard</li>
-                <li class="nav-item"><i class="ph-bold ph-chart-bar"></i> Leaderboard</li>
-                <li class="nav-item"><i class="ph-bold ph-users"></i> Members</li>
-                <li class="nav-item"><i class="ph-bold ph-gear"></i> Settings</li>
+                <li class="nav-item active" onclick="switchTab('dashboard', this)"><i
+                        class="ph-bold ph-squares-four"></i> Dashboard</li>
+                <li class="nav-item" onclick="switchTab('members', this)"><i class="ph-bold ph-users"></i> Members</li>
+                <li class="nav-item" onclick="switchTab('leaderboard', this)"><i class="ph-bold ph-chart-bar"></i>
+                    Leaderboard</li>
+                <li class="nav-item" onclick="switchTab('settings', this)"><i class="ph-bold ph-gear"></i> Settings</li>
             </ul>
         </div>
 
@@ -42,58 +45,102 @@
     </nav>
 
     <div class="main-wrapper">
-        <div class="announcement-bar">
-            <span><i class="ph-fill ph-confetti"></i> Welcome to the new Levant Command Center v2.0</span>
-        </div>
 
-        <div class="content-container">
-            <h2 class="page-title">Overview</h2>
-
-            <div class="bento-grid">
-
-                <div class="card profile-card">
-                    <div class="mac-header">
-                        <div class="dot red"></div>
-                        <div class="dot yellow"></div>
-                        <div class="dot green"></div>
-                        <span class="header-text">IDENTITY</span>
-                    </div>
-                    <div class="profile-content">
-                        <img id="user-avatar" src="" class="avatar-lg">
-                        <div class="profile-text">
-                            <h1 id="user-display-name">Loading...</h1>
-                            <span class="badge">Core Member</span>
+        <div id="view-dashboard" class="content-view">
+            <div class="content-container">
+                <h2 class="page-title">Overview</h2>
+                <div class="bento-grid">
+                    <div class="card profile-card">
+                        <div class="mac-header">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                            <span class="header-text">IDENTITY</span>
                         </div>
+                        <div class="profile-content">
+                            <img id="user-avatar" src="" class="avatar-lg">
+                            <div class="profile-text">
+                                <h1 id="user-display-name">Loading...</h1>
+                                <span class="badge">Core Member</span>
+                            </div>
+                        </div>
+                        <i class="ph-duotone ph-fingerprint card-bg-icon"></i>
                     </div>
-                    <i class="ph-duotone ph-fingerprint card-bg-icon"></i>
-                </div>
 
-                <div class="card stat-card">
-                    <div class="mac-header">
-                        <div class="dot red"></div>
-                        <div class="dot yellow"></div>
-                        <div class="dot green"></div>
-                        <span class="header-text">RANK</span>
+                    <div class="card stat-card">
+                        <div class="mac-header">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                            <span class="header-text">RANK</span>
+                        </div>
+                        <span id="calculated-level" class="stat-value">0</span>
+                        <span class="stat-label">Current Level</span>
+                        <i class="ph-duotone ph-crown card-bg-icon" style="font-size: 8rem;"></i>
                     </div>
-                    <span id="calculated-level" class="stat-value">0</span>
-                    <span class="stat-label">Current Level</span>
-                    <i class="ph-duotone ph-crown card-bg-icon" style="font-size: 8rem;"></i>
-                </div>
 
-                <div class="card stat-card">
-                    <div class="mac-header">
-                        <div class="dot red"></div>
-                        <div class="dot yellow"></div>
-                        <div class="dot green"></div>
-                        <span class="header-text">LOYALTY</span>
+                    <div class="card stat-card">
+                        <div class="mac-header">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                            <span class="header-text">LOYALTY</span>
+                        </div>
+                        <span id="joined-on" class="stat-value">0</span>
+                        <span class="stat-label">Days Joined</span>
+                        <i class="ph-duotone ph-hourglass-high card-bg-icon" style="font-size: 8rem;"></i>
                     </div>
-                    <span id="joined-on" class="stat-value">0</span>
-                    <span class="stat-label">Days Joined</span>
-                    <i class="ph-duotone ph-hourglass-high card-bg-icon" style="font-size: 8rem;"></i>
                 </div>
-
             </div>
         </div>
+
+        <div id="view-members" class="content-view" style="display: none;">
+            <div class="content-container">
+                <h2 class="page-title">Members</h2>
+                <div class="card">
+                    <p style="color: #999; text-align:center;">Member list integration coming soon.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-leaderboard" class="content-view" style="display: none;">
+            <div class="content-container">
+                <h2 class="page-title">Leaderboard</h2>
+                <div class="card">
+                    <p style="color: #999; text-align:center;">Global rankings coming soon.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-settings" class="content-view" style="display: none;">
+            <div class="content-container">
+                <h2 class="page-title">Settings</h2>
+
+                <div class="settings-grid">
+                    <div class="card settings-card">
+                        <h3>Change Nickname</h3>
+                        <p>Update your display name in the server.</p>
+                        <div class="input-group">
+                            <input type="text" id="nickname-input" placeholder="New Nickname">
+                            <button class="action-btn" onclick="changeNickname()">Update</button>
+                        </div>
+                    </div>
+
+                    <div class="card settings-card">
+                        <h3>Session</h3>
+                        <button class="action-btn" onclick="logout()"
+                            style="width: 100%; background: #333;">Logout</button>
+                    </div>
+
+                    <div class="card settings-card danger-zone">
+                        <h3>Danger Zone</h3>
+                        <p>Permanently delete your XP and Level data.</p>
+                        <button class="danger-btn" onclick="deleteData()">Delete My Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div id="level-popup" class="mac-popup">
