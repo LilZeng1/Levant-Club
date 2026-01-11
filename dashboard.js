@@ -1,5 +1,6 @@
 // Variables
 const ClientId = "1454693732799611042";
+const GuildId = "1452829028267327511";
 const BackendUrl = "https://levant-backend.onrender.com";
 
 // On Load
@@ -8,8 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const Code = Params.get('code');
 
     if (Code) {
-        // Exchange Code For Token Via Discord (Usually Handled By Backend)
-        // For This Flow, We Assume Token Is In LocalStorage After Redirect
+        // Exchange Code For Token Via Discord
         InitDashboard();
     } else {
         const Token = sessionStorage.getItem('access_token');
