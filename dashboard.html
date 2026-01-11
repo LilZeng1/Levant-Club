@@ -10,24 +10,6 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
-
-    <div id="levelup-modal" class="modal-wrapper">
-        <div class="mac-widget">
-            <div class="mac-header">
-                <div class="traffic-lights">
-                    <div class="dot red" onclick="CloseLevelUp()"></div>
-                    <div class="dot yellow"></div>
-                    <div class="dot green"></div>
-                </div>
-            </div>
-            <div style="padding: 40px 20px; text-align: center;">
-                <i class="ph-duotone ph-crown bounce" id="new-level-icon" style="font-size: 4rem; color: #ffd700;"></i>
-                <h2 class="levelup-title">Level Up!</h2>
-                <div style="font-size: 4rem; font-weight: 900; color: white;" id="modal-level-num">2</div>
-            </div>
-        </div>
-    </div>
-
     <div class="bg-wrapper">
         <div class="noise-overlay"></div>
         <div class="aurora-blob blob-1"></div>
@@ -39,131 +21,39 @@
             <span class="brand-text">Levant</span>
         </a>
         <div class="nav-actions">
-            <button id="music-toggle-btn" class="music-toggle-btn">
-                <i class="ph-bold ph-speaker-high"></i>
-            </button>
-            <div class="lang-toggle-wrapper">
-                <button class="lang-btn active" onclick="SetLang('en')" id="btn-en">EN</button>
-                <button class="lang-btn" onclick="SetLang('ar')" id="btn-ar">AR</button>
-            </div>
             <button id="logout-btn" class="logout-btn-styled"
                 onclick="sessionStorage.clear(); window.location.href='index.html'">
                 <i class="ph-bold ph-power"></i>
-                <span>LOGOUT</span>
+                <span>Logout</span>
             </button>
         </div>
     </nav>
 
     <main class="main-content">
-        <div id="loading-screen">
+        <div id="loading-screen" class="loader-wrapper">
             <div class="loader-ring"></div>
         </div>
 
         <div id="dashboard-content" class="bento-container">
-
-            <div class="bento-card span-2 row-2 card-profile-modern">
-                <div class="profile-banner" id="user-banner"></div>
-                <div class="profile-content">
-                    <img id="user-avatar" src="https://via.placeholder.com/100" class="profile-avatar-lg">
-                    <div class="profile-info">
-                        <h1 id="user-display-name">Agent...</h1>
-                        <div id="role-badge-container"></div>
-                    </div>
-                </div>
+            <div class="bento-card span-2 row-2 profile-card">
+                <img id="user-avatar" src="" class="profile-avatar-lg">
+                <h1 id="user-display-name">Loading...</h1>
+                <div id="role-badge-container"></div>
             </div>
 
             <div class="bento-card">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span id="calculated-level" style="font-size: 3rem; font-weight: 900; color: #ffd700;">0</span>
-                    <i class="ph-duotone ph-trophy" style="font-size: 2.5rem; color: #ffd700;"></i>
-                </div>
-                <div class="xp-bar-container">
-                    <div class="xp-bar-fill" style="width: 0%"></div>
-                </div>
-                <p class="translate" data-en="Loyalty Level" data-ar="مستوى الولاء"
-                    style="margin-top:10px; opacity:0.7;">Loyalty Level</p>
+                <h3 class="translate" data-en="Level" data-ar="المستوى">Level</h3>
+                <span id="calculated-level">0</span>
             </div>
 
             <div class="bento-card">
-                <div style="margin-bottom: 15px; font-weight: 800; font-size: 1.2rem;">
-                    <i class="ph-fill ph-fire" style="color: #ff4757;"></i> <span id="streak-count">0</span> Days
-                </div>
-                <button id="claim-btn" class="claim-btn" onclick="ClaimDaily()">Claim Reward</button>
-            </div>
-
-            <div class="bento-card span-2">
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                    <i class="ph-duotone ph-broadcast" style="font-size: 1.8rem; color: #00d2d3;"></i>
-                    <h3 class="translate" data-en="Live Server Feed" data-ar="حالة النظام المباشرة" style="margin:0;">
-                        Live Server Feed</h3>
-                </div>
-
-                <div class="status-grid">
-                    <div class="status-item">
-                        <div class="mac-dot green pulse"></div>
-                        <span id="status-online">0</span>
-                        <span class="status-label translate" data-en="Online" data-ar="متصل">Online</span>
-                    </div>
-                    <div class="status-item">
-                        <div class="mac-dot yellow"></div>
-                        <span id="status-idle">0</span>
-                        <span class="status-label translate" data-en="Idle" data-ar="خامل">Idle</span>
-                    </div>
-                    <div class="status-item">
-                        <div class="mac-dot red"></div>
-                        <span id="status-dnd">0</span>
-                        <span class="status-label translate" data-en="Busy" data-ar="مشغول">Busy</span>
-                    </div>
-                    <div class="status-item">
-                        <div class="mac-dot gray"></div>
-                        <span id="status-offline">0</span>
-                        <span class="status-label translate" data-en="Offline" data-ar="غير متصل">Offline</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bento-card span-2 leaderboard-card">
-                <div class="lb-header">
-                    <div class="lb-title-wrapper">
-                        <div class="lb-icon-box">
-                            <i class="ph-fill ph-users-three"></i>
-                        </div>
-                        <div class="lb-text-info">
-                            <h3 class="translate" data-en="Active Agents" data-ar="العملاء النشطين">Active Agents</h3>
-                            <span class="lb-subtitle">Performance Rankings</span>
-                        </div>
-                    </div>
-                    <div class="lb-tabs">
-                        <button id="tab-weekly" class="tab-btn active"
-                            onclick="SwitchLeaderboard('weekly')">Weekly</button>
-                        <button id="tab-alltime" class="tab-btn" onclick="SwitchLeaderboard('alltime')">All
-                            Time</button>
-                    </div>
-                </div>
-
-                <div class="lb-scroll-wrapper">
-                    <div class="lb-table-header">
-                        <span class="h-rank">#</span>
-                        <span class="h-user">Agent</span>
-                        <span class="h-stat">Msgs</span>
-                        <span class="h-stat">Voice</span>
-                    </div>
-                    <div id="leaderboard-list">
-                    </div>
-                </div>
-            </div>
-
-            <div class="bento-card text-center days-joined-card">
-                <i class="ph-duotone ph-calendar-check" style="font-size: 2.5rem; color: #5865f2;"></i>
-                <h3 id="joined-on" style="font-size: 3rem; font-weight: 900; margin: 10px 0;">0</h3>
-                <p class="translate" data-en="Days in Levant" data-ar="أيام الانضمام">Days in Levant</p>
+                <h3 class="translate" data-en="Days Joined" data-ar="أيام الانضمام">Days Joined</h3>
+                <h2 id="joined-on">0</h2>
             </div>
         </div>
     </main>
 
-    <div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 999;"></div>
-
-    <script src="./ChillTunes/audio.js"></script>
+    <div id="toast-container"></div>
     <script src="./dashboard.js"></script>
 </body>
 </html>
