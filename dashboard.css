@@ -1,75 +1,55 @@
-/* Font */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-
-/* Variables */
 :root {
-    --Accent: #5865f2;
-    --Bg: #050505;
-    --Card: rgba(255, 255, 255, 0.03);
-    --Border: rgba(255, 255, 255, 0.08);
+    --mac-red: #ff5f57;
+    --mac-yellow: #febc2e;
+    --mac-green: #28c840;
 }
 
-/* Base Styles */
-body {
-    background: var(--Bg);
-    color: white;
-    margin: 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    overflow-x: hidden;
-}
-
-/* Layout */
-.main-content {
-    padding: 120px 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.announcement-bar {
-    background: linear-gradient(90deg, var(--accent), #eb459e);
-    padding: 8px;
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 700;
+.announcement-navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1001;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-pink));
+    padding: 10px;
+    z-index: 200;
+    font-weight: 800;
+    font-size: 0.8rem;
+    overflow: hidden;
 }
 
-.dashboard-nav {
-    top: 45px;
+.scrolling-text {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
 }
 
-.bento-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding-top: 150px;
-    max-width: 1200px;
-    margin: 0 auto;
+@keyframes scroll {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
 }
 
-/* Card Styles */
-.bento-card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 30px;
-    position: relative;
-    backdrop-filter: blur(15px);
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.bento-card.mac-style {
+    background: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0;
 }
 
-.bento-card:hover {
-    border-color: var(--accent);
-    transform: scale(1.02);
+.mac-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .mac-dots {
     display: flex;
-    gap: 6px;
-    margin-bottom: 15px;
+    gap: 8px;
 }
 
 .dot {
@@ -79,114 +59,78 @@ body {
 }
 
 .red {
-    background: #ff5f57;
+    background: var(--mac-red);
     cursor: pointer;
 }
 
 .yellow {
-    background: #febc2e;
+    background: var(--mac-yellow);
 }
 
 .green {
-    background: #28c840;
+    background: var(--mac-green);
 }
 
-.card-icon {
+.mac-title {
+    margin-left: 15px;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.card-bg-icon {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    font-size: 2.5rem;
-    opacity: 0.2;
+    bottom: -10px;
+    right: -10px;
+    font-size: 8rem;
+    opacity: 0.03;
+    z-index: 1;
 }
 
-.mac-window {
+/* Level Up Window Animation */
+.mac-popup {
     position: fixed;
-    bottom: -300px;
-    right: 300px;
-    width: 300px;
-    background: rgba(20, 20, 20, 0.9);
-    border: 1px solid var(--border);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 320px;
+    background: rgba(30, 30, 30, 0.95);
     border-radius: 12px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    z-index: 2000;
-    transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.mac-window.show {
-    bottom: 30px;
+.mac-popup.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
 }
 
-.mac-window.closing {
+.mac-popup.closing {
     animation: macClose 0.4s forwards;
 }
 
 @keyframes macClose {
-    0% {
-        transform: scaleY(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scaleY(0);
+    to {
+        transform: translate(-50%, -50%) scaleX(0.1) scaleY(0);
         opacity: 0;
     }
 }
 
-.mac-header {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.7rem;
-    color: #999;
-}
-
-.mac-body {
-    padding: 20px;
+.popup-content {
+    padding: 40px;
     text-align: center;
 }
 
-.mac-body i {
-    font-size: 3rem;
-    color: var(--accent);
-}
-
-/* Mobile (Phones) */
-@media (max-width: 768px) {
-    .bento-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Tablet / Fold Devices */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .bento-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Animations */
-@keyframes FadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-#dashboard-content {
-    animation: FadeIn 0.8s ease forwards;
-}
-
-/* Profile Section */
-.profile-avatar-lg {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    border: 3px solid var(--Accent);
+.popup-content i {
+    font-size: 4rem;
+    color: var(--mac-yellow);
 }
