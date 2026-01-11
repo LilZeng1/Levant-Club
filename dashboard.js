@@ -1,68 +1,77 @@
-// Variables
-const ClientId = "1454693732799611042";
-const GuildId = "1452829028267327511";
+// BackendUrl
 const BackendUrl = "https://levant-backend.onrender.com";
-
-// On Load
 document.addEventListener('DOMContentLoaded', async () => {
-    const Params = new URLSearchParams(window.location.search);
-    const Code = Params.get('code');
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
 
-    if (Code) {
-        // Exchange Code For Token Via Discord
-        InitDashboard();
+    if (code) {
+        await exchangeToken(code);
     } else {
-        const Token = sessionStorage.getItem('access_token');
-        if (!Token) window.location.href = 'index.html';
-        else InitDashboard();
+        const token = sessionStorage.getItem('access_token');
+        if (!token) window.location.href = 'index.html';
+        else initDashboard(token);
     }
 });
 
-// Main Initialization
-async function InitDashboard() {
-    const Token = sessionStorage.getItem('access_token');
+// exchangeToken()
+async function exchangeToken(code) {
+    sessionStorage.setItem('access_token', code);
+    initDashboard(code);
+}
+
+// initDashboard()
+async function initDashboard(token) {
     try {
-        const Res = await fetch(`${BackendUrl}/userinfo`, {
+        const res = await fetch(`${BackendUrl}/userinfo`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ access_token: Token })
+            body: JSON.stringify({ access_token: token })
         });
+        const data = await res.json();
+        if (data.Error) throw new Error(data.Error);
         
-        const Data = await Res.json();
-        if (Data.Error) throw new Error(Data.Error);
-
-        UpdateUI(Data);
-    } catch (Err) {
-        console.error("Dashboard Error:", Err);
-        // sessionStorage.clear();
-        // window.location.href = 'index.html';
+        updateUI(data);
+        checkLevelUp(data.level);
+    } catch (err) {
+        console.error("Dashboard Error:", err);
     }
 }
 
-// Update UI Elements
-function UpdateUI(User) {
-    document.getElementById('user-display-name').innerText = User.global_name || User.username;
-    document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${User.id}/${User.avatar}.png`;
-    document.getElementById('joined-on').innerText = CalculateDays(User.joinedAt);
-    document.getElementById('calculated-level').innerText = User.level || 0;
+// updateUI()
+function updateUI(user) {
+    document.getElementById('user-display-name').innerText = user.global_name || user.username;
+    document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+    document.getElementById('calculated-level').innerText = user.level || 0;
     
-    const Loading = document.getElementById('loading-screen');
-    if (Loading) Loading.style.display = 'none';
+    // Days Joined
+    const joined = new Date(user.joinedAt);
+    const diff = Math.floor((new Date() - joined) / (1000 * 60 * 60 * 24));
+    document.getElementById('joined-on').innerText = diff;
 }
 
-// Helper Functions
-function CalculateDays(DateString) {
-    const Joined = new Date(DateString);
-    const Now = new Date();
-    const Diff = Math.abs(Now - Joined);
-    return Math.floor(Diff / (1000 * 60 * 60 * 24));
+// checkLevelUp()
+function checkLevelUp(currentLevel) {
+    const lastLevel = localStorage.getItem('last_level') || 0;
+    if (currentLevel > lastLevel) {
+        showLevelPopup(currentLevel);
+        localStorage.setItem('last_level', currentLevel);
+    }
 }
 
-function ShowToast(Msg) {
-    const Container = document.getElementById('toast-container');
-    const Toast = document.createElement('div');
-    Toast.className = "toast-msg";
-    Toast.innerText = Msg;
-    Container.appendChild(Toast);
-    setTimeout(() => Toast.remove(), 3000);
+// showLevelPopup()
+function showLevelPopup(lvl) {
+    const win = document.getElementById('level-popup');
+    document.getElementById('popup-text').innerText = `You've reached Level ${lvl}! Cosmic power increases.`;
+    win.classList.add('show');
+    
+    setTimeout(() => closePopup(), 2500);
+}
+
+// closePopup()
+function closePopup() {
+    const win = document.getElementById('level-popup');
+    win.classList.add('closing');
+    setTimeout(() => {
+        win.classList.remove('show', 'closing');
+    }, 400);
 }
