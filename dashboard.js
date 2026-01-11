@@ -1,173 +1,82 @@
-// BackendUrl
+// BackendURL
 const BackendUrl = "https://levant-backend.onrender.com";
-let CurrentUser = null;
 
+// Initialization
 document.addEventListener('DOMContentLoaded', async () => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-    const storedToken = localStorage.getItem('access_token');
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const token = localStorage.getItem('access_token');
 
     if (code) {
-        window.history.replaceState({}, document.title, window.location.pathname);
-        await fetchData({ code: code });
-    } 
-    else if (storedToken) {
-        await fetchData({ access_token: storedToken });
-    } 
-    else {
-        window.location.href = './index.html'; 
+        await handleLogin(code);
+    } else if (token) {
+        await fetchUserData(token);
+    } else {
+        window.location.href = 'index.html';
     }
 });
 
-// Main Data Fetch
-async function fetchData(payload) {
+async function handleLogin(code) {
     try {
         const res = await fetch(`${BackendUrl}/userinfo`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({ code })
         });
-
-        if (res.status === 401) {
-            localStorage.removeItem('access_token');
-            window.location.href = './index.html';
-            return;
-        }
-
         const data = await res.json();
-        if (data.Error) throw new Error(data.Error);
-
-        if (data.new_access_token) {
-            localStorage.setItem('access_token', data.new_access_token);
-        } else if (payload.access_token) {
-             localStorage.setItem('access_token', payload.access_token);
+        
+        if (data.access_token) {
+            localStorage.setItem('access_token', data.access_token);
+            window.history.replaceState({}, document.title, "/dashboard.html");
+            updateUI(data);
         }
-
-        CurrentUser = data;
-        UpdateUI(data);
-    } catch (e) {
-        console.error("Fetch hatası:", e);
+    } catch (err) {
+        showToast("Login Failed", "error");
     }
 }
 
 function updateUI(user) {
-    // Identity
-    const displayName = user.global_name || user.username;
-    document.getElementById('user-display-name').innerText = displayName;
+    document.getElementById('loading-screen').style.opacity = '0';
+    setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
+
     document.getElementById('nav-user-name').innerText = user.username;
-    
-    // Avatar
-    const avatarUrl = user.avatar 
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` 
-        : `https://cdn.discordapp.com/embed/avatars/0.png`;
-    document.getElementById('user-avatar').src = avatarUrl;
-    document.getElementById('nav-avatar').src = avatarUrl;
-    
-    // Stats
+    document.getElementById('user-display-name').innerText = user.username;
+    document.getElementById('nav-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+    document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
     document.getElementById('calculated-level').innerText = user.level || 1;
+}
+
+function switchTab(tabId, el) {
+    document.querySelectorAll('.content-view').forEach(v => v.style.display = 'none');
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
     
-    const joined = new Date(user.joinedAt);
-    const now = new Date();
-    const diffDays = Math.ceil(Math.abs(now - joined) / (1000 * 60 * 60 * 24)); 
-    document.getElementById('joined-on').innerText = diffDays;
-
-    // Prefill settings
-    if(user.guildNickname) {
-        document.getElementById('nickname-input').value = user.guildNickname;
-    }
+    document.getElementById(`view-${tabId}`).style.display = 'block';
+    el.classList.add('active');
+    
+    if(tabId === 'leaderboard') loadLeaderboard();
 }
 
-// Tabs Logic
-window.switchTab = function(tabName, element) {
-    // Update Sidebar
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    element.classList.add('active');
-
-    // Hide all views
-    document.querySelectorAll('.content-view').forEach(el => el.style.display = 'none');
-
-    // Show target view
-    const target = document.getElementById(`view-${tabName}`);
-    if(target) {
-        target.style.display = 'block';
-        // Fade in effect
-        target.style.opacity = '0';
-        setTimeout(() => target.style.opacity = '1', 50);
-    }
+async function loadLeaderboard() {
+    const res = await fetch(`${BackendUrl}/leaderboard`);
+    const data = await res.json();
+    const container = document.querySelector('#view-leaderboard .card');
+    
+    let html = '<table style="width:100%; text-align:left;"><tr><th>User</th><th>XP</th><th>Level</th></tr>';
+    data.forEach(u => {
+        html += `<tr><td>${u.username}</td><td>${u.xp}</td><td>${u.level}</td></tr>`;
+    });
+    container.innerHTML = html + '</table>';
 }
 
-// Settings Actions
-window.changeNickname = async function() {
-    const newNick = document.getElementById('nickname-input').value;
-    if (!newNick || !CurrentUser) return;
-
-    try {
-        const res = await fetch(`${BackendUrl}/change-nickname`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                access_token: sessionStorage.getItem('access_token'),
-                discordId: CurrentUser.id,
-                newNickname: newNick
-            })
-        });
-
-        if (res.ok) alert('Nickname updated!');
-        else alert('Failed. Bot may lack permissions.');
-    } catch (e) { console.error(e); }
+function showToast(msg) {
+    const toast = document.createElement('div');
+    toast.className = 'mac-popup active';
+    toast.innerHTML = `<div class="popup-body"><h3>${msg}</h3></div>`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
 }
 
-window.deleteData = async function() {
-    if (!confirm("Are you sure? This deletes your Level/XP forever.")) return;
-
-    try {
-        const res = await fetch(`${BackendUrl}/delete-data`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                access_token: sessionStorage.getItem('access_token'),
-                discordId: CurrentUser.id
-            })
-        });
-
-        if (res.ok) {
-            alert('Data deleted.');
-            logout();
-        }
-    } catch (e) { console.error(e); }
-}
-
-// Utils
-function checkLevelUp(currentLevel) {
-    const lastLevel = localStorage.getItem('last_level');
-    if (lastLevel && parseInt(currentLevel) > parseInt(lastLevel)) {
-        showLevelPopup(currentLevel);
-    }
-    localStorage.setItem('last_level', currentLevel);
-}
-
-// showlevelPopup()
-function showLevelPopup(lvl) {
-    const win = document.getElementById('level-popup');
-    document.getElementById('popup-text').innerText = `You have ascended to Level ${lvl}.`;
-    win.style.display = 'flex';
-    void win.offsetWidth; 
-    win.classList.add('active');
-    setTimeout(() => closePopup(), 4000);
-}
-
-// closePopup()
-function closePopup() {
-    const win = document.getElementById('level-popup');
-    win.classList.remove('active');
-    win.classList.add('closing');
-    setTimeout(() => {
-        win.style.display = 'none';
-        win.classList.remove('closing');
-    }, 500);
-}
-
-window.logout = function() {
-    sessionStorage.clear();
+function logout() {
+    localStorage.clear();
     window.location.href = 'index.html';
 }
