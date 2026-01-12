@@ -1,5 +1,5 @@
-const ChillMusic = new Audio('./ChillTunes/lofi-chill-track-1.mp3');
-const ClickSound = new Audio('./ChillTunes/click-sound-1.mp3');
+const ChillMusic = new Audio('./lofi-chill-track-1.mp3');
+const ClickSound = new Audio('./click-sound-1.mp3');
 ChillMusic.loop = true;
 
 function ToggleMusic() {
