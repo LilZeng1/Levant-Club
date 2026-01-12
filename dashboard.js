@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else if (token) {
         await syncSession(token);
     } else {
+        console.warn("No token or code found, redirecting...");
         window.location.href = 'index.html';
     }
 });
 
-// handleLogin()
 async function handleLogin(code) {
     try {
         const res = await fetch(`${BackendUrl}/userinfo`, {
@@ -30,10 +30,9 @@ async function handleLogin(code) {
         if (data.id && data.access_token) {
             localStorage.setItem('access_token', data.access_token);
             localStorage.setItem('user_data', JSON.stringify(data));
-            window.history.replaceState({}, document.title, "/dashboard.html");
+            window.history.replaceState({}, document.title, window.location.pathname);
             updateUI(data);
         } else {
-            console.log("Invalid Data Received");
             logout();
         }
     } catch (err) {
@@ -42,14 +41,13 @@ async function handleLogin(code) {
     }
 }
 
-// SyncSession()
 async function syncSession(token) {
     const cachedData = localStorage.getItem('user_data');
     if (cachedData) {
         try {
-            updateUI(JSON.parse(cachedData));
+            const user = JSON.parse(cachedData);
+            updateUI(user);
         } catch (e) {
-            console.error("Data parse error");
             logout();
         }
     } else {
@@ -64,23 +62,22 @@ function updateUI(user) {
         setTimeout(() => loader.style.display = 'none', 500);
     }
 
-    document.getElementById('nav-user-name').innerText = user.global_name || user.username;
-    document.getElementById('user-display-name').innerText = user.global_name || user.username;
+    const navName = document.getElementById('nav-user-name');
+    const displayName = document.getElementById('user-display-name');
+    const navAvatar = document.getElementById('nav-avatar');
+    const userAvatar = document.getElementById('user-avatar');
+    const levelEl = document.getElementById('calculated-level');
+
+    if(navName) navName.innerText = user.global_name || user.username;
+    if(displayName) displayName.innerText = user.global_name || user.username;
     
     const avatarUrl = user.avatar 
         ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
         : `https://cdn.discordapp.com/embed/avatars/0.png`;
         
-    document.getElementById('nav-avatar').src = avatarUrl;
-    document.getElementById('user-avatar').src = avatarUrl;
-    document.getElementById('calculated-level').innerText = user.level || 1;
-}
-
-function switchTab(tabId, el) {
-    document.querySelectorAll('.content-view').forEach(v => v.style.display = 'none');
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    document.getElementById(`view-${tabId}`).style.display = 'block';
-    el.classList.add('active');
+    if(navAvatar) navAvatar.src = avatarUrl;
+    if(userAvatar) userAvatar.src = avatarUrl;
+    if(levelEl) levelEl.innerText = user.level || 1;
 }
 
 function logout() {
