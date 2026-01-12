@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// handleLogin()
 async function handleLogin(code) {
     try {
         const res = await fetch(`${BackendUrl}/userinfo`, {
@@ -21,25 +22,36 @@ async function handleLogin(code) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code })
         });
+        
+        if (!res.ok) throw new Error("Backend Error");
+        
         const data = await res.json();
         
-        if (data.access_token) {
+        if (data.id && data.access_token) {
             localStorage.setItem('access_token', data.access_token);
             localStorage.setItem('user_data', JSON.stringify(data));
             window.history.replaceState({}, document.title, "/dashboard.html");
             updateUI(data);
         } else {
+            console.log("Invalid Data Received");
             logout();
         }
     } catch (err) {
+        console.error("Login Error:", err);
         logout();
     }
 }
 
+// SyncSession()
 async function syncSession(token) {
     const cachedData = localStorage.getItem('user_data');
     if (cachedData) {
-        updateUI(JSON.parse(cachedData));
+        try {
+            updateUI(JSON.parse(cachedData));
+        } catch (e) {
+            console.error("Data parse error");
+            logout();
+        }
     } else {
         logout();
     }
