@@ -1,108 +1,132 @@
-const { createElement } = require("react");
+const API_BASE_URL = "https://levant-backend.onrender.com"; 
 
 window.onload = async () => {
-    try {
-        const userResponse = await fetch('/api/user-info');
-        const botGuildsResponse = await fetch('/api/bot-guilds');
+    const loadingScreen = document.getElementById('loading-screen');
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('uid');
+    const userName = urlParams.get('name');
+    const userAvatarHash = urlParams.get('avatar');
 
-        if (userResponse.ok && botGuildsResponse.ok) {
-            const userInfo = await userResponse.json();
-            const botGuilds = await botGuildsResponse.json();
-
-            const { username, avatar, guilds } = userInfo;
-            // document.getElementById('navbar-username').innerText = username; note: we don't have a username area as far as i know in dashboard.html.
-            if (avatar) {
-                // document.getElementById('navbar-avatar').src = avatar; also we don't have a div/id/area for this one...
-            }
-
-            const botGuildIds = new Set(botGuilds.map(guild => guild.id));
-
-            /* const serverList = document.getElementById('server-list'); also we don't have an #server-list sadly..
-               serverList.innerHTML = ``; 
-            */
-
-            const guildsWithBot = [];
-            const guildsWithoutBot = [];
-
-            guilds.forEach(guild => {
-                const hasAdminPermsissions = (guild.permissions & 0x8) === 0x8 || guild.owner;
-                if (hasAdminPermsissions) {
-                    if (botGuildIds.has(guild.id)) {
-                        guildsWithBot.push(guild);
-                    } else {
-                        guildsWithBot.push(guild);
-                    }
-                }
-            });
-
-            const createGuildCard = (guild, hasBot) => {
-                const card = document.createElement('div');
-                card.className = 'glass-effect rounded lg overflow-hidden shadow-lg animate-fade-in'
-                
-                const guildBanner = document.createElement('div');
-                guildBanner.className = 'h-32 bg-cover b-center';
-                guildBanner.style.backgroundImage = guild.banner ? `url(https://cdn.discordapp.com/banners/${guild.id}/${guild.banner}.png)` : `url("https://t4.ftcdn.net/jpg/04//04/73/39/360_F_404733910_2mIXr6RbC5G3WZJFjopVsBaR3EOM6Bqy.jpg)`
-            
-                card.appendChild(guildBanner);
-
-                const cardContent = document.createElement('div');
-                cardContent.className = `p-4`;
-
-                const guildIconContainer = document.createElement('div');
-                guildIconContainer.className = `flex justify-center -mt-16`;
-                const guildIcon = document.createElement('div');
-                guildIcon.className = `w-24 h-24 rounded full border-4 border-white shadow-lg animate-float`;
-                guildIcon.src = guild.icon
-                ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`
-                : 'https://statis.vecteezy.com/system/resources/previews/014/018/581/original/discord-logo-on-transparent-background-free-vector.jpg';
-                guildIcon.alt = "Guild Icon";
-                guildIconContainer.appendChild(guildIcon);
-                cardContent.appendChild(guildIconContainer);
-
-                const guildName = document.createElement('div');
-                guildName.className = `mt-2 text-center  text-xl font-semibold text-gray-800`;
-                guildName.innerText = guild.name;
-                cardContent.appendChild(guildName);
-
-                const buttonContainer = document.createElement('div');
-                buttonContainer.className = `mt-4 justify-center`;
-                
-                if (hasBot) {
-                    const configureButton = document.createElement('button');
-                    configureButton.className = `bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300`;
-                    configureButton.innerText = 'Configure';
-                    configureButton.onclick = () => {
-                        window.location.href = `server.html?name=${encodeURIComponent(guild.name)}&icon=${encodeURIComponent(guildIcon.src)}&guildId=${guild.id}`;
-                    };
-
-                    buttonContainer.appendChild(configureButton);
-                } else {
-                    const inviteButton = document.createElement('button');
-                    inviteButton.className = 'bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300';
-                    inviteButton.innerText = `Invite Bot!`;
-                    inviteButton.onclick = () => {
-                        const botinviteLink = `https://discord.com/oauth2/authorize?client_id=1454693732799611042&scope=bot&permissions=8&guild_id=${guild.id}`;
-                        window.open(botinviteLink, "_blank");
-                    };
-                    buttonContainer.appendChild(inviteButton);
-                }
-
-                cardContent.appendChild(buttonContainer);
-                card.appendChild(cardContent);
-                // serverList.appendChild(card); we don't have an serverList variable cuz we don't have an element(id) named "server-list
-            };
-
-            guildsWithBot.forEach(guild => createGuildCard(guild, true));
-            guildsWithoutBot.forEach(guild => createGuildCard(guild, false)); 
+    if (!userId) {
+        const storedId = localStorage.getItem('levant_uid');
+        if(storedId) {
+            fetchUserData(storedId, localStorage.getItem('levant_name'), localStorage.getItem('levant_av'));
         } else {
-            console.error('Failed to fetch', userResponse.status, botGuildsResponse.status);
-            document.getElementById('server-list').innerHTML = `<p class="text-center text-red-500">Failesd to load user info.</p>`;
+            // If there's nothing sg
+            window.location.href = '../index.html';
+            return;
+        }
+    } else {
+        // New SignIn(): Save data in browser.
+        localStorage.setItem('levant_uid', userId);
+        localStorage.setItem('levant_name', userName);
+        localStorage.setItem('levant_av', userAvatarHash);
+        
+        window.history.replaceState({}, document.title, "dashboard.html");
+        
+        fetchUserData(userId, userName, userAvatarHash);
+    }
+
+    // Removing Loading Screen
+    if(loadingScreen) {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 600);
+        }, 800);
+    }
+};
+
+async function fetchUserData(uid, name, avatarHash) {
+    // UI (username/avatar) showin' up
+    const avatarUrl = avatarHash && avatarHash !== 'null' 
+        ? `https://cdn.discordapp.com/avatars/${uid}/${avatarHash}.png`
+        : 'https://cdn.discordapp.com/embed/avatars/0.png';
+    
+    const navName = document.getElementById('nav-user-name');
+    const navAvatar = document.getElementById('nav-avatar');
+    const dispName = document.getElementById('user-display-name');
+    const dispAvatar = document.getElementById('user-avatar');
+
+    if (navName) navName.innerText = name;
+    if (dispName) dispName.innerText = name;
+    if (navAvatar) navAvatar.src = avatarUrl;
+    if (dispAvatar) dispAvatar.src = avatarUrl;
+
+    // Grab user's information from backend
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/user-info/${uid}`);
+        if (response.ok) {
+            const data = await response.json();
+            updateStats(data);
         }
     } catch (error) {
-        console.error(`Error during loading user info:`, error);
+        console.error("Backend bağlantı hatası:", error);
     }
 }
 
-document.getElementsByClassName('logout-btn').addEventlistener('click', () => {
-    console.log('LogOut Clicked.');
-});
+function updateStats(data) {
+    // Leveling Up()
+    const levelEl = document.getElementById('calculated-level');
+    if (levelEl) levelEl.innerText = data.level || 1;
+
+    // Loyalty()
+    const joinedEl = document.getElementById('joined-on');
+    if (joinedEl) {
+        const joinedDate = new Date(data.joinedAt);
+        const today = new Date();
+        const diffTime = Math.abs(today - joinedDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        joinedEl.innerText = diffDays;
+    }
+}
+
+// Sekme (Dashboard / Members / Settings)
+function switchTab(tabName, btn) {
+    document.querySelectorAll('.content-view').forEach(view => {
+        view.style.display = 'none';
+    });
+    
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    const selectedView = document.getElementById(`view-${tabName}`);
+    if(selectedView) selectedView.style.display = 'block';
+    if(btn) btn.classList.add('active');
+}
+
+// LogOut()
+function logout() {
+    localStorage.removeItem('levant_uid');
+    localStorage.removeItem('levant_name');
+    localStorage.removeItem('levant_av');
+    window.location.href = '../index.html'; 
+}
+
+// Danger Zone: DELETING DATA & INFORMATION
+const wipeBtn = document.querySelector('.danger-btn');
+if(wipeBtn) {
+    wipeBtn.onclick = async () => {
+        const uid = localStorage.getItem('levant_uid');
+        if(!uid) return;
+
+        if(confirm("Emin misin? Tüm XP, Seviye verilerin silinecek ve Discord rolün alınacak.")) {
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/danger/wipe`, { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: uid })
+                });
+                
+                if(res.ok) {
+                    alert("Veriler sıfırlandı.");
+                    logout();
+                }
+            } catch (err) {
+                alert("İşlem başarısız oldu.");
+            }
+        }
+    }
+}
