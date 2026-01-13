@@ -431,3 +431,43 @@ body {
         font-size: 2rem;
     }
 }
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .nav-item {
+        white-space: nowrap;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .stats-grid, .settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .user-identity {
+        flex-direction: column;
+        text-align: center;
+    }
+}
