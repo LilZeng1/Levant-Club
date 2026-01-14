@@ -41,9 +41,6 @@ function updateUI(name, uid, avatarHash) {
     setEl('user-display-name', name);
     setEl('nav-avatar', avatarUrl, 'src');
     setEl('user-avatar', avatarUrl, 'src');
-    
-    const mobileImg = document.querySelector('.mobile-profile-img');
-    if(mobileImg) mobileImg.src = avatarUrl;
 }
 
 async function fetchStats(uid) {
@@ -51,7 +48,6 @@ async function fetchStats(uid) {
         const res = await fetch(`${API_BASE_URL}/api/user-info/${uid}`);
         if(res.ok) {
             const data = await res.json();
-            
             const levelEl = document.getElementById('calculated-level');
             if(levelEl) levelEl.innerText = data.level;
 
@@ -59,22 +55,50 @@ async function fetchStats(uid) {
             if(joinedEl) {
                 const date = new Date(data.joinedAt);
                 joinedEl.innerText = formatTimeAgo(date); 
-                joinedEl.style.fontSize = "3rem";
             }
         }
     } catch(err) { console.error(err); }
 }
 
+async function loadLeaderboard() {
+    const tbody = document.getElementById('leaderboard-body');
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center">Loading souls...</td></tr>';
+    
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/members/leaderboard`);
+        const members = await res.json();
+        
+        tbody.innerHTML = '';
+        members.forEach((m, index) => {
+            const row = `
+                <tr>
+                    <td><div class="rank-badge">${index + 1}</div></td>
+                    <td>
+                        <div class="user-cell">
+                            <img src="${m.avatar}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+                            <span>${m.username}</span>
+                        </div>
+                    </td>
+                    <td><span class="badge">LVL ${m.level}</span></td>
+                    <td style="font-weight:700">${m.xp.toLocaleString()}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+    } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="4">Error loading data.</td></tr>';
+    }
+}
+
 function formatTimeAgo(date) {
     const seconds = Math.floor((new Date() - date) / 1000);
     let interval = seconds / 31536000;
-
-    if (interval > 1) return Math.floor(interval) + " Years";
+    if (interval > 1) return Math.floor(interval) + " Y";
     interval = seconds / 2592000;
-    if (interval > 1) return Math.floor(interval) + " Months";
+    if (interval > 1) return Math.floor(interval) + " M";
     interval = seconds / 86400;
-    if (interval > 1) return Math.floor(interval) + " Days";
-    return "Newborn";
+    if (interval > 1) return Math.floor(interval) + " D";
+    return "New";
 }
 
 function switchTab(tabName, btn) {
@@ -85,34 +109,53 @@ function switchTab(tabName, btn) {
     if(view) view.style.display = 'block';
     if(btn) btn.classList.add('active');
 
-    const sidebar = document.querySelector('.sidebar');
-    if(sidebar.classList.contains('active')) toggleMobileMenu();
+    if(tabName === 'members') loadLeaderboard();
+
+    // Close mobile sidebar after selection
+    document.getElementById('sidebar').classList.remove('active');
 }
 
 function toggleMobileMenu() {
-    const sidebar = document.querySelector('.sidebar');
+    const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('active');
+}
+
+async function updateNickname() {
+    const newNick = document.getElementById('nickname-input').value;
+    const uid = localStorage.getItem('levant_uid');
+    if(!newNick) return alert("Enter a name.");
+    
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/user/update-nick`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: uid, nickname: newNick })
+        });
+        const data = await res.json();
+        if(res.ok) {
+            alert("Updated! (Discord might take a second)");
+            localStorage.setItem('levant_name', newNick);
+            location.reload();
+        } else {
+            alert("Error: " + (data.error || "Permission Denied. Check Bot Role Position."));
+        }
+    } catch (e) { alert("Server Error"); }
+}
+
+async function wipeData() {
+    if(!confirm("Are you sure? All XP will be lost forever.")) return;
+    const uid = localStorage.getItem('levant_uid');
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/danger/wipe`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: uid })
+        });
+        if(res.ok) logout();
+    } catch (e) { alert("Wipe failed."); }
 }
 
 function logout() {
     localStorage.clear();
     window.location.href = '../index.html'; 
-}
-
-const updateNickBtn = document.querySelector('.action-btn');
-if(updateNickBtn) {
-    updateNickBtn.onclick = async () => {
-        const newNick = document.getElementById('nickname-input').value;
-        const uid = localStorage.getItem('levant_uid');
-        if(!newNick) return alert("Enter a name.");
-        
-        try {
-            const res = await fetch(`${API_BASE_URL}/api/user/update-nick`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: uid, nickname: newNick })
-            });
-            if(res.ok) alert("Updated!");
-        } catch (e) { alert("Error"); }
-    };
 }
