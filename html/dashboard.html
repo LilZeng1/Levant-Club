@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Levant | Command Center</title>
     <link rel="icon" type="image/png" href="../assets/Levant-Logo.png">
     <link rel="stylesheet" href="../css/dashboard.css" />
@@ -11,23 +11,47 @@
 <body>
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
+
     <div id="loading-screen">
         <div class="loader"></div>
     </div>
+
+    <div class="mobile-header">
+        <a href="#" class="brand-mobile">
+            <img src="../assets/Levant-Logo.png" alt="Levant">
+            <span>LEVANT</span>
+        </a>
+        <button class="hamburger" onclick="toggleMenu()">
+            <i class="ph-bold ph-list"></i>
+        </button>
+    </div>
+
     <nav class="sidebar">
-        <div>
-            <a href="index.html" class="brand">
+        <div class="sidebar-content">
+            <a href="index.html" class="brand desktop-only">
                 <img src="../assets/Levant-Logo.png" alt="Levant">
                 <span>LEVANT</span>
             </a>
+
+            <div class="mobile-profile">
+                <img src="" alt="User" id="mobile-user-img">
+                <span id="mobile-user-name">Welcome</span>
+            </div>
+
             <ul class="nav-links">
-                <li class="nav-item active" onclick="switchTab('dashboard', this)"><i
-                        class="ph-bold ph-squares-four"></i> Dashboard</li>
-                <li class="nav-item" onclick="switchTab('members', this)"><i class="ph-bold ph-users"></i> Members</li>
-                <li class="nav-item" onclick="switchTab('settings', this)"><i class="ph-bold ph-gear"></i> Settings</li>
+                <li class="nav-item active" onclick="switchTab('dashboard', this)">
+                    <i class="ph-bold ph-squares-four"></i> Dashboard
+                </li>
+                <li class="nav-item" onclick="switchTab('members', this)">
+                    <i class="ph-bold ph-users"></i> Members
+                </li>
+                <li class="nav-item" onclick="switchTab('settings', this)">
+                    <i class="ph-bold ph-gear"></i> Settings
+                </li>
             </ul>
         </div>
-        <div class="user-mini">
+
+        <div class="user-mini desktop-only">
             <img id="nav-avatar" src="" alt="">
             <div class="user-info">
                 <h4 id="nav-user-name">...</h4>
@@ -35,7 +59,10 @@
             </div>
             <button onclick="logout()" class="logout-btn"><i class="ph-bold ph-sign-out"></i></button>
         </div>
+
+        <button onclick="logout()" class="mobile-logout-btn"><i class="ph-bold ph-sign-out"></i> Log Out</button>
     </nav>
+
     <div class="main-wrapper">
         <div id="view-dashboard" class="content-view">
             <div class="content-container">
@@ -52,79 +79,60 @@
                             <img id="user-avatar" src="" class="avatar-lg">
                             <div class="profile-text">
                                 <h1 id="user-display-name">...</h1>
-                                <span class="badge">Core Member</span>
+                                <span class="badge">Loading...</span>
                             </div>
                         </div>
                         <i class="ph-duotone ph-fingerprint card-bg-icon"></i>
                     </div>
+
                     <div class="card stat-card">
                         <div class="mac-header">
                             <div class="dot red"></div>
                             <div class="dot yellow"></div>
-                            <div class="dot green"></div><span class="header-text">RANK</span>
+                            <div class="dot green"></div>
+                            <span class="header-text">RANK</span>
                         </div>
                         <span id="calculated-level" class="stat-value">0</span>
                         <span class="stat-label">Current Level</span>
                         <i class="ph-duotone ph-crown card-bg-icon"></i>
                     </div>
+
                     <div class="card stat-card">
                         <div class="mac-header">
                             <div class="dot red"></div>
                             <div class="dot yellow"></div>
-                            <div class="dot green"></div><span class="header-text">LOYALTY</span>
+                            <div class="dot green"></div>
+                            <span class="header-text">LOYALTY</span>
                         </div>
-                        <span id="joined-on" class="stat-value">1</span>
-                        <span class="stat-label">Days Joined</span>
+                        <span id="joined-on" class="stat-value">...</span>
+                        <span class="stat-label loyalty-label">Since Joining</span>
                         <i class="ph-duotone ph-hourglass-high card-bg-icon"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="view-members" class="content-view" style="display: none;">
-            <div class="content-container">
-                <h2 class="page-title">Members</h2>
-                <div class="card glass-panel">
-                    <p style="color: #999; text-align:center;">Directory synchronization in progress.</p>
-                </div>
-            </div>
-        </div>
+
         <div id="view-settings" class="content-view" style="display: none;">
             <div class="content-container">
                 <h2 class="page-title">Settings</h2>
                 <div class="settings-grid">
                     <div class="card glass-panel">
                         <h3>Display Name</h3>
-                        <p>Customize how you appear in the hub.</p>
+                        <p>Change your server nickname.</p>
                         <div class="input-group">
-                            <input type="text" id="nickname-input" placeholder="Enter new nickname">
+                            <input type="text" id="nickname-input" placeholder="New nickname">
                             <button class="action-btn">Update</button>
                         </div>
                     </div>
                     <div class="card glass-panel danger-zone">
                         <h3>Danger Zone</h3>
-                        <p>Reset your digital footprint and XP data.</p>
                         <button class="danger-btn">Wipe Data</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div id="custom-alert" class="alert-overlay">
-            <div class="alert-card">
-                <div class="mac-header">
-                    <div class="dot red"></div>
-                    <div class="dot yellow"></div>
-                    <div class="dot green"></div>
-                </div>
-                <h3 id="alert-title">Confirmation</h3>
-                <p id="alert-msg">Are you sure about this action?</p>
-                <div class="alert-actions">
-                    <button onclick="closeAlert()" class="alert-btn secondary">Cancel</button>
-                    <button id="alert-confirm-btn" class="alert-btn primary">Confirm</button>
-                </div>
-            </div>
-        </div>
     </div>
+
     <script src="../js/dashboard.js"></script>
 </body>
 </html>
