@@ -22,12 +22,12 @@ window.onload = async () => {
     updateUI(userName, userId, userAvatarHash);
     await fetchStats(userId);
 
-    if(loadingScreen) {
-        setTimeout(() => {
+    setTimeout(() => {
+        if(loadingScreen) {
             loadingScreen.style.opacity = '0';
-            setTimeout(() => loadingScreen.style.display = 'none', 600);
-        }, 800);
-    }
+            setTimeout(() => loadingScreen.style.display = 'none', 800);
+        }
+    }, 1200);
 };
 
 function updateUI(name, uid, avatarHash) {
@@ -35,7 +35,10 @@ function updateUI(name, uid, avatarHash) {
         ? `https://cdn.discordapp.com/avatars/${uid}/${avatarHash}.png`
         : 'https://cdn.discordapp.com/embed/avatars/0.png';
     
-    const setEl = (id, val, attr='innerText') => { const el = document.getElementById(id); if(el) el[attr] = val; };
+    const setEl = (id, val, attr='innerText') => { 
+        const el = document.getElementById(id); 
+        if(el) el[attr] = val; 
+    };
 
     setEl('nav-user-name', name);
     setEl('user-display-name', name);
@@ -54,76 +57,68 @@ async function fetchStats(uid) {
             const joinedEl = document.getElementById('joined-on');
             if(joinedEl) {
                 const date = new Date(data.joinedAt);
-                joinedEl.innerText = formatTimeAgo(date); 
+                joinedEl.innerText = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); 
             }
         }
     } catch(err) { console.error(err); }
 }
 
 async function loadLeaderboard() {
-    const tbody = document.getElementById('leaderboard-body');
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center">Loading souls...</td></tr>';
+    const container = document.getElementById('leaderboard-body');
+    container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-dim);">Fetching global ranks...</div>';
     
     try {
         const res = await fetch(`${API_BASE_URL}/api/members/leaderboard`);
         const members = await res.json();
         
-        tbody.innerHTML = '';
+        container.innerHTML = '';
         members.forEach((m, index) => {
-            const row = `
-                <tr>
-                    <td><div class="rank-badge">${index + 1}</div></td>
-                    <td>
-                        <div class="user-cell">
-                            <img src="${m.avatar}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
-                            <span>${m.username}</span>
-                        </div>
-                    </td>
-                    <td><span class="badge">LVL ${m.level}</span></td>
-                    <td style="font-weight:700">${m.xp.toLocaleString()}</td>
-                </tr>
+            const isTop = index === 0 ? 'top-1' : '';
+            const item = document.createElement('div');
+            item.className = 'leaderboard-item';
+            item.style.animationDelay = `${index * 0.05}s`;
+            item.innerHTML = `
+                <div class="lb-col rank-slot ${isTop}">#${index + 1}</div>
+                <div class="lb-col flex-2 user-slot">
+                    <img src="${m.avatar}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+                    <span>${m.username}</span>
+                </div>
+                <div class="lb-col"><span class="badge">LVL ${m.level}</span></div>
+                <div class="lb-col" style="font-weight:800; color:var(--accent)">${m.xp.toLocaleString()}</div>
             `;
-            tbody.innerHTML += row;
+            container.appendChild(item);
         });
     } catch (e) {
-        tbody.innerHTML = '<tr><td colspan="4">Error loading data.</td></tr>';
+        container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--danger);">Failed to sync leaderboard.</div>';
     }
 }
 
-function formatTimeAgo(date) {
-    const seconds = Math.floor((new Date() - date) / 1000);
-    let interval = seconds / 31536000;
-    if (interval > 1) return Math.floor(interval) + " Y";
-    interval = seconds / 2592000;
-    if (interval > 1) return Math.floor(interval) + " M";
-    interval = seconds / 86400;
-    if (interval > 1) return Math.floor(interval) + " D";
-    return "New";
-}
-
 function switchTab(tabName, btn) {
-    document.querySelectorAll('.content-view').forEach(view => view.style.display = 'none');
+    document.querySelectorAll('.content-view').forEach(view => {
+        view.style.display = 'none';
+        view.style.animation = 'none';
+    });
     document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
 
     const view = document.getElementById(`view-${tabName}`);
-    if(view) view.style.display = 'block';
+    if(view) {
+        view.style.display = 'block';
+        view.style.animation = 'view-in 0.6s ease';
+    }
     if(btn) btn.classList.add('active');
 
     if(tabName === 'members') loadLeaderboard();
-
-    // Close mobile sidebar after selection
     document.getElementById('sidebar').classList.remove('active');
 }
 
 function toggleMobileMenu() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('active');
+    document.getElementById('sidebar').classList.toggle('active');
 }
 
 async function updateNickname() {
     const newNick = document.getElementById('nickname-input').value;
     const uid = localStorage.getItem('levant_uid');
-    if(!newNick) return alert("Enter a name.");
+    if(!newNick) return;
     
     try {
         const res = await fetch(`${API_BASE_URL}/api/user/update-nick`, {
@@ -131,19 +126,17 @@ async function updateNickname() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: uid, nickname: newNick })
         });
-        const data = await res.json();
         if(res.ok) {
-            alert("Updated! (Discord might take a second)");
             localStorage.setItem('levant_name', newNick);
             location.reload();
         } else {
-            alert("Error: " + (data.error || "Permission Denied. Check Bot Role Position."));
+            alert("Permission Error: Bot role might be too low.");
         }
-    } catch (e) { alert("Server Error"); }
+    } catch (e) { alert("Server connection failed."); }
 }
 
 async function wipeData() {
-    if(!confirm("Are you sure? All XP will be lost forever.")) return;
+    if(!confirm("DANGER: This will permanently delete your stats. Continue?")) return;
     const uid = localStorage.getItem('levant_uid');
     try {
         const res = await fetch(`${API_BASE_URL}/api/danger/wipe`, {
