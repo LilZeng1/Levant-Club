@@ -11,7 +11,7 @@
 <body>
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
-    
+
     <div id="loading-screen">
         <div class="loader"></div>
     </div>
@@ -25,14 +25,16 @@
             <i class="ph-bold ph-list"></i>
         </button>
     </div>
-    <nav class="sidebar">
+
+    <nav class="sidebar" id="sidebar">
         <div>
             <a href="../index.html" class="brand">
                 <img src="../assets/Levant-Logo.png" alt="Levant">
                 <span>LEVANT</span>
             </a>
             <ul class="nav-links">
-                <li class="nav-item active" onclick="switchTab('dashboard', this)"><i class="ph-bold ph-squares-four"></i> Dashboard</li>
+                <li class="nav-item active" onclick="switchTab('dashboard', this)"><i
+                        class="ph-bold ph-squares-four"></i> Dashboard</li>
                 <li class="nav-item" onclick="switchTab('members', this)"><i class="ph-bold ph-users"></i> Members</li>
                 <li class="nav-item" onclick="switchTab('settings', this)"><i class="ph-bold ph-gear"></i> Settings</li>
             </ul>
@@ -46,15 +48,17 @@
             <button onclick="logout()" class="logout-btn"><i class="ph-bold ph-sign-out"></i></button>
         </div>
     </nav>
-    
+
     <div class="main-wrapper">
-       <div id="view-dashboard" class="content-view">
+        <div id="view-dashboard" class="content-view">
             <div class="content-container">
                 <h2 class="page-title">Overview</h2>
                 <div class="bento-grid">
                     <div class="card profile-card">
                         <div class="mac-header">
-                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
                             <span class="header-text">IDENTITY</span>
                         </div>
                         <div class="profile-content">
@@ -68,7 +72,9 @@
                     </div>
                     <div class="card stat-card">
                         <div class="mac-header">
-                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
                             <span class="header-text">RANK</span>
                         </div>
                         <span id="calculated-level" class="stat-value">0</span>
@@ -77,7 +83,9 @@
                     </div>
                     <div class="card stat-card">
                         <div class="mac-header">
-                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
                             <span class="header-text">LOYALTY</span>
                         </div>
                         <span id="joined-on" class="stat-value">...</span>
@@ -87,7 +95,32 @@
                 </div>
             </div>
         </div>
-        
+
+        <div id="view-members" class="content-view" style="display: none;">
+            <div class="content-container">
+                <div class="section-header">
+                    <h2 class="page-title">Leaderboard</h2>
+                    <div class="leaderboard-controls">
+                        <button class="filter-btn active" onclick="loadLeaderboard('all')">All Time</button>
+                    </div>
+                </div>
+                <div class="members-list-container card">
+                    <table class="members-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>User</th>
+                                <th>Level</th>
+                                <th>Total XP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <div id="view-settings" class="content-view" style="display: none;">
             <div class="content-container">
                 <h2 class="page-title">Settings</h2>
@@ -96,12 +129,14 @@
                         <h3>Display Name</h3>
                         <div class="input-group">
                             <input type="text" id="nickname-input" placeholder="Enter new nickname">
-                            <button class="action-btn">Update</button>
+                            <button class="action-btn" onclick="updateNickname()">Update</button>
                         </div>
                     </div>
                     <div class="card glass-panel danger-zone">
                         <h3>Danger Zone</h3>
-                        <button class="danger-btn">Wipe Data</button>
+                        <p style="color: var(--text-dim); font-size: 0.9rem; margin-top: 10px;">Wiping data will reset
+                            your XP and Level. This cannot be undone.</p>
+                        <button class="danger-btn" onclick="wipeData()">Wipe Data</button>
                     </div>
                 </div>
             </div>
