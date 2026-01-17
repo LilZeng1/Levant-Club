@@ -595,10 +595,18 @@ body {
 }
 
 @media (max-width: 900px) {
+    body {
+        flex-direction: column;
+    }
+
     .sidebar {
         position: fixed;
         left: -280px;
+        top: 0;
+        height: 100vh;
         transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2000;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
     }
 
     .sidebar.active {
@@ -609,14 +617,29 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-shrink: 0;
+        width: 100%;
+    }
+
+    .main-wrapper {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding-bottom: 80px;
     }
 
     .content-container {
-        padding: 30px 20px;
+        padding: 20px 15px;
+        width: 100%;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
     }
 
     .bento-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
 
     .profile-card {
@@ -626,6 +649,38 @@ body {
     .profile-layout {
         flex-direction: column;
         text-align: center;
+        gap: 15px;
+    }
+
+    .stat-value {
+        font-size: 2.5rem;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 380px) {
+    .view-header {
+        margin-bottom: 20px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .stat-flex {
+        flex-wrap: wrap;
+    }
+
+    .modern-input-group {
+        flex-direction: column;
+    }
+
+    .modern-input-group input,
+    .modern-input-group button {
+        width: 100%;
     }
 }
 
