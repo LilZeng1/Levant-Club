@@ -22,6 +22,17 @@ window.onload = async () => {
     updateUI(userName, userId, userAvatarHash);
     await fetchStats(userId);
 
+    document.addEventListener('click', (e) => {
+        const sidebar = document.getElementById('sidebar');
+        const hamburger = document.querySelector('.hamburger');
+
+        if (!sidebar || !sidebar.classList.contains('active')) return;
+
+        if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
+
     setTimeout(() => {
         if (loadingScreen) {
             loadingScreen.style.opacity = '0';
@@ -119,6 +130,7 @@ function switchTab(tabName, btn) {
     if (btn) btn.classList.add('active');
 
     if (tabName === 'members') loadLeaderboard();
+    
     const sidebar = document.getElementById('sidebar');
     if(sidebar) sidebar.classList.remove('active');
 }
